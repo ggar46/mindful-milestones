@@ -106,11 +106,52 @@ app.delete('/api/goals/:goalId', async (req, res) => {
 
 //*************************************************************************************************************************************** */
 
-// PUT request for GOAL_INFO in the endpoint '/api/goals'
+// PUT request for GOAL_INFO in the endpoint '/api/goals', no editing id/user
+app.put('/api/goals/:goalId', async (req, res) =>{
+    //console.log(req.params);
+    //This will be the id that I want to find in the DB - the student to be updated
+    const goalId = req.params.goalId
+    const updatedGoal = { image_fkey: req.body.image_fkey, date: req.body.date, goal_purpose: req.body.goal_purpose, goal_obstacle: req.body.goal_obstacle, strategy: req.body.strategy, goal: req.body.goal}
+    console.log("In the server from the url - the student id", studentId);
+    console.log("In the server, from the react - the student to be edited", updatedStudent);
+    // UPDATE students SET lastname = "something" WHERE id="16";
+    const query = `UPDATE goal_info SET image_fkey=$1, date=$2, goal_purpose=$3, goal_obstacle=$4, strategy=$5, goal=$6 WHERE id=${goalId} RETURNING *`;
+    const values = [updatedGoal.image_fkey, updatedGoal.date, updatedGoal.goal_purpose, updatedGoal.goal_obstacle, updatedGoal.strategy, updatedGoal.goal];
+    try {
+      const updated = await db.query(query, values);
+      console.log(updated.rows[0]);
+      res.send(updated.rows[0]);
+  
+    }catch(e){
+      console.log(e);
+      return res.status(400).json({e})
+    }
+  })
 
 //*************************************************************************************************************************************** */
 
 // POST request IMAGE_TRACKER
+app.post('/api/images', async (req, res) => {
+    try {
+        const newStudent = {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            iscurrent: req.body.iscurrent
+        };
+        //console.log([newStudent.firstname, newStudent.lastname, newStudent.iscurrent]);
+        const result = await db.query(
+            'INSERT INTO students(firstname, lastname, is_current) VALUES($1, $2, $3) RETURNING *',
+            [newStudent.firstname, newStudent.lastname, newStudent.iscurrent],
+        );
+        console.log(result.rows[0]);
+        res.json(result.rows[0]);
+
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ e });
+    }
+
+});
 
 // POST request TASK_TRACKER
 
