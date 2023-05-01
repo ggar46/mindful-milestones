@@ -132,15 +132,14 @@ app.put('/api/goals/:goalId', async (req, res) =>{
 // POST request IMAGE_TRACKER
 app.post('/api/images', async (req, res) => {
     try {
-        const newStudent = {
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            iscurrent: req.body.iscurrent
+        const newImage = {
+            image_url: req.body.image_url,
+            user_fkey: req.body.user_fkey,
+            alt_text: req.body.alt_text
         };
-        //console.log([newStudent.firstname, newStudent.lastname, newStudent.iscurrent]);
         const result = await db.query(
-            'INSERT INTO students(firstname, lastname, is_current) VALUES($1, $2, $3) RETURNING *',
-            [newStudent.firstname, newStudent.lastname, newStudent.iscurrent],
+            'INSERT INTO image_tracker(image_url, user_fkey, alt_text) VALUES($1, $2, $3) RETURNING *',
+            [newImage.image_url, newImage.user_fkey, newImage.alt_text],
         );
         console.log(result.rows[0]);
         res.json(result.rows[0]);
