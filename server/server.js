@@ -15,7 +15,10 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hola, from My template ExpressJS with React-Vite' });
 });
 
-// create the get request for students in the endpoint '/api/students'
+
+//*************************************************************************************************************************************** */
+
+// GET request for IMAGE_TRACKER in the endpoint '/api/images'
 app.get('/api/students', async (req, res) => {
     try {
         const { rows: students } = await db.query('SELECT * FROM students');
@@ -24,6 +27,48 @@ app.get('/api/students', async (req, res) => {
         return res.status(400).json({ e });
     }
 });
+
+
+// GET request for TASK_TRACKER in the endpoint '/api/tasks'
+
+
+// GET request for GOAL_INFO in the endpoint '/api/goals'
+
+
+// GET request for USER_TABLE in the endpoint '/api/users'
+
+//*************************************************************************************************************************************** */
+
+// DELETE request for IMAGE_TRACKER in the endpoint '/api/images'
+
+
+// DELETE request for TASK_TRACKER in the endpoint '/api/tasks'
+
+
+// DELETE request for GOAL_INFO in the endpoint '/api/goals'
+
+//*************************************************************************************************************************************** */
+
+// PUT request for GOAL_INFO in the endpoint '/api/goals'
+
+//*************************************************************************************************************************************** */
+
+// POST request IMAGE_TRACKER
+
+// POST request TASK_TRACKER
+
+// POST request GOAL_INFO
+
+// POST request USER_TABLE??? wait until auth0 we might get user from that, post names
+
+//*************************************************************************************************************************************** */
+
+// API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
+
+//*************************************************************************************************************************************** */
+
+
+
 
 // create the POST request
 app.post('/api/students', async (req, res) => {
