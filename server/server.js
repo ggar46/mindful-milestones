@@ -76,6 +76,18 @@ app.delete('/api/images/:imageId', async (req, res) => {
 });
 
 // DELETE request for TASK_TRACKER in the endpoint '/api/tasks'
+app.delete('/api/tasks/:taskId', async (req, res) => {
+    try {
+        const taskId = req.params.taskId;
+        await db.query('DELETE FROM task_tracker WHERE id=$1', [taskId]);
+        console.log("From the delete request-url", taskId);
+        res.status(200).end();
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ e });
+
+    }
+});
 
 
 // DELETE request for GOAL_INFO in the endpoint '/api/goals'
