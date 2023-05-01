@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 //*************************************************************************************************************************************** */
 
-// GET request for IMAGE_TRACKER in the endpoint '/api/images'
+// GET request for IMAGE_TRACKER in the endpoint '/api/images' (works)
 app.get('/api/images', async (req, res) => {
     try {
         const { rows: image_tracker } = await db.query('SELECT * FROM image_tracker');
@@ -29,7 +29,7 @@ app.get('/api/images', async (req, res) => {
 });
 
 
-// GET request for TASK_TRACKER in the endpoint '/api/tasks'
+// GET request for TASK_TRACKER in the endpoint '/api/tasks' (works)
 app.get('/api/tasks', async (req, res) => {
     try {
         const { rows: task_tracker } = await db.query('SELECT * FROM task_tracker');
@@ -39,7 +39,7 @@ app.get('/api/tasks', async (req, res) => {
     }
 });
 
-// GET request for GOAL_INFO in the endpoint '/api/goals'
+// GET request for GOAL_INFO in the endpoint '/api/goals' (works)
 app.get('/api/goals', async (req, res) => {
     try {
         const { rows: goal_info } = await db.query('SELECT * FROM goal_info');
@@ -49,7 +49,7 @@ app.get('/api/goals', async (req, res) => {
     }
 });
 
-// GET request for USER_TABLE in the endpoint '/api/users'
+// GET request for USER_TABLE in the endpoint '/api/users' (works)
 app.get('/api/users', async (req, res) => {
     try {
         const { rows: user_table } = await db.query('SELECT * FROM user_table');
@@ -61,21 +61,21 @@ app.get('/api/users', async (req, res) => {
 
 //*************************************************************************************************************************************** */
 
-// DELETE request for IMAGE_TRACKER in the endpoint '/api/images'
-app.delete('/api/images/:imageId', async (req, res) => {
-    try {
-        const imageId = req.params.imageId;
-        await db.query('DELETE FROM image_tracker WHERE image_url=$1', [imageId]);
-        console.log("From the delete request-url", imageId);
-        res.status(200).end();
-    } catch (e) {
-        console.log(e);
-        return res.status(400).json({ e });
+// DELETE request for IMAGE_TRACKER in the endpoint '/api/images', REMOVED BECAUSE IF DELETE IMAGE AND SELECTED ONE FOR A GOAL, WHEN YOU DELETE AN IMAGE THERE IS NOW AN ERROR WITH THE GOAL'S IMAGE
+// app.delete('/api/images/:imageId', async (req, res) => {
+//     try {
+//         const imageId = req.params.imageId;
+//         await db.query('DELETE FROM image_tracker WHERE image_url=$1', [imageId]);
+//         console.log("From the delete request-url", imageId);
+//         res.status(200).end();
+//     } catch (e) {
+//         console.log(e);
+//         return res.status(400).json({ e });
 
-    }
-});
+//     }
+// });
 
-// DELETE request for TASK_TRACKER in the endpoint '/api/tasks'
+// DELETE request for TASK_TRACKER in the endpoint '/api/tasks' (works)
 app.delete('/api/tasks/:taskId', async (req, res) => {
     try {
         const taskId = req.params.taskId;
@@ -90,7 +90,7 @@ app.delete('/api/tasks/:taskId', async (req, res) => {
 });
 
 
-// DELETE request for GOAL_INFO in the endpoint '/api/goals'
+// DELETE request for GOAL_INFO in the endpoint '/api/goals' (works)
 app.delete('/api/goals/:goalId', async (req, res) => {
     try {
         const goalId = req.params.goalId;
@@ -106,7 +106,7 @@ app.delete('/api/goals/:goalId', async (req, res) => {
 
 //*************************************************************************************************************************************** */
 
-// PUT request for GOAL_INFO in the endpoint '/api/goals', no editing id/user
+// PUT request for GOAL_INFO in the endpoint '/api/goals', no editing id/user (works)
 app.put('/api/goals/:goalId', async (req, res) =>{
     //console.log(req.params);
     //This will be the id that I want to find in the DB - the goal to be updated
@@ -127,9 +127,11 @@ app.put('/api/goals/:goalId', async (req, res) =>{
     }
   })
 
+// PUT request for image instead of delete?
+
 //*************************************************************************************************************************************** */
 
-// POST request IMAGE_TRACKER
+// POST request IMAGE_TRACKER (works)
 app.post('/api/images', async (req, res) => {
     try {
         const newImage = {
@@ -151,7 +153,7 @@ app.post('/api/images', async (req, res) => {
 
 });
 
-// POST request TASK_TRACKER'
+// POST request TASK_TRACKER (works)
 app.post('/api/tasks', async (req, res) => {
     try {
         const newTask = {
@@ -172,7 +174,7 @@ app.post('/api/tasks', async (req, res) => {
 
 });
 
-// POST request GOAL_INFO
+// POST request GOAL_INFO (works)
 app.post('/api/goals', async (req, res) => {
     try {
         const newGoal = {
@@ -204,83 +206,98 @@ app.post('/api/goals', async (req, res) => {
 
 // API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
 
-app.get("/api/weather/:userSearchedImage", (req, res) => {
-    console.log("code reached api function");
-    const requestedImage = req.params.userSearchedImage;
+// app.get("/api/pexels/:userSearchedImage", (req, res) => {
+//     console.log("code reached api function");
+//     const requestedImage = req.params.userSearchedImage;
     
-    // fetch(`https://api.openweathermap.org/data/2.5/weather?q=${requestedCity}&appid=df4dc696102dd6129092d84b487c1aaa&units=imperial`)
-    fetch(`https://api.pexels.com/v1/search?query=${requestedImage}&per_page=3`)
-      .then(async (data) => {
-      const requestedImages = await data.json();
-      res.json(requestedImages);
-  });
-});
+//     // fetch(`https://api.openweathermap.org/data/2.5/weather?q=${requestedCity}&appid=df4dc696102dd6129092d84b487c1aaa&units=imperial`)
+//     fetch(`https://api.pexels.com/v1/search?query=${requestedImage}&per_page=3`)
+//       .then(async (data) => {
+//       const requestedImages = await data.json();
+//       res.json(requestedImages);
+//   });
+// });
   
 
+
+//API MOCK DATA
+// {
+//     "page": 1,
+//     "per_page": 3,
+//     "photos": [
+//         {
+//             "id": 15286,
+//             "width": 2500,
+//             "height": 1667,
+//             "url": "https://www.pexels.com/photo/person-walking-between-green-forest-trees-15286/",
+//             "photographer": "Luis del Río",
+//             "photographer_url": "https://www.pexels.com/@luisdelrio",
+//             "photographer_id": 1081,
+//             "avg_color": "#283419",
+//             "src": {
+//                 "original": "https://images.pexels.com/photos/15286/pexels-photo.jpg",
+//                 "large2x": "https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+//                 "large": "https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=650&w=940",
+//                 "medium": "https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350",
+//                 "small": "https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=130",
+//                 "portrait": "https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+//                 "landscape": "https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+//                 "tiny": "https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280"
+//             },
+//             "liked": false,
+//             "alt": "Person Walking Between Green Forest Trees"
+//         },
+//         {
+//             "id": 3408744,
+//             "width": 3546,
+//             "height": 2255,
+//             "url": "https://www.pexels.com/photo/scenic-view-of-snow-capped-mountains-during-night-3408744/",
+//             "photographer": "stein egil liland",
+//             "photographer_url": "https://www.pexels.com/@therato",
+//             "photographer_id": 144244,
+//             "avg_color": "#557088",
+//             "src": {
+//                 "original": "https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg",
+//                 "large2x": "https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+//                 "large": "https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+//                 "medium": "https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&h=350",
+//                 "small": "https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&h=130",
+//                 "portrait": "https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+//                 "landscape": "https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+//                 "tiny": "https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280"
+//             },
+//             "liked": false,
+//             "alt": "Scenic View Of Snow Capped Mountains During Night"
+//         },
+//         {
+//             "id": 572897,
+//             "width": 6914,
+//             "height": 4463,
+//             "url": "https://www.pexels.com/photo/mountain-covered-snow-under-star-572897/",
+//             "photographer": "eberhard grossgasteiger",
+//             "photographer_url": "https://www.pexels.com/@eberhardgross",
+//             "photographer_id": 121938,
+//             "avg_color": "#5D5A63",
+//             "src": {
+//                 "original": "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg",
+//                 "large2x": "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+//                 "large": "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+//                 "medium": "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg?auto=compress&cs=tinysrgb&h=350",
+//                 "small": "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg?auto=compress&cs=tinysrgb&h=130",
+//                 "portrait": "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+//                 "landscape": "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+//                 "tiny": "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280"
+//             },
+//             "liked": false,
+//             "alt": "Mountain Covered Snow Under Star"
+//         }
+//     ],
+//     "total_results": 8000,
+//     "next_page": "https://api.pexels.com/v1/search/?page=2&per_page=3&query=nature"
+// }
 
 //*************************************************************************************************************************************** */
 
-
-
-
-// create the POST request
-app.post('/api/students', async (req, res) => {
-    try {
-        const newStudent = {
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            iscurrent: req.body.iscurrent
-        };
-        //console.log([newStudent.firstname, newStudent.lastname, newStudent.iscurrent]);
-        const result = await db.query(
-            'INSERT INTO students(firstname, lastname, is_current) VALUES($1, $2, $3) RETURNING *',
-            [newStudent.firstname, newStudent.lastname, newStudent.iscurrent],
-        );
-        console.log(result.rows[0]);
-        res.json(result.rows[0]);
-
-    } catch (e) {
-        console.log(e);
-        return res.status(400).json({ e });
-    }
-
-});
-
-// delete request for students
-app.delete('/api/students/:studentId', async (req, res) => {
-    try {
-        const studentId = req.params.studentId;
-        await db.query('DELETE FROM students WHERE id=$1', [studentId]);
-        console.log("From the delete request-url", studentId);
-        res.status(200).end();
-    } catch (e) {
-        console.log(e);
-        return res.status(400).json({ e });
-
-    }
-});
-
-//A put request - Update a student 
-app.put('/api/students/:studentId', async (req, res) =>{
-    //console.log(req.params);
-    //This will be the id that I want to find in the DB - the student to be updated
-    const studentId = req.params.studentId
-    const updatedStudent = { id: req.body.id, firstname: req.body.firstname, lastname: req.body.lastname, iscurrent: req.body.is_current}
-    console.log("In the server from the url - the student id", studentId);
-    console.log("In the server, from the react - the student to be edited", updatedStudent);
-    // UPDATE students SET lastname = "something" WHERE id="16";
-    const query = `UPDATE students SET firstname=$1, lastname=$2, is_current=$3 WHERE id=${studentId} RETURNING *`;
-    const values = [updatedStudent.firstname, updatedStudent.lastname, updatedStudent.iscurrent];
-    try {
-      const updated = await db.query(query, values);
-      console.log(updated.rows[0]);
-      res.send(updated.rows[0]);
-  
-    }catch(e){
-      console.log(e);
-      return res.status(400).json({e})
-    }
-  })
 
 // console.log that your server is up and running
 app.listen(PORT, () => {
