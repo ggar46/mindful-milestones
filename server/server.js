@@ -91,6 +91,18 @@ app.delete('/api/tasks/:taskId', async (req, res) => {
 
 
 // DELETE request for GOAL_INFO in the endpoint '/api/goals'
+app.delete('/api/goals/:goalId', async (req, res) => {
+    try {
+        const goalId = req.params.goalId;
+        await db.query('DELETE FROM goal_info WHERE id=$1', [goalId]);
+        console.log("From the delete request-url", goalId);
+        res.status(200).end();
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ e });
+
+    }
+});
 
 //*************************************************************************************************************************************** */
 
