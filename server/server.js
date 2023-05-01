@@ -151,7 +151,26 @@ app.post('/api/images', async (req, res) => {
 
 });
 
-// POST request TASK_TRACKER
+// POST request TASK_TRACKER'
+app.post('/api/tasks', async (req, res) => {
+    try {
+        const newTask = {
+            goal_fkey: req.body.goal_fkey,
+            task_text: req.body.task_text,
+        };
+        const result = await db.query(
+            'INSERT INTO task_tracker(goal_fkey, task_text) VALUES($1, $2) RETURNING *',
+            [newTask.goal_fkey, newTask.task_text],
+        );
+        console.log(result.rows[0]);
+        res.json(result.rows[0]);
+
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ e });
+    }
+
+});
 
 // POST request GOAL_INFO
 
