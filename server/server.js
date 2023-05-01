@@ -19,10 +19,10 @@ app.get('/', (req, res) => {
 //*************************************************************************************************************************************** */
 
 // GET request for IMAGE_TRACKER in the endpoint '/api/images'
-app.get('/api/students', async (req, res) => {
+app.get('/api/images', async (req, res) => {
     try {
-        const { rows: students } = await db.query('SELECT * FROM students');
-        res.send(students);
+        const { rows: image_tracker } = await db.query('SELECT * FROM image_tracker');
+        res.send(image_tracker);
     } catch (e) {
         return res.status(400).json({ e });
     }
@@ -30,7 +30,14 @@ app.get('/api/students', async (req, res) => {
 
 
 // GET request for TASK_TRACKER in the endpoint '/api/tasks'
-
+app.get('/api/tasks', async (req, res) => {
+    try {
+        const { rows: task_tracker } = await db.query('SELECT * FROM task_tracker');
+        res.send(task_tracker);
+    } catch (e) {
+        return res.status(400).json({ e });
+    }
+});
 
 // GET request for GOAL_INFO in the endpoint '/api/goals'
 
