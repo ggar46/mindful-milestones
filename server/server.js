@@ -50,11 +50,30 @@ app.get('/api/goals', async (req, res) => {
 });
 
 // GET request for USER_TABLE in the endpoint '/api/users'
+app.get('/api/users', async (req, res) => {
+    try {
+        const { rows: user_table } = await db.query('SELECT * FROM user_table');
+        res.send(user_table);
+    } catch (e) {
+        return res.status(400).json({ e });
+    }
+});
 
 //*************************************************************************************************************************************** */
 
 // DELETE request for IMAGE_TRACKER in the endpoint '/api/images'
+app.delete('/api/images/:imageId', async (req, res) => {
+    try {
+        const imageId = req.params.imageId;
+        await db.query('DELETE FROM image_tracker WHERE image_url=$1', [imageId]);
+        console.log("From the delete request-url", imageId);
+        res.status(200).end();
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ e });
 
+    }
+});
 
 // DELETE request for TASK_TRACKER in the endpoint '/api/tasks'
 
