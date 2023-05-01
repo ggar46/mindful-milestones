@@ -173,6 +173,30 @@ app.post('/api/tasks', async (req, res) => {
 });
 
 // POST request GOAL_INFO
+app.post('/api/goals', async (req, res) => {
+    try {
+        const newGoal = {
+            user_fkey: req.body.user_fkey,
+            image_fkey: req.body.image_fkey,
+            date: req.body.date,
+            goal_purpose: req.body.goal_purpose,
+            goal_obstacle: req.body.goal_obstacle,
+            strategy: req.body.strategy,
+            goal: req.body.goal
+        };
+        const result = await db.query(
+            'INSERT INTO goal_info(user_fkey, image_fkey, date, goal_purpose, goal_obstacle, strategy, goal) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+            [newGoal.user_fkey, newGoal.image_fkey, newGoal.date, newGoal.goal_purpose, newGoal.goal_obstacle, newGoal.strategy, newGoal.goal],
+        );
+        console.log(result.rows[0]);
+        res.json(result.rows[0]);
+
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ e });
+    }
+
+});
 
 // POST request USER_TABLE??? wait until auth0 we might get user from that, post names
 
