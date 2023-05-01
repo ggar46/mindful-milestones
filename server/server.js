@@ -40,7 +40,14 @@ app.get('/api/tasks', async (req, res) => {
 });
 
 // GET request for GOAL_INFO in the endpoint '/api/goals'
-
+app.get('/api/goals', async (req, res) => {
+    try {
+        const { rows: goal_info } = await db.query('SELECT * FROM goal_info');
+        res.send(goal_info);
+    } catch (e) {
+        return res.status(400).json({ e });
+    }
+});
 
 // GET request for USER_TABLE in the endpoint '/api/users'
 
