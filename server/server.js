@@ -25,18 +25,17 @@ app.get("/api/pexels", (req, res) => {
   });
 
 // API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
-// app.get("/api/pexels/:userSearchedImage", (req, res) => {
-//     console.log("code reached api function");
-//     const requestedImage = req.params.userSearchedImage;
-    
-//     // fetch(`https://api.openweathermap.org/data/2.5/weather?q=${requestedCity}&appid=df4dc696102dd6129092d84b487c1aaa&units=imperial`)
-//     fetch(`https://api.pexels.com/v1/search?query=${requestedImage}&per_page=3`)
-//       .then(async (data) => {
-//       const requestedImages = await data.json();
-//       res.json(requestedImages);
-//   });
-// });
-
+app.get("/api/pexels/:searchedbyuser", (req, res) => {
+    console.log("code reached here");
+    const searchedbyuser = req.params.searchedbyuser;
+    const url = `https://api.pexels.com/v1/search?query=${searchedbyuser}&per_page=3&api_key=${process.env.API_KEY}`
+    fetch(url)
+      .then(async (data) => {
+      const searchresults = await data.json();
+      console.log(searchresults, "IT WOOOORKKKED")
+      res.json(searchresults);
+  });
+});
 //*************************************************************************************************************************************** */
 
 // GET request for IMAGE_TRACKER in the endpoint '/api/images' (works)
