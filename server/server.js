@@ -3,7 +3,8 @@ const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
 const db = require('./db/db-connection.js');
-//const mockdata = require('./server/data');
+const mockdata = require("./mockdata.js");
+
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -15,6 +16,26 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hola, from My template ExpressJS with React-Vite' });
 });
 
+//*************************************************************************************************************************************** */
+
+// MOCK DATA - GET REQUEST
+app.get("/api/pexels", (req, res) => {
+    console.log(mockdata);
+      res.json(mockdata);
+  });
+
+// API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
+// app.get("/api/pexels/:userSearchedImage", (req, res) => {
+//     console.log("code reached api function");
+//     const requestedImage = req.params.userSearchedImage;
+    
+//     // fetch(`https://api.openweathermap.org/data/2.5/weather?q=${requestedCity}&appid=df4dc696102dd6129092d84b487c1aaa&units=imperial`)
+//     fetch(`https://api.pexels.com/v1/search?query=${requestedImage}&per_page=3`)
+//       .then(async (data) => {
+//       const requestedImages = await data.json();
+//       res.json(requestedImages);
+//   });
+// });
 
 //*************************************************************************************************************************************** */
 
@@ -203,31 +224,6 @@ app.post('/api/goals', async (req, res) => {
 // POST request USER_TABLE??? wait until auth0 we might get user from that, post names
 
 //*************************************************************************************************************************************** */
-
-// API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
-
-// app.get("/api/pexels/:userSearchedImage", (req, res) => {
-//     console.log("code reached api function");
-//     const requestedImage = req.params.userSearchedImage;
-    
-//     // fetch(`https://api.openweathermap.org/data/2.5/weather?q=${requestedCity}&appid=df4dc696102dd6129092d84b487c1aaa&units=imperial`)
-//     fetch(`https://api.pexels.com/v1/search?query=${requestedImage}&per_page=3`)
-//       .then(async (data) => {
-//       const requestedImages = await data.json();
-//       res.json(requestedImages);
-//   });
-// });
-
-
-//mockdata get request
-// app.get("/api/pexels/", (req, res) => {
-//       res.json(mockdata);
-//   });
-
-
-
-//*************************************************************************************************************************************** */
-
 
 // console.log that your server is up and running
 app.listen(PORT, () => {

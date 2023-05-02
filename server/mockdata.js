@@ -1,5 +1,4 @@
-const mockdata = 
-{
+module.exports = {
     "page": 1,
     "per_page": 3,
     "photos": [
@@ -74,4 +73,3 @@ const mockdata =
     "next_page": "https://api.pexels.com/v1/search/?page=2&per_page=3&query=nature"
 }
 
-export default mockdata;
