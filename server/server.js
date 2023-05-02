@@ -132,7 +132,7 @@ app.put('/api/goals/:goalId', async (req, res) =>{
     //console.log(req.params);
     //This will be the id that I want to find in the DB - the goal to be updated
     const goalId = req.params.goalId
-    const updatedGoal = { image_fkey: req.body.image_fkey, date: req.body.date, goal_purpose: req.body.goal_purpose, goal_obstacle: req.body.goal_obstacle, strategy: req.body.strategy, goal: req.body.goal}
+    const updatedGoal = {image_fkey: req.body.image_fkey, date: req.body.date, goal_purpose: req.body.goal_purpose, goal_obstacle: req.body.goal_obstacle, strategy: req.body.strategy, goal: req.body.goal}
     console.log("In the server from the url - the goal id", goalId);
     console.log("In the server, from the react - the goal to be edited", updatedGoal);
     const query = `UPDATE goal_info SET image_fkey=$1, date=$2, goal_purpose=$3, goal_obstacle=$4, strategy=$5, goal=$6 WHERE id=${goalId} RETURNING *`;
