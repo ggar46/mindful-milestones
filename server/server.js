@@ -25,17 +25,16 @@ app.get("/api/pexels", (req, res) => {
   });
 
 // API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
-app.get("/api/pexels/:searchedbyuser", (req, res) => {
-    console.log("code reached here");
-    const searchedbyuser = req.params.searchedbyuser;
-    const url = `https://api.pexels.com/v1/search?query=${searchedbyuser}&per_page=3&api_key=${process.env.API_KEY}`
-    fetch(url)
-      .then(async (data) => {
-      const searchresults = await data.json();
-      console.log(searchresults, "IT WOOOORKKKED")
-      res.json(searchresults);
-  });
-});
+// app.get("/api/pexels/:searchedbyuser", (req, res) => {
+//     console.log("code reached here");
+//     const searchedbyuser = req.params.searchedbyuser;
+//     const url = `https://api.pexels.com/v1/search?query=${searchedbyuser}&per_page=3`
+//     fetch(url)
+//       .then(async (data) => {
+//       const searchresults = await data.json();
+//       res.json(searchresults);
+//   });
+// });
 //*************************************************************************************************************************************** */
 
 // GET request for IMAGE_TRACKER in the endpoint '/api/images' (works)
@@ -147,8 +146,6 @@ app.put('/api/goals/:goalId', async (req, res) =>{
     }
   })
 
-// PUT request for image instead of delete?
-
 //*************************************************************************************************************************************** */
 
 // POST request IMAGE_TRACKER (works)
@@ -219,8 +216,6 @@ app.post('/api/goals', async (req, res) => {
     }
 
 });
-
-// POST request USER_TABLE??? wait until auth0 we might get user from that, post names
 
 //*************************************************************************************************************************************** */
 
