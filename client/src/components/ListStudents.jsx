@@ -38,9 +38,9 @@ const ListStudents = () => {
     }
 
     //A function to handle the Delete funtionality
-    const onDelete = (student) => {
+    const onDelete = (toDeleteGoal) => {
         //console.log(student, "delete method")
-        return fetch(`http://localhost:8080/api/students/${student.id}`, {
+        return fetch(`http://localhost:8080/api/goals/${toDeleteGoal.id}`, {
             method: "DELETE"
         }).then((response) => {
             //console.log(response);
@@ -51,9 +51,9 @@ const ListStudents = () => {
     }
 
     //A function to handle the Update functionality
-    const onUpdate = (toUpdateStudent) => {
+    const onUpdate = (toUpdateGoal) => {
         //console.log(toUpdateStudent);
-        setEditingStudent(toUpdateStudent);
+        setEditingStudent(toUpdateGoal);
 
     }
 

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 
 const FormGoal = ({
-  onSaveStudent: onSaveGoalSendToGoalCards,
+  onSaveGoalSendToGoalCards,
   editingStudent: editingGoalFormData,
   onUpdateStudent: onUpdateGoalForm
 }) => {
@@ -78,16 +78,6 @@ const FormGoal = ({
     });
   };
 
-  //A function to make image get request (alt text), getting image from list of images saved from other form
-  //need to be called after adding/deleting info etc.
-//   const loadArrayOfImagesDB = () => {
-//     // A function to fetch the list of students that will be load anytime that list change
-//     fetch("http://localhost:8080/api/images")
-//       .then((response) => response.json())
-//       .then((arrayOfImageObj) => {
-//         setArrayOfImages(arrayOfImageObj);
-//       });
-//   };
 
   // *********************************************************************************
   //A function to handle the post request
@@ -111,7 +101,7 @@ const FormGoal = ({
 
   //A function to handle the put request
   const putReqGoalForm = (toEditGoalInfo) => {
-    return fetch(`http://localhost:8080/api/students/${toEditGoalInfo.id}`, {
+    return fetch(`http://localhost:8080/api/goals/${toEditGoalInfo.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(toEditGoalInfo)
