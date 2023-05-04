@@ -4,6 +4,9 @@ require('dotenv').config();
 const path = require('path');
 const db = require('./db/db-connection.js');
 const mockdata = require("./mockdata.js");
+const {createClient} = require('pexels');
+const fetch = require('node-fetch');
+
 
 
 const app = express();
@@ -24,17 +27,27 @@ app.get("/api/pexels", (req, res) => {
       res.json(mockdata);
   });
 
-// API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
-// app.get("/api/pexels/:searchedbyuser", (req, res) => {
-//     console.log("code reached here");
-//     const searchedbyuser = req.params.searchedbyuser;
-//     const url = `https://api.pexels.com/v1/search?query=${searchedbyuser}&per_page=3`
-//     fetch(url)
-//       .then(async (data) => {
+  
+//API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
+// app.get('/api/pexels/:searchedbyuser', async (req, res) => {
+//     try {
+//       console.log('code reached here');
+//       const client = createClient(process.env.API_KEY);
+//       const searchedbyuser = req.params.searchedbyuser;
+//       const url = `https://api.pexels.com/v1/search?query=${searchedbyuser}&per_page=3`;
+//       const data = await fetch(url, {
+//         headers: {
+//           Authorization: process.env.API_KEY,
+//         },
+//       });
 //       const searchresults = await data.json();
 //       res.json(searchresults);
+//     } catch (err) {
+//       console.error(err);
+//       res.status(500).json({ message: 'Server Error' });
+//     }
 //   });
-// });
+ 
 //*************************************************************************************************************************************** */
 
 // GET request for IMAGE_TRACKER in the endpoint '/api/images' (works)
