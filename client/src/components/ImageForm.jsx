@@ -33,17 +33,38 @@ const FormImage = ({
           });
   }, []);
 
-  //create functions that handle the event of the user typing into the form
+
+//my way
   const handleCheckChange = (e) => {
     const checked = e.target.checked;
     const value = e.target.value;
+ console.log(selectedImageUrls, "should be an array...");
 
     if (checked) {
-      setSelectedImageUrls([...selectedImageUrls, value]);
+        console.log(JSON.parse(value), "heere is the checked  value")
+        setSelectedImageUrls([...selectedImageUrls, {
+            image_url: JSON.parse(value).url,
+            user_fkey: "me",
+            alt_text: JSON.parse(value).alt,   
+        }]);
     } else {
-      setSelectedImageUrls(selectedImageUrls.filter((url) => url !== value));
+        setSelectedImageUrls(selectedImageUrls.filter((url) => url !== value));
     }
+
+    
   };
+
+  //create functions that handle the event of the user typing into the form (chatgpt way)
+//   const handleCheckChange = (e) => {
+//     const checked = e.target.checked;
+//     const value = e.target.value;
+
+//     if (checked) {
+//       setSelectedImageUrls([...selectedImageUrls, value]);
+//     } else {
+//       setSelectedImageUrls(selectedImageUrls.filter((url) => url !== value));
+//     }
+//   };
 
   const clearForm = () => {
     setImageFormData({
@@ -105,7 +126,7 @@ const FormImage = ({
                 type="checkbox"
                 id={`checkbox-${eachImage.src.tiny}`}
                 label={<img src={eachImage.src.tiny} alt={`Image ${eachImage.alt}`} />}
-                value={eachImage}
+                value={JSON.stringify(eachImage)}
                 onChange={handleCheckChange}
              />
              ))}
