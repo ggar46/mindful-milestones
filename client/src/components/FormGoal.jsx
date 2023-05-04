@@ -5,7 +5,8 @@ import { Form, Button, Modal } from "react-bootstrap";
 const FormGoal = ({
   onSaveGoalSendToGoalCards,
   editingGoalFormData,
-  onUpdateGoalForm
+  onUpdateGoalForm,
+  setShowModal
 }) => {
   // This is the original State with not initial student
   const [goalFormData, setGoalFormData] = useState(
@@ -101,6 +102,8 @@ const FormGoal = ({
 
   //A function to handle the put request
   const putReqGoalForm = (toEditGoalInfo) => {
+    handleShow;
+    console.log('working')
     console.log("from put req goal", toEditGoalInfo)
     return fetch(`http://localhost:8080/api/goals/${toEditGoalInfo.id}`, {
       method: "PUT",

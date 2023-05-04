@@ -3,13 +3,15 @@ import * as ioicons from 'react-icons/io5'
 import FormGoal from './FormGoal';
 import CardGoal from './CardGoal';
 
-const ListStudents = () => {
+const ListGoalCards = () => {
 
     // this is my original state with an array of students 
     const [goalCardArr, setGoalCardArr] = useState([]);
 
     //this is the state needed for the UpdateRequest
     const [editingGoalFormData, setEditingGoal] = useState(null)
+
+    const [setShowModal, showModalData] = useState(false);
 
     const loadGoalsFromDB = () => {
         // A function to fetch the list of students that will be load anytime that list change
@@ -53,7 +55,6 @@ const ListStudents = () => {
     //A function to handle the Update functionality
     const onUpdateGoalForm = (eachGoal) => {
         setEditingGoal(eachGoal);
-
     }
 
 
@@ -68,10 +69,10 @@ const ListStudents = () => {
                 })}
             </ul>
         </div>
-        <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
+        <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
         </div>
     );
 }
 
 
-export default ListStudents
+export default ListGoalCards
