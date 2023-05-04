@@ -105,7 +105,7 @@ const FormImage = ({
                 type="checkbox"
                 id={`checkbox-${eachImage.src.tiny}`}
                 label={<img src={eachImage.src.tiny} alt={`Image ${eachImage.alt}`} />}
-                value={eachImage.src}
+                value={eachImage}
                 onChange={handleCheckChange}
              />
              ))}
