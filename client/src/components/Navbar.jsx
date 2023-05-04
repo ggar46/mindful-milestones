@@ -18,7 +18,10 @@ function MyNavBar(props) {
               alt="React Bootstrap logo"
             />
         </Navbar.Brand>
-        <Nav.Link >Your Link</Nav.Link>
+        <Nav.Link >Home</Nav.Link>
+        <Nav.Link >Goals</Nav.Link>
+        
+
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
