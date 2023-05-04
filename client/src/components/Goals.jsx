@@ -7,7 +7,6 @@ const Goals = () => {
     return(
         <div>
             <MyNavBar/>
-            <h1>Goals page!</h1>
             <ListGoalCards/>
 
         </div>
