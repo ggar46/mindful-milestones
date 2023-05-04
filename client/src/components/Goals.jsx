@@ -1,8 +1,11 @@
+import FormGoal from "./FormGoal";
+
 const Goals = () => {
 
     return(
         <div>
-            <p>Goals page!</p>
+            <h1>Goals page!</h1>
+            <FormGoal/>
         </div>
     )
 }
