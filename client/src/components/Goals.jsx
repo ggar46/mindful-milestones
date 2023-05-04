@@ -2,7 +2,7 @@ const Goals = () => {
 
     return(
         <div>
-            <p>Home page!</p>
+            <p>Goals page!</p>
         </div>
     )
 }
