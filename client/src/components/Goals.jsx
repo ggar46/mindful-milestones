@@ -8,7 +8,6 @@ const Goals = () => {
         <div>
             <MyNavBar/>
             <h1>Goals page!</h1>
-            <FormGoal/>
             <ListStudents/>
 
         </div>

@@ -4,8 +4,8 @@ import { Form, Button, Modal } from "react-bootstrap";
 
 const FormGoal = ({
   onSaveGoalSendToGoalCards,
-  editingStudent: editingGoalFormData,
-  onUpdateStudent: onUpdateGoalForm
+  editingGoalFormData,
+  onUpdateGoalForm
 }) => {
   // This is the original State with not initial student
   const [goalFormData, setGoalFormData] = useState(
@@ -101,6 +101,7 @@ const FormGoal = ({
 
   //A function to handle the put request
   const putReqGoalForm = (toEditGoalInfo) => {
+    console.log("from put req goal", toEditGoalInfo)
     return fetch(`http://localhost:8080/api/goals/${toEditGoalInfo.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -121,6 +122,7 @@ const FormGoal = ({
     e.preventDefault();
     //loadArrayOfImagesDB();
     if (goalFormData.id) {
+    console.log("reached if statement")
       putReqGoalForm(goalFormData);
     } else {
       postGoalForm(goalFormData);

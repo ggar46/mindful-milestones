@@ -9,7 +9,7 @@ const ListStudents = () => {
     const [goalCardArr, setGoalCardArr] = useState([]);
 
     //this is the state needed for the UpdateRequest
-    const [editingStudent, setEditingStudent] = useState(null)
+    const [editingGoalFormData, setEditingGoal] = useState(null)
 
     const loadGoalsFromDB = () => {
         // A function to fetch the list of students that will be load anytime that list change
@@ -31,7 +31,7 @@ const ListStudents = () => {
 
 
     //A function to control the update in the parent (student component)
-    const updateStudent = (savedStudent) => {
+    const updateGoalForm = (eachGoal) => {
         // console.log("Line 29 savedStudent", savedStudent);
         // This function should update the whole list of students - 
         loadGoalsFromDB();
@@ -51,9 +51,8 @@ const ListStudents = () => {
     }
 
     //A function to handle the Update functionality
-    const onUpdate = (toUpdateGoal) => {
-        //console.log(toUpdateStudent);
-        setEditingStudent(toUpdateGoal);
+    const onUpdateGoalForm = (eachGoal) => {
+        setEditingGoal(eachGoal);
 
     }
 
@@ -65,11 +64,11 @@ const ListStudents = () => {
             <h2>Techtonica Participants </h2>
             <ul>
                 {goalCardArr.map((eachGoal) => {
-                    return <li key={eachGoal.id}> <CardGoal eachGoal={eachGoal} toDelete={onDelete} toUpdate={onUpdate} /></li>
+                    return <li key={eachGoal.id}> <CardGoal eachGoal={eachGoal} toDelete={onDelete} toUpdateGoalForm={onUpdateGoalForm} /></li>
                 })}
             </ul>
         </div>
-        {/* <FormGoal key={editingStudent ? editingStudent.id : null} onSaveStudent={onSaveStudent} editingStudent={editingStudent} onUpdateStudent={updateStudent} /> */}
+        <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
         </div>
     );
 }
