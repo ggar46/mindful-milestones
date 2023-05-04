@@ -57,6 +57,7 @@ const FormImage = ({
   // *********************************************************************************
   //A function to handle the post request
   const postfromImageForm = (newImageForm) => {
+    console.log("image form post req reached", newImageForm);
     return fetch("http://localhost:8080/api/images", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -67,6 +68,7 @@ const FormImage = ({
       })
       .then((data) => {
         //I'm sending data to the List of Image Cards (the parent) to update list
+
         onSaveImageSendToImageCards(data);
         clearForm();
       });
@@ -79,7 +81,7 @@ const FormImage = ({
     if (imageFormData.id) {
     console.log("would have done edit function")
     } else {
-      postfromImageForm(imageFormData);
+      postfromImageForm(selectedImageUrls);
     }
   };
 // *********************************************************************************
@@ -91,31 +93,35 @@ const FormImage = ({
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title> New Image Form </Modal.Title>
+          <Modal.Title> Add an Image to Your Board </Modal.Title>
         </Modal.Header>
         <Modal.Body>
 
         <Form className="form-students" onSubmit={handleSubmit}>
-            {arrayOfImages.map((eachImage, index) => (
+            <Form.Label> Select image/images </Form.Label>
+            {arrayOfImages.map((eachImage) => (
                 <Form.Check
                 key={eachImage.src.tiny}
                 type="checkbox"
                 id={`checkbox-${eachImage.src.tiny}`}
                 label={<img src={eachImage.src.tiny} alt={`Image ${eachImage.alt}`} />}
-                value={eachImage.src.tiny}
+                value={eachImage.src}
                 onChange={handleCheckChange}
              />
              ))}
-</Form>
+
+            <Form.Group>
+                <Button type="submit" variant="primary"> Add Student </Button>
+            </Form.Group>
+        </Form>
 
         </Modal.Body>
         <Modal.Footer>
+
           <Button variant="secondary" onClick={handleClose}>
             close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
+          
         </Modal.Footer>
       </Modal>
     </div>
