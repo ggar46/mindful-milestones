@@ -9,8 +9,6 @@ function App() {
   return (
     <div className="App">
       <MyNavBar />
-      <ListStudents />
-
     </div>
   )
 }

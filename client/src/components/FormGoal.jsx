@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 
 const FormGoal = ({
-  onSaveStudent: onSaveGoalForm,
+  onSaveStudent: onSaveGoalSendToGoalCards,
   editingStudent: editingGoalFormData,
   onUpdateStudent: onUpdateGoalForm
 }) => {
@@ -22,7 +23,18 @@ const FormGoal = ({
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => setShow(true);  
+
+
+
+  //Call images array so dropdown has alt image options
+  useEffect(() => {
+    fetch("http://localhost:8080/api/images")
+      .then((response) => response.json())
+      .then((dbData) => {
+            setArrayOfImages(dbData);
+          });
+  }, []);
 
   //create functions that handle the event of the user typing into the form
   const handleGoalChange = (event) => {
@@ -52,7 +64,6 @@ const FormGoal = ({
 
   const handleImageDropdown = (event) => {
     const image_fkey = event.target.value;
-    //console.log(iscurrent);
     setGoalFormData((student) => ({ ...student, image_fkey }));
   };
 
@@ -69,14 +80,14 @@ const FormGoal = ({
 
   //A function to make image get request (alt text), getting image from list of images saved from other form
   //need to be called after adding/deleting info etc.
-  const loadArrayOfImagesDB = () => {
-    // A function to fetch the list of students that will be load anytime that list change
-    fetch("http://localhost:8080/api/images")
-      .then((response) => response.json())
-      .then((arrayOfImageObj) => {
-        setArrayOfImages(arrayOfImageObj);
-      });
-  };
+//   const loadArrayOfImagesDB = () => {
+//     // A function to fetch the list of students that will be load anytime that list change
+//     fetch("http://localhost:8080/api/images")
+//       .then((response) => response.json())
+//       .then((arrayOfImageObj) => {
+//         setArrayOfImages(arrayOfImageObj);
+//       });
+//   };
 
   // *********************************************************************************
   //A function to handle the post request
@@ -92,7 +103,7 @@ const FormGoal = ({
       .then((data) => {
         //console.log("From the post ", data);
         //I'm sending data to the List of Students (the parent) for updating the list
-        onSaveGoalForm(data);
+        onSaveGoalSendToGoalCards(data);
         //this line just for cleaning the form
         clearForm();
       });
@@ -118,7 +129,7 @@ const FormGoal = ({
   //A function to handle the submit in both cases - Post and Put request!
   const handleSubmit = (e) => {
     e.preventDefault();
-    loadArrayOfImagesDB();
+    //loadArrayOfImagesDB();
     if (goalFormData.id) {
       putReqGoalForm(goalFormData);
     } else {
@@ -200,7 +211,7 @@ const FormGoal = ({
                 <option>Please choose an image by its description</option>
                 {arrayOfImages.map((oneImage) => {
                   return (
-                    <option key={oneImage.image_url}>
+                    <option id={oneImage.image_url} value={oneImage.image_url}>
                       {" "}
                       {oneImage.alt_text}{" "}
                     </option>

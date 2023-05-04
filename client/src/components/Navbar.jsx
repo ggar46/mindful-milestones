@@ -18,7 +18,6 @@ function MyNavBar(props) {
               alt="React Bootstrap logo"
             />
         </Navbar.Brand>
-        <Nav.Link href="/Home">Home</Nav.Link>
         <Nav.Link href="/Goals" >Goals</Nav.Link>
         
 

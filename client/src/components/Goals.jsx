@@ -1,4 +1,5 @@
 import FormGoal from "./FormGoal";
+import ListStudents from "./ListStudents";
 import MyNavBar from "./Navbar";
 
 const Goals = () => {
@@ -8,6 +9,7 @@ const Goals = () => {
             <MyNavBar/>
             <h1>Goals page!</h1>
             <FormGoal/>
+            <ListStudents/>
 
         </div>
     )

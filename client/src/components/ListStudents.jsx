@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react'
 import * as ioicons from 'react-icons/io5'
 import FormGoal from './FormGoal';
-import Student from './Student';
+import CardGoal from './CardGoal';
 
 const ListStudents = () => {
 
     // this is my original state with an array of students 
-    const [students, setStudents] = useState([]);
+    const [goalCardArr, setGoalCardArr] = useState([]);
 
     //this is the state needed for the UpdateRequest
     const [editingStudent, setEditingStudent] = useState(null)
 
-    const loadStudents = () => {
+    const loadGoalsFromDB = () => {
         // A function to fetch the list of students that will be load anytime that list change
-        fetch("http://localhost:8080/api/students")
+        fetch("http://localhost:8080/api/goals")
             .then((response) => response.json())
-            .then((students) => {
-                setStudents(students);
+            .then((goalsFromDB) => {
+                setGoalCardArr(goalsFromDB);
             });
     }
 
     useEffect(() => {
-        loadStudents();
-    }, [students]);
+        loadGoalsFromDB();
+    }, []);
 
-    const onSaveStudent = (newStudent) => {
+    const onSaveGoalSendToGoalCards = (newGoal) => {
         //console.log(newStudent, "From the parent - List of Students");
-        setStudents((students) => [...students, newStudent]);
+        setGoalCardArr((goalCardArr) => [...goalCardArr, newGoal]);
     }
 
 
@@ -34,7 +34,7 @@ const ListStudents = () => {
     const updateStudent = (savedStudent) => {
         // console.log("Line 29 savedStudent", savedStudent);
         // This function should update the whole list of students - 
-        loadStudents();
+        loadGoalsFromDB();
     }
 
     //A function to handle the Delete funtionality
@@ -45,7 +45,7 @@ const ListStudents = () => {
         }).then((response) => {
             //console.log(response);
             if (response.ok) {
-                loadStudents();
+                loadGoalsFromDB();
             }
         })
     }
@@ -64,12 +64,12 @@ const ListStudents = () => {
         <div className="list-students">
             <h2>Techtonica Participants </h2>
             <ul>
-                {students.map((student) => {
-                    return <li key={student.id}> <Student student={student} toDelete={onDelete} toUpdate={onUpdate} /></li>
+                {goalCardArr.map((eachGoal) => {
+                    return <li key={eachGoal.id}> <CardGoal eachGoal={eachGoal} toDelete={onDelete} toUpdate={onUpdate} /></li>
                 })}
             </ul>
         </div>
-        <FormGoal key={editingStudent ? editingStudent.id : null} onSaveStudent={onSaveStudent} editingStudent={editingStudent} onUpdateStudent={updateStudent} />
+        {/* <FormGoal key={editingStudent ? editingStudent.id : null} onSaveStudent={onSaveStudent} editingStudent={editingStudent} onUpdateStudent={updateStudent} /> */}
         </div>
     );
 }
