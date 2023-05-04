@@ -1,72 +1,41 @@
 import React, { useState, useEffect } from 'react'
 import * as ioicons from 'react-icons/io5'
-import FormGoal from './FormGoal';
+import ImageForm from './ImageForm';
 import CardGoal from './CardGoal';
 
-const ListGoalCards = () => {
+
+const ListSelectedImages = () => {
 
     // this is my original state with an array of students 
-    const [goalCardArr, setGoalCardArr] = useState([]);
+    const [imageCardArr, setImageCardArr] = useState([]);
 
-    //this is the state needed for the UpdateRequest
-    const [editingGoalFormData, setEditingGoal] = useState(null)
 
-    const [setShowModal, showModalData] = useState(false);
-
-    const loadGoalsFromDB = () => {
+    const loadImagesFromDB = () => {
         // A function to fetch the list of students that will be load anytime that list change
-        fetch("http://localhost:8080/api/goals")
+        fetch("http://localhost:8080/api/images")
             .then((response) => response.json())
-            .then((goalsFromDB) => {
-                setGoalCardArr(goalsFromDB);
+            .then((imagesFromDB) => {
+                setImageCardArr(imagesFromDB);
             });
     }
 
     useEffect(() => {
-        loadGoalsFromDB();
+        loadImagesFromDB();
     }, []);
 
-    const onSaveGoalSendToGoalCards = (newGoal) => {
+    const onSaveImageSendToImageCards = (newImage) => {
         //console.log(newStudent, "From the parent - List of Students");
-        setGoalCardArr((goalCardArr) => [...goalCardArr, newGoal]);
+        setImageCardArr((imageCardArr) => [...imageCardArr, newImage]);
     }
-
-
-    //A function to control the update in the parent (student component)
-    const updateGoalForm = (eachGoal) => {
-        // console.log("Line 29 savedStudent", savedStudent);
-        // This function should update the whole list of students - 
-        loadGoalsFromDB();
-    }
-
-    //A function to handle the Delete funtionality
-    const onDelete = (toDeleteGoal) => {
-        //console.log(student, "delete method")
-        return fetch(`http://localhost:8080/api/goals/${toDeleteGoal.id}`, {
-            method: "DELETE"
-        }).then((response) => {
-            //console.log(response);
-            if (response.ok) {
-                loadGoalsFromDB();
-            }
-        })
-    }
-
-    //A function to handle the Update functionality
-    const onUpdateGoalForm = (eachGoal) => {
-        setEditingGoal(eachGoal);
-    }
-
-
 
     return (
         <div className="mybody">
-        <div className="list-students">
-            <h2> Goals </h2>
-            <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
+        <div className="list-images">
+            <h2> Images </h2>
+            <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
             <ul>
-                {goalCardArr.map((eachGoal) => {
-                    return <li key={eachGoal.id}> <CardGoal eachGoal={eachGoal} toDelete={onDelete} toUpdateGoalForm={onUpdateGoalForm} /></li>
+                {imageCardArr.map((eachImage) => {
+                    return <li key={eachImage.id}> <CardGoal eachGoal={eachImage}/></li>
                 })}
             </ul>
         </div>
@@ -76,4 +45,4 @@ const ListGoalCards = () => {
 }
 
 
-export default ListGoalCards
+export default ListSelectedImages
