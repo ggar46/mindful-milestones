@@ -34,37 +34,22 @@ const FormImage = ({
   }, []);
 
 
-//my way
+//my way, iteratee through and if person unchecks, then I want it removed
   const handleCheckChange = (e) => {
     const checked = e.target.checked;
     const value = e.target.value;
- console.log(selectedImageUrls, "should be an array...");
-
-    if (checked) {
-        console.log(JSON.parse(value), "heere is the checked  value")
+    const copySelectedImageUrls = [...selectedImageUrls];
+    if (checked && copySelectedImageUrls.every((img) => img.image_url !== JSON.parse(value).url)) {
         setSelectedImageUrls([...selectedImageUrls, {
-            image_url: JSON.parse(value).url,
-            user_fkey: "me",
-            alt_text: JSON.parse(value).alt,   
+          image_url: JSON.parse(value).url,
+          user_fkey: "me",
+          alt_text: JSON.parse(value).alt,   
         }]);
-    } else {
-        setSelectedImageUrls(selectedImageUrls.filter((url) => url !== value));
-    }
+      }
+    };
 
-    
-  };
-
-  //create functions that handle the event of the user typing into the form (chatgpt way)
-//   const handleCheckChange = (e) => {
-//     const checked = e.target.checked;
-//     const value = e.target.value;
-
-//     if (checked) {
-//       setSelectedImageUrls([...selectedImageUrls, value]);
-//     } else {
-//       setSelectedImageUrls(selectedImageUrls.filter((url) => url !== value));
-//     }
-//   };
+console.log(selectedImageUrls, "should have 2");
+console.log(selectedImageUrls, "shhould have 2");
 
   const clearForm = () => {
     setImageFormData({
@@ -72,6 +57,8 @@ const FormImage = ({
         user_fkey: "",
         alt_text: "",
     });
+
+    setSelectedImageUrls([]);
   };
 
 
@@ -103,6 +90,7 @@ const FormImage = ({
     console.log("would have done edit function")
     } else {
       postfromImageForm(selectedImageUrls);
+  
     }
   };
 // *********************************************************************************
