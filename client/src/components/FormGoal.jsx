@@ -6,7 +6,6 @@ const FormGoal = ({
   onSaveGoalSendToGoalCards,
   editingGoalFormData,
   onUpdateGoalForm,
-  setShowModal
 }) => {
   // This is the original State with not initial student
   const [goalFormData, setGoalFormData] = useState(

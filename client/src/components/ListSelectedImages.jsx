@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import * as ioicons from 'react-icons/io5'
 import ImageForm from './ImageForm';
-import CardGoal from './CardGoal';
+import CardImage from './CardImage';
 
 
 const ListSelectedImages = () => {
@@ -36,9 +36,10 @@ const ListSelectedImages = () => {
             <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
             <ul>
                 {imageCardArr.map((eachImage) => {
-                    return <li key={eachImage.id}> <CardGoal eachGoal={eachImage}/></li>
+                    return <li key={eachImage.image_url}> <CardImage eachImage={eachImage}/></li>
                 })}
             </ul>
+            <CardImage/>
         </div>
         
         </div>
