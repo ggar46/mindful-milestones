@@ -199,6 +199,7 @@ app.post('/api/tasks', async (req, res) => {
 
     } catch (e) {
         console.log(e);
+        console.log("did not post")
         return res.status(400).json({ e });
     }
 
