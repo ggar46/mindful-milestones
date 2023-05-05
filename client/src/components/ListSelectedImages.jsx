@@ -25,6 +25,7 @@ const ListSelectedImages = () => {
 
     const onSaveImageSendToImageCards = (newImage) => {
         //console.log(newStudent, "From the parent - List of Students");
+        console.log(newImage, "from listImageeFunction")
         setImageCardArr((imageCardArr) => [...imageCardArr, newImage]);
     }
 
