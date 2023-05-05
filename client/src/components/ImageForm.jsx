@@ -39,6 +39,7 @@ const FormImage = ({
     const checked = e.target.checked;
     const value = e.target.value;
     const copySelectedImageUrls = [...selectedImageUrls];
+    //changed value to JSON.parse(value) because it was reading as a string even before I added JSON.stringify(eachImage) to form
     if (checked && copySelectedImageUrls.every((img) => img.image_url !== JSON.parse(value).url)) {
         setSelectedImageUrls([...selectedImageUrls, {
           image_url: JSON.parse(value).url,
@@ -47,9 +48,6 @@ const FormImage = ({
         }]);
       }
     };
-
-console.log(selectedImageUrls, "should have 2");
-console.log(selectedImageUrls, "shhould have 2");
 
   const clearForm = () => {
     setImageFormData({
