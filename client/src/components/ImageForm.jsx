@@ -7,7 +7,7 @@ const FormImage = ({onSaveImageSendToImageCards,}) => {
   const [imageFormData, setImageFormData] = useState(
      {
       image_url: "",
-      user_fkey: "",
+      user_fkey: "user",
       alt_text: "",
     }
   );
@@ -51,9 +51,10 @@ const handleCheckChange = (e) => {
     const value = e.target.value;
     const image_url = JSON.parse(value).url;
     const alt_text = JSON.parse(value).alt;
+    const user_fkey  = "user";
 
     if (checked) {
-      setCheckedImages([...checkedImages, { image_url, alt_text }]);
+      setCheckedImages([...checkedImages, { image_url, user_fkey, alt_text }]);
     } else {
       setCheckedImages(
         checkedImages.filter(
@@ -66,7 +67,7 @@ const handleCheckChange = (e) => {
   const clearForm = () => {
     setImageFormData({
         image_url: "",
-        user_fkey: "",
+        user_fkey: "user",
         alt_text: "",
     });
   };
@@ -93,19 +94,37 @@ const handleCheckChange = (e) => {
   };
 
 
-  const handleSubmit = (e) => {
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     if (imageFormData.id) {
+//       console.log("would have done edit function");
+//     } else {
+//     console.log(imageFormData, "all image form data onNSUbmit")
+//       postfromImageForm(imageFormData)
+//         .then(() => {
+//           clearForm();
+//         });
+//     }
+//   };
+
+
+const handleSubmit = (e) => {
     e.preventDefault();
-    if (imageFormData.id) {
-      console.log("would have done edit function");
-    } else {
-    console.log(imageFormData, "all image form data onNSUbmit")
-      postfromImageForm(imageFormData)
-        .then(() => {
-          clearForm();
-        });
+    if (checkedImages.length === 0) {
+      return;
     }
+
+    checkedImages.forEach((checkedImage) => {
+    console.log(checkedImage, "is it { image_url, user_fkey, alt_text } ");
+      postfromImageForm(checkedImage);
+    });
+
+    setCheckedImages([]);
+    handleClose();
   };
-// *********************************************************************************
+
+
+// // *********************************************************************************
   return (
     <div>
       <Button variant="primary" onClick={handleShow}>
