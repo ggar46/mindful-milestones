@@ -14,7 +14,7 @@ const FormImage = ({onSaveImageSendToImageCards,}) => {
 
   const [arrayOfImages, setArrayOfImages] = useState([]); //from API directly, will use for search
   const [show, setShow] = useState(false);
- 
+  const [checkedImages, setCheckedImages] = useState([]);
   //--------------------------------------------------------------------------------------------------------
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);  
@@ -46,33 +46,22 @@ useEffect(() => {
 
 
 //my way, iteratee through and if person unchecks, then I want it removed
-  const handleCheckChange = (e) => {
-    //called 3 times, every click
+const handleCheckChange = (e) => {
     const checked = e.target.checked;
-    const value = e.target.value; //JSON.parse(value).id, JSON.parse(value).url, JSON.parse(value).alt
+    const value = e.target.value;
     const image_url = JSON.parse(value).url;
     const alt_text = JSON.parse(value).alt;
-    const user_fkey = '1'//should be from Auth0 but for now, random string
-        if(checked && imageFormData.image_url !== JSON.parse(value).url){
-            setImageFormData({...imageFormData,
-                image_url: image_url,
-                user_fkey: user_fkey,
-                alt_text: alt_text,
-            })
-            console.log(imageFormData, 'should have  all');
-        } else if (!checked || imageFormData.image_url === JSON.parse(value).url) {
-            //remove from imageFormData, entire object from array, maybe find 
-            setImageFormData({...imageFormData,
-                image_url: "",
-                user_fkey: "",
-                alt_text: "",
-            })
-        } else {
-            console.log("url matches input value, didn't add to imageFormData state")
-        }
 
-    };
-
+    if (checked) {
+      setCheckedImages([...checkedImages, { image_url, alt_text }]);
+    } else {
+      setCheckedImages(
+        checkedImages.filter(
+          (checkedImage) => checkedImage.image_url !== image_url
+        )
+      );
+    }
+  };
 
   const clearForm = () => {
     setImageFormData({
