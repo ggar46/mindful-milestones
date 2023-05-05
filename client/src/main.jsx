@@ -4,6 +4,7 @@ import App from './App'
 import './index.css'
 import Goals from './components/Goals'
 import MyNavBar from './components/Navbar'
+import { Auth0Provider } from '@auth0/auth0-react'
 import {
   createBrowserRouter,
   RouterProvider,
