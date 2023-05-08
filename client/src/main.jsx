@@ -5,8 +5,7 @@ import './index.css';
 import Goals from './components/Goals';
 import Profile from './components/Profile';
 import { Auth0Provider} from '@auth0/auth0-react';
-import Home from './components/Home';
-import MyNavBar from './components/Navbar';
+
 
 import {
   createBrowserRouter,

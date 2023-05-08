@@ -8,7 +8,6 @@ const Goals = () => {
         <div>
             <MyNavBar/>
             <ListGoalCards/>
-
         </div>
     )
 }
