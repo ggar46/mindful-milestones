@@ -17,7 +17,7 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
     }
 
     return (
-        <Card>
+        <Card className='card-goal'>
             <Card.Body>
             <Card.Img src={eachGoal.image_fkey}></Card.Img>
             <Card.Title>{eachGoal.goal} {eachGoal.goal_purpose}</Card.Title>

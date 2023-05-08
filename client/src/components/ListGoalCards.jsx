@@ -61,7 +61,7 @@ const ListGoalCards = () => {
 
     return (
         <div className="mybody">
-        <div className="list-students">
+        <div className="list-images">
             <h2> Goals </h2>
             <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
             <ul>
