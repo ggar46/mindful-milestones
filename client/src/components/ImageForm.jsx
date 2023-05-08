@@ -15,33 +15,33 @@ const FormImage = ({onSaveImageSendToImageCards}) => {
   const [arrayOfImages, setArrayOfImages] = useState([]); //from API directly, will use for search
   const [show, setShow] = useState(false);
   const [checkedImages, setCheckedImages] = useState([]);
-  //--------------------------------------------------------------------------------------------------------
+  const [searchedValue, seetSearchedValue] = useState([]);
+ 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);  
 
-  //Call images array so dropdown has alt image options
+
+  //useful to rerender as API changes
+// useEffect(() => {
+//   }, [imageFormData]);
+
 //   useEffect(() => {
 //     fetch("http://localhost:8080/api/pexels")
 //       .then((response) => response.json())
 //       .then((dbData) => {
-//             // console.log(dbData.photos[0].src.tiny, "this is what one url looks like") //imageFormData[0].url
-//             // console.log(dbData.photos[0].alt, "this is what one alt looks like") //imageFormData[0].alt
-
-//             setArrayOfImages(dbData.photos);
-//           });
+//         setArrayOfImages(dbData.photos);
+//       });
 //   }, []);
 
+//API fetch request
 
-useEffect(() => {
-  }, [imageFormData]);
-
-  useEffect(() => {
-    fetch("http://localhost:8080/api/pexels")
-      .then((response) => response.json())
-      .then((dbData) => {
-        setArrayOfImages(dbData.photos);
-      });
-  }, []);
+const searchByUserInput = (incomingData) => {
+  fetch(`http://localhost:8080/api/pexels/${incomingData}`)
+    .then((response) => response.json())
+    .then((dbData) => {
+      setArrayOfImages(dbData.photos);
+    });
+}
 
 
 //my way, iteratee through and if person unchecks, then I want it removed
@@ -65,6 +65,14 @@ const handleCheckChange = (e) => {
     }
   };
 
+
+  const handleSearchedValue = (event) => {
+    const value = event.target.value;
+    seetSearchedValue(value);
+   }
+
+
+
   const clearForm = () => {
     setImageFormData({
         image_url: "",
@@ -73,8 +81,6 @@ const handleCheckChange = (e) => {
     });
   };
 
-
-  // *********************************************************************************
   //A function to handle the post request, need to post one at a time instead of array
   const postfromImageForm = (newImageForm) => {
     //console.log(newImageForm, "should have correct url")
@@ -94,21 +100,6 @@ const handleCheckChange = (e) => {
       });
   };
 
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (imageFormData.id) {
-//       console.log("would have done edit function");
-//     } else {
-//     console.log(imageFormData, "all image form data onNSUbmit")
-//       postfromImageForm(imageFormData)
-//         .then(() => {
-//           clearForm();
-//         });
-//     }
-//   };
-
-
 const handleSubmit = (e) => {
     e.preventDefault();
     if (checkedImages.length === 0) {
@@ -126,6 +117,12 @@ const handleSubmit = (e) => {
   };
 
 
+const handleSearchSubmit = (e) => {
+  e.preventDefault();
+  //put searched value into api get reeequest, which will automatically get 3 results
+  searchByUserInput(searchedValue);
+}
+
 // // *********************************************************************************
   return (
     <div>
@@ -139,8 +136,23 @@ const handleSubmit = (e) => {
         </Modal.Header>
         <Modal.Body>
 
+
+
+        <Form className="form-search" onSubmit={handleSearchSubmit}>
+          <Form.Label> Select image/images </Form.Label>
+          <input
+            id="searched-value"
+            type="text"
+            placeholder="Search Images"
+            name="city"
+            onChange={handleSearchedValue}
+          />
+          <input type="submit" valuee = "Submit" />
+        </Form>
+
+
+
         <Form className="form-students" onSubmit={handleSubmit}>
-            <Form.Label> Select image/images </Form.Label>
             {arrayOfImages.map((eachImage) => (
                 <Form.Check
                 key={eachImage.src.tiny}
@@ -148,7 +160,7 @@ const handleSubmit = (e) => {
                 id={`checkbox-${eachImage.src.tiny}`}
                 label={<img src={eachImage.src.tiny} alt={`${eachImage.alt}`} />}
                 value={JSON.stringify(eachImage)}
-                onChange={handleCheckChange}
+                onChange={handleSearchedValue}
              />
              ))}
 
@@ -171,3 +183,13 @@ const handleSubmit = (e) => {
 };
 
 export default FormImage;
+
+
+
+
+
+
+
+
+
+

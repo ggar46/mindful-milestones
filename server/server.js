@@ -21,11 +21,11 @@ app.get('/', (req, res) => {
 
 //*************************************************************************************************************************************** */
 
-// MOCK DATA - GET REQUEST
-app.get("/api/pexels", (req, res) => {
-    console.log(mockdata);
-      res.json(mockdata);
-  });
+//MOCK DATA - GET REQUEST
+// app.get("/api/pexels", (req, res) => {
+//     console.log(mockdata);
+//       res.json(mockdata);
+//   });
 
   
 //API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
