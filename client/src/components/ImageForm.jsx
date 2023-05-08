@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 
-const FormImage = ({onSaveImageSendToImageCards,}) => {
+const FormImage = ({onSaveImageSendToImageCards}) => {
 
   const [imageFormData, setImageFormData] = useState(
      {
@@ -33,7 +33,6 @@ const FormImage = ({onSaveImageSendToImageCards,}) => {
 
 
 useEffect(() => {
-    console.log(imageFormData, "updated imageFormData");
   }, [imageFormData]);
 
   useEffect(() => {
@@ -47,14 +46,16 @@ useEffect(() => {
 
 //my way, iteratee through and if person unchecks, then I want it removed
 const handleCheckChange = (e) => {
+
     const checked = e.target.checked;
     const value = e.target.value;
-    const image_url = JSON.parse(value).url;
+    const image_url = JSON.parse(value).src.small;
     const alt_text = JSON.parse(value).alt;
     const user_fkey  = "user";
 
     if (checked) {
       setCheckedImages([...checkedImages, { image_url, user_fkey, alt_text }]);
+
     } else {
       setCheckedImages(
         checkedImages.filter(
@@ -76,7 +77,7 @@ const handleCheckChange = (e) => {
   // *********************************************************************************
   //A function to handle the post request, need to post one at a time instead of array
   const postfromImageForm = (newImageForm) => {
-    console.log(newImageForm, "received in post request")
+    //console.log(newImageForm, "should have correct url")
     return fetch("http://localhost:8080/api/images", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -87,7 +88,7 @@ const handleCheckChange = (e) => {
       })
       .then((data) => {
         //I'm sending data to the List of Image Cards (the parent) to update list
-        console.log(data, "this is how it's being sent from post req")
+        console.log(data, "should be object in array")
         onSaveImageSendToImageCards(data);
         clearForm();
       });
@@ -115,12 +116,13 @@ const handleSubmit = (e) => {
     }
 
     checkedImages.forEach((checkedImage) => {
-    console.log(checkedImage, "is it { image_url, user_fkey, alt_text } ");
+      //console.log(checkedImage, "each object in the state array")
       postfromImageForm(checkedImage);
     });
 
     setCheckedImages([]);
     handleClose();
+    //console.log(checkedImages, "sent to post req., array of objects")
   };
 
 

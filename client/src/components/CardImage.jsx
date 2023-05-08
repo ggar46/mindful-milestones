@@ -7,12 +7,11 @@ import * as ioicons from 'react-icons/io5'
 
 const CardImage = ({eachImage}) => {
 
-console.log(eachImage,  "here it is")
-
+    console.log(eachImage, "in card")
     return (
         <Card>
             <Card.Body>
-            <Card.Title > placeholder </Card.Title>
+            <Card.Img src={eachImage}/>
             </Card.Body>
         </Card>
     )

@@ -25,8 +25,9 @@ const ListSelectedImages = () => {
 
     const onSaveImageSendToImageCards = (newImage) => {
         //console.log(newStudent, "From the parent - List of Students");
-        console.log(newImage, "from listImageeFunction")
+        //console.log(newImage, "from listImageeFunction")
         setImageCardArr((imageCardArr) => [...imageCardArr, newImage]);
+        console.log(imageCardArr, "send this (ARRAY WITH 2 INSTEAD OF ONNE OBJECT")
     }
 
     return (
@@ -36,10 +37,12 @@ const ListSelectedImages = () => {
             <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
             <ul>
                 {imageCardArr.map((eachImage) => {
-                    return <li key={eachImage.image_url}> <CardImage eachImage={eachImage}/></li>
+                    return <li key={eachImage.image_url}>  
+                        <CardImage eachImage={eachImage.image_url}/>   
+                    </li>
                 })}
             </ul>
-            <CardImage/>
+          
         </div>
         
         </div>
