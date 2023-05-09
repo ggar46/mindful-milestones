@@ -6,6 +6,7 @@ const db = require('./db/db-connection.js');
 const mockdata = require("./mockdata.js");
 const {createClient} = require('pexels');
 const fetch = require('node-fetch');
+const REACT_BUILD_DIR = path.join(__dirname, "..", "client", "dist");
 
 
 
@@ -13,10 +14,12 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
+app.use(express.static(REACT_BUILD_DIR));
 
 // creates an endpoint for the route "/""
 app.get('/', (req, res) => {
-    res.json({ message: 'Hola, from My template ExpressJS with React-Vite' });
+    res.sendFile(path.join(REACT_BUILD_DIR, 
+        'index.html'))
 });
 
 //*************************************************************************************************************************************** */

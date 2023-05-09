@@ -15,7 +15,7 @@ const ListGoalCards = () => {
 
     const loadGoalsFromDB = () => {
         // A function to fetch the list of students that will be load anytime that list change
-        fetch("http://localhost:8080/api/goals")
+        fetch("/api/goals")
             .then((response) => response.json())
             .then((goalsFromDB) => {
                 setGoalCardArr(goalsFromDB);
@@ -42,7 +42,7 @@ const ListGoalCards = () => {
     //A function to handle the Delete funtionality
     const onDelete = (toDeleteGoal) => {
         //console.log(student, "delete method")
-        return fetch(`http://localhost:8080/api/goals/${toDeleteGoal.id}`, {
+        return fetch(`/api/goals/${toDeleteGoal.id}`, {
             method: "DELETE"
         }).then((response) => {
             //console.log(response);

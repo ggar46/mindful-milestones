@@ -29,7 +29,7 @@ const FormGoal = ({
 
   //Call images array so dropdown has alt image options
   useEffect(() => {
-    fetch("http://localhost:8080/api/images")
+    fetch("/api/images")
       .then((response) => response.json())
       .then((dbData) => {
             setArrayOfImages(dbData);
@@ -82,7 +82,7 @@ const FormGoal = ({
   // *********************************************************************************
   //A function to handle the post request
   const postGoalForm = (newUserForm) => {
-    return fetch("http://localhost:8080/api/goals", {
+    return fetch("/api/goals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUserForm)
@@ -104,7 +104,7 @@ const FormGoal = ({
     handleShow;
     console.log('working')
     console.log("from put req goal", toEditGoalInfo)
-    return fetch(`http://localhost:8080/api/goals/${toEditGoalInfo.id}`, {
+    return fetch(`/api/goals/${toEditGoalInfo.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(toEditGoalInfo)

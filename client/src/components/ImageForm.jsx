@@ -26,7 +26,7 @@ useEffect(() => {
   }, [imageFormData]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/pexels")
+    fetch("/api/pexels")
       .then((response) => response.json())
       .then((dbData) => {
         setArrayOfImages(dbData.photos);
@@ -35,7 +35,7 @@ useEffect(() => {
 
 //API fetch request
 // const searchByUserInput = (incomingData) => {
-//   fetch(`http://localhost:8080/api/pexels/${incomingData}`)
+//   fetch(`/api/pexels/${incomingData}`)
 //     .then((response) => response.json())
 //     .then((dbData) => {
 //       setArrayOfImages(dbData.photos);
@@ -83,7 +83,7 @@ const handleCheckChange = (e) => {
   //A function to handle the post request, need to post one at a time instead of array
   const postfromImageForm = (newImageForm) => {
     //console.log(newImageForm, "should have correct url")
-    return fetch("http://localhost:8080/api/images", {
+    return fetch("/api/images", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newImageForm)
