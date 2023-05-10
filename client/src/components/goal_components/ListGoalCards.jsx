@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import * as ioicons from 'react-icons/io5'
 import FormGoal from './FormGoal';
 import CardGoal from './CardGoal';
-import MyNavBar from './Navbar';
+import MyNavBar from '../Navbar';
 
 const ListGoalCards = () => {
 
