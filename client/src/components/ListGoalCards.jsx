@@ -18,7 +18,7 @@ const ListGoalCards = () => {
         console.log("this is the error")
         // A function to fetch the list of students that will be load anytime that list change
             fetch("/api/goals")
-            .then((response) => console.log(response))
+            .then((response) => response.json())
             .then((goalsFromDB) => {
                 setGoalCardArr(goalsFromDB);
             });

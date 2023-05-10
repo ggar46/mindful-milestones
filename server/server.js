@@ -18,6 +18,8 @@ app.use(express.static(REACT_BUILD_DIR));
 
 //*************************************************************************************************************************************** */
 
+
+
 //MOCK DATA - GET REQUEST
 app.get("/api/pexels", (req, res) => {
     console.log(mockdata);
@@ -237,7 +239,6 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(REACT_BUILD_DIR, 
         'index.html'))
 });
-
 
 // console.log that your server is up and running
 app.listen(PORT, () => {
