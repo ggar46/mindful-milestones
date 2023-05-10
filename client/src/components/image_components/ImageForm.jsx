@@ -157,9 +157,9 @@ const handleSubmit = (e) => {
                 key={eachImage.src.tiny}
                 type="checkbox"
                 id={`checkbox-${eachImage.src.tiny}`}
-                label={<img src={eachImage.src.tiny} alt={`${eachImage.alt}`} />}
                 value={JSON.stringify(eachImage)}
                 onChange={handleCheckChange}
+                label={<img src={eachImage.src.tiny} alt={`${eachImage.alt}`} />}
              />
              ))}
 

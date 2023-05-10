@@ -2,7 +2,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNavBar from './components/Navbar'
 import Home from './components/Home';
-import Goals from './components/Goals';
+import Goals from './components/goal_components/Goals';
 
 function App() {
 

@@ -1,8 +1,9 @@
 import React from 'react';
+import { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import * as ioicons from 'react-icons/io5'
-import ListTasks from '../task_components/ListTasks';
+import TasksForm from '../task_components/TasksForm';
 
 const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
 

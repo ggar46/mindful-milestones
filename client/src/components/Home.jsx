@@ -1,5 +1,5 @@
 import MyNavBar from "./Navbar";
-import ListSelectedImages from "./ListSelectedImages";
+import ListSelectedImages from "./image_components/ListSelectedImages";
 
 const Home = () => {
 
