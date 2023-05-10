@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import { Button, Form } from "react-bootstrap"
-import ListTasks from './ListTasks';
 
 const TasksForm = ({divVisibility, sendGoalId}) => {
     
     const handleShow = () => setShow(false); 
     const [checkedState, setCheckedState] = useState(false);
-    const [arrayOfCheckedTasks, setArrayOfCheckedTasks] = useState([]);
+    const [arrTasksForCheckboxes, setArrTasksForCheckboxes] = useState([]);
+    const [checkedTaskArray, setCheckedTaskArray] = useState([]);
     //get info from DB to map through tasks to load in page, maybe load in other component
     const [tableTaskData, setTableTaskData] = useState(
         {
@@ -18,12 +18,12 @@ const TasksForm = ({divVisibility, sendGoalId}) => {
      );
 
 
-    //fetch DB data for one user's tasks
+    //fetch DB data for one user's tasks to map through later
     useEffect(() => {
         fetch(`/api/tasks/${sendGoalId}`)
           .then((response) => response.json())
-          .then((dbData) => {
-            setArrayOfImages(dbData.task_text);
+          .then((incomingData) => {
+            setArrTasksForCheckboxes(incomingData.task_text);
           });
       }, []);
 
@@ -37,10 +37,10 @@ const TasksForm = ({divVisibility, sendGoalId}) => {
         const is_checked = event.target.checked;
         const value = e.target.value;
         if(checked) {
-            setArrayOfCheckedTasks((tableTaskData) => ({ ...arrayOfCheckedTasks, is_checked }));
+            setCheckedTaskArray((tableTaskData) => ({ ...checkedTaskArray, is_checked }));
         } else {
-            setArrayOfCheckedTasks(
-                arrayOfCheckedTasks.filter(
+            setCheckedTaskArray(
+                checkedTaskArray.filter(
                     (checkedFinishedTask) => checkedFinishedTask.task_text !== task_text
                 )
             )
