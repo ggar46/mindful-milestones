@@ -16,12 +16,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(REACT_BUILD_DIR));
 
-// creates an endpoint for the route "/""
-app.get('/', (req, res) => {
-    res.sendFile(path.join(REACT_BUILD_DIR, 
-        'index.html'))
-});
-
 //*************************************************************************************************************************************** */
 
 //MOCK DATA - GET REQUEST
@@ -73,6 +67,7 @@ app.get('/api/tasks', async (req, res) => {
         return res.status(400).json({ e });
     }
 });
+
 
 // GET request for GOAL_INFO in the endpoint '/api/goals' (works)
 app.get('/api/goals', async (req, res) => {
@@ -235,6 +230,14 @@ app.post('/api/goals', async (req, res) => {
 });
 
 //*************************************************************************************************************************************** */
+
+// creates an endpoint for the route "/""
+app.get('/*', (req, res) => {
+    console.log("/* is executing")
+    res.sendFile(path.join(REACT_BUILD_DIR, 
+        'index.html'))
+});
+
 
 // console.log that your server is up and running
 app.listen(PORT, () => {

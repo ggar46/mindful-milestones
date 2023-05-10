@@ -21,8 +21,9 @@ function MyNavBar(props) {
               className="d-lg-inline-block"
               alt="React Bootstrap logo"
             />
-          </Navbar.Brand>
-          <Nav.Link href="/Goals" >Goals</Nav.Link>
+          </Navbar.Brand> 
+        
+          <Nav.Link href="Goals" >Goals</Nav.Link>
           {!user ? null : <Nav.Link to="/user-profile" as={Link}>{user.name}</Nav.Link>}
 
           <Navbar.Toggle />

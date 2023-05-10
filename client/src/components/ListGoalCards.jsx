@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import * as ioicons from 'react-icons/io5'
 import FormGoal from './FormGoal';
 import CardGoal from './CardGoal';
+import MyNavBar from './Navbar';
 
 const ListGoalCards = () => {
 
@@ -14,12 +15,15 @@ const ListGoalCards = () => {
     const [setShowModal, showModalData] = useState(false);
 
     const loadGoalsFromDB = () => {
+        console.log("this is the error")
         // A function to fetch the list of students that will be load anytime that list change
-        fetch("/api/goals")
-            .then((response) => response.json())
+            fetch("/api/goals")
+            .then((response) => console.log(response))
             .then((goalsFromDB) => {
                 setGoalCardArr(goalsFromDB);
             });
+
+  
     }
 
     useEffect(() => {
@@ -60,6 +64,8 @@ const ListGoalCards = () => {
 
 
     return (
+        <div>
+            <MyNavBar/>
         <div className="mybody">
         <div className="list-images">
             <h2> Goals </h2>
@@ -71,6 +77,7 @@ const ListGoalCards = () => {
             </ul>
         </div>
         
+        </div>
         </div>
     );
 }

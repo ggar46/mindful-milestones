@@ -14,7 +14,12 @@ export default defineConfig({
         target: "http://localhost:8080",
         changeorigin: true,
         secure: false,
-      }
+      },
+      // "/Goals": {
+      //   target: "http://localhost:8080",
+      //   changeorigin: true,
+      //   secure: false,
+      //  }
     }
   },
   test: {
@@ -22,4 +27,4 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
   }
-})
+});
