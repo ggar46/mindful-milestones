@@ -61,10 +61,12 @@ app.get('/api/images', async (req, res) => {
 
 
 // GET request for TASK_TRACKER in the endpoint '/api/tasks' (works)
-app.get('/api/tasks', async (req, res) => {
+app.get('/api/tasks/:goalId', async (req, res) => {
     try {
-        const { rows: task_tracker } = await db.query('SELECT * FROM task_tracker');
+        const taskGoalId = req.params.goalId
+        const { rows: task_tracker } = await db.query('SELECT * FROM task_tracker WHERE goal_fkey=$1', [taskGoalId]);
         res.send(task_tracker);
+        res.status(200).end();
     } catch (e) {
         return res.status(400).json({ e });
     }
@@ -189,10 +191,11 @@ app.post('/api/tasks', async (req, res) => {
         const newTask = {
             goal_fkey: req.body.goal_fkey,
             task_text: req.body.task_text,
+            is_checked: req.body.is_checked
         };
         const result = await db.query(
-            'INSERT INTO task_tracker(goal_fkey, task_text) VALUES($1, $2) RETURNING *',
-            [newTask.goal_fkey, newTask.task_text],
+            'INSERT INTO task_tracker(goal_fkey, task_text, is_checked) VALUES($1, $2, $3) RETURNING *',
+            [newTask.goal_fkey, newTask.task_text, newTask.is_checked],
         );
         console.log(result.rows[0]);
         res.json(result.rows[0]);
