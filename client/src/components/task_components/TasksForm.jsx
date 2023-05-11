@@ -11,14 +11,14 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     const [sum, setSum]  =  useState(0);
     const [checkedState, setCheckedState] = useState(false);
     const [checklistValues, setChecklistValues] = useState([]);
-    const [tableTaskData, setTableTaskData] = useState([
+    const [userTaskData, setUserTaskData] = useState(
         {
          id: "",
          goal_fkey: sendGoalId,
          task_text: "",
-         isChecked: null,
+         is_checked: false,
        }
-    ]);
+    );
 
     //fetch DB data for one user's tasks to map through later
     useEffect(() => {
@@ -32,7 +32,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
      const handleAddedTaskValue = (event) => {
         const task_text = event.target.value;
-        setTableTaskData((tableTaskData) => ({ ...tableTaskData, task_text }));
+        setUserTaskData((tableTaskData) => ({ ...tableTaskData, task_text }));
     };
 
      const handleCheckChange = (event) => {
@@ -40,10 +40,10 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         if(checked) {
             setCheckedState(true);
             const is_checked = true;
-            setTableTaskData([...tableTaskData, {is_checked}]);
+            setUserTaskData([...userTaskData, {is_checked}]);
         } else if(!checked) {
             const is_checked = false;
-            setTableTaskData([...tableTaskData, {is_checked}]);
+            setUserTaskData([...userTaskData, {is_checked}]);
         } 
     };
 
@@ -65,7 +65,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     };
 
     const clearTaskForm = () => {
-        setTableTaskData({
+        setUserTaskData({
                 id: "",
                 goal_fkey: sendGoalId,
                 task_text: "",
@@ -76,9 +76,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
     const handleTaskSubmit = (e) => {
         e.preventDefault();
-        tableTaskData.forEach((task) => {
-            postTask(task);
-        })
+        postTask(userTaskData);
         clearTaskForm();
         console.log("handleTASKSubmit on add task works")
     };
