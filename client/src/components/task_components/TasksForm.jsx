@@ -45,7 +45,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         const is_checked = event.target.checked;
         const value = e.target.value;
         if(checked) {
-            setCheckedTaskArray((tableTaskData) => ({ ...checkedTaskArray, is_checked }));
+            setCheckedTaskArray((tableTaskData) => ({ ...checkedTaskArray, value }));
         } else {
             setCheckedTaskArray(
                 checkedTaskArray.filter(
@@ -102,7 +102,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
           <Modal.Title> Add a New Task </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
+            {sendGoalId}
             <ul>
                 {arrTasksForCheckboxes.map((eachListItem) => {
                     return <li key={eachListItem.id}>
