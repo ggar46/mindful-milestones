@@ -10,7 +10,6 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
     const [sum, setSum]  =  useState(0);
     const [tasksArray, setTasksArray] = useState([]);
-    const [renderTasksFromTable, setRenderTasksFromTable] = useState([]);
     const [userTasksToPost, setUserTasksToPost] = useState(
         {
          id: "",
@@ -94,7 +93,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         e.preventDefault();
         //keep the checked checked? And the unchecked unchecked? NOT SURE
         //keep count of checked?
-        let sumOfChecked = renderTasksFromTable.reduce((accumulator, currentItem)  => {
+        let sumOfChecked = tasksArray.reduce((accumulator, currentItem)  => {
             if(currentItem.is_checked ===  true){
                 accumulator += 1;
             }
@@ -112,7 +111,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         </Modal.Header>
         <Modal.Body>
             {sendGoalId}
-            <p>{`${sum} / ${renderTasksFromTable.length}`}</p>
+            <p>{`${sum} / ${tasksArray.length}`}</p>
             <Form className="add-task" onSubmit={handleTaskSubmit}>
                         <Form.Label> Create Tasks </Form.Label>
                         <input
