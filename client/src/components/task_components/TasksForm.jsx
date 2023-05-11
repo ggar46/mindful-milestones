@@ -1,10 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import { Button, Form, Modal} from "react-bootstrap"
 
-const TasksForm = ({divVisibility, sendGoalId}) => {
+const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false); 
+    //const [showModal, setShowModal] = useState(false);
+
+  
+    const handleCloseClick = () => {
+        const boolean = false;
+        onCloseClick(boolean);
+    }
+
 
     const [checkedState, setCheckedState] = useState(false);
     const [arrTasksForCheckboxes, setArrTasksForCheckboxes] = useState([]); //iterate and create checkboxes
@@ -91,7 +97,7 @@ const TasksForm = ({divVisibility, sendGoalId}) => {
         Add new Task
       </Button> */}
 
-      <Modal show={divVisibility} onHide={handleClose}>
+      <Modal show={divVisibility} onHide={handleCloseClick}>
         <Modal.Header closeButton>
           <Modal.Title> Add a New Task </Modal.Title>
         </Modal.Header>
@@ -131,7 +137,7 @@ const TasksForm = ({divVisibility, sendGoalId}) => {
 
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>close</Button> 
+        <Button variant="secondary" onClick={handleCloseClick}>close</Button> 
         </Modal.Footer>
         </Modal>
     </div>
