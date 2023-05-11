@@ -8,25 +8,25 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         onCloseClick(boolean);
     }
 
+    const [sum, setSum]  =  useState(0);
     const [checkedState, setCheckedState] = useState(false);
-    const [arrTasksForCheckboxes, setArrTasksForCheckboxes] = useState([]); //iterate and create checkboxes
-    const [checkedTaskArray, setCheckedTaskArray] = useState([]);
-    //get info from DB to map through tasks to load in page, maybe load in other component
-    const [tableTaskData, setTableTaskData] = useState(
+    const [checklistValues, setChecklistValues] = useState([]);
+    const [tableTaskData, setTableTaskData] = useState([
         {
          id: "",
          goal_fkey: sendGoalId,
          task_text: "",
-         isChecked: false,
+         isChecked: null,
        }
-     );
+    ]);
 
     //fetch DB data for one user's tasks to map through later
     useEffect(() => {
         fetch(`/api/tasks/${sendGoalId}`)
           .then((response) => response.json())
           .then((incomingData) => {
-            setArrTasksForCheckboxes(incomingData);
+            setChecklistValues([...checklistValues, incomingData]);
+            console.log(incomingData, "incoming data from table on useEffect")
           });
       }, []);
 
@@ -36,50 +36,65 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     };
 
      const handleCheckChange = (event) => {
-        setCheckedState(!checkedState);
-        const is_checked = event.target.checked;
-        const value = e.target.value;
+        const checked = event.target.checked;
         if(checked) {
-            setCheckedTaskArray((tableTaskData) => ({ ...checkedTaskArray, value }));
-        } else {
-            setCheckedTaskArray(
-                checkedTaskArray.filter(
-                    (checkedFinishedTask) => checkedFinishedTask.task_text !== task_text
-                )
-            )
-        }
-        
+            setCheckedState(true);
+            const is_checked = true;
+            setTableTaskData([...tableTaskData, {is_checked}]);
+        } else if(!checked) {
+            const is_checked = false;
+            setTableTaskData([...tableTaskData, {is_checked}]);
+        } 
     };
 
     //A function to handle the post request
-    // const postStudent = (newStudent) => {
-    //     return fetch("http://localhost:8080/api/students", {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify(newStudent),
-    //     })
-    //         .then((response) => {
-    //             return response.json();
-    //         })
-    //         .then((data) => {
-    //             //console.log("From the post ", data);
-    //             //I'm sending data to the List of Students (the parent) for updating the list
-    //             onSaveStudent(data);
-    //             //this line just for cleaning the form
-    //             clearForm();
-    //         });
-    // };
+    const postTask = (newTask) => {
+        return fetch("/api/tasks", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newTask),
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log("From the post ", data);
+                //I'm sending data to the List of Tasks (the parent) for updating the list
+                //this line just for cleaning the form
+            });
+    };
+
+    const clearTaskForm = () => {
+        setTableTaskData({
+                id: "",
+                goal_fkey: sendGoalId,
+                task_text: "",
+                isChecked: false,
+            }
+        )
+    }
 
     const handleTaskSubmit = (e) => {
         e.preventDefault();
-            //postStudent(student);
-            console.log("handleTASKSubmit on add task works")
+        tableTaskData.forEach((task) => {
+            postTask(task);
+        })
+        clearTaskForm();
+        console.log("handleTASKSubmit on add task works")
     };
     
     const handleCheckSubmit = (e) => {
         e.preventDefault();
-            //postStudent(student);
+        //keep the checked checked? And the unchecked unchecked? NOT SURE
+        //keep count of checked?
+        let sumOfChecked = checklistValues.reduce((accumulator, currentItem)  => {
+            if(currentItem.is_checked ===  true){
+                accumulator += 1;
+            }
+            return accumulator;
+        }, 0);
             console.log("handleCHECKSubmit on add task works")
+        setSum(sumOfChecked);
     };
 
     return(
@@ -90,10 +105,8 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         </Modal.Header>
         <Modal.Body>
             {sendGoalId}
-            <ul>
-                {arrTasksForCheckboxes.map((eachListItem) => {
-                    return <li key={eachListItem.id}>
-                    <Form className="add-task" onSubmit={handleTaskSubmit}>
+            <p>{`${sum} / ${checklistValues.length}`}</p>
+            <Form className="add-task" onSubmit={handleTaskSubmit}>
                         <Form.Label> Create Tasks </Form.Label>
                         <input
                             id="add-a-task"
@@ -103,24 +116,25 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
                             onChange={handleAddedTaskValue}
                         />
                         <input type="submit" value = "Submit" />
-                    </Form> 
+            </Form> 
+
+            <ul>
+                {checklistValues.map((eachListItem) => {
+                    return <li key={eachListItem.id}>
+                        <Form className='form-tasks' onSubmit={handleCheckSubmit}>
+                            <Form.Check
+                            key={eachListItem.id}
+                            type={'checkbox'}
+                            id={`isTaskComplete-${eachListItem.id}`}
+                            value={eachListItem.task_text}
+                            onChange={handleCheckChange}
+                            label={eachListItem.task_text}
+                            checked={eachListItem.isChecked}
+                            />
+                        </Form>
                     </li>
                 })}
             </ul>
-
-        <Form className='form-tasks' onSubmit={handleCheckSubmit}>
-            <Form.Check
-            key={tableTaskData.taskid}
-            type={'checkbox'}
-            id={`isTaskComplete`}
-            value={checkedState}
-            onChange={handleCheckChange}
-            label={tableTaskData.task_text}
-            />
-            <Form.Group>
-            <Button type="submit" variant="outline-success">Submit</Button>
-            </Form.Group>
-        </Form>
 
         </Modal.Body>
         <Modal.Footer>
