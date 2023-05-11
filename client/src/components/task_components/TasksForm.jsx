@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Button, Form, Modal} from "react-bootstrap"
 
+
 const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     
     const handleCloseClick = () => {
@@ -40,14 +41,11 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     };
 
      const handleCheckChange = (event) => {
-        const checked = event.target.checked;
-        if(checked) {
-            const is_checked = true;
-            setCheckedState(is_checked);
-            setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked}));
-        } else if(!checked) {
-            const is_checked = false;
-            setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked}));        } 
+        const is_checked = event.target.checked;
+        if(is_checked) {
+            setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked: !userTasksToPost.is_checked}));
+        } else if(!is_checked) {
+            setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked: !userTasksToPost.is_checked}));        } 
     };
 
     const onSaveTasks = (newTask) => {
@@ -110,8 +108,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
           <Modal.Title> Add a New Task </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            {sendGoalId}
-            <p>{`${sum} / ${tasksArray.length}`}</p>
+            <p>{`${sum} / ${tasksArray.length} tasks completed`}</p>
             <Form className="add-task" onSubmit={handleTaskSubmit}>
                         <Form.Label> Create Tasks </Form.Label>
                         <input
@@ -135,7 +132,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
                             value={eachListItem.task_text}
                             onChange={handleCheckChange}
                             label={eachListItem.task_text}
-                            checked={eachListItem.isChecked}
+                            checked={eachListItem.is_checked}
                             />
                         </Form>
                     </li>
