@@ -20,7 +20,7 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
 
 
 //result needs to reach modal in show={show}
-    const handleShowModal = (event) => {
+    const handleShowModal = () => {
         setShowModal(true);
     }
 
@@ -41,7 +41,6 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
         <TasksForm divVisibility={showModal} onCloseClick={handleCloseModal} sendGoalId={eachGoal.id}/>
         </div>
     )
-
 }
 
 export default CardGoal;

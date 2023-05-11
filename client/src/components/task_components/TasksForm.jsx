@@ -3,14 +3,10 @@ import { Button, Form, Modal} from "react-bootstrap"
 
 const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     
-    //const [showModal, setShowModal] = useState(false);
-
-  
     const handleCloseClick = () => {
         const boolean = false;
         onCloseClick(boolean);
     }
-
 
     const [checkedState, setCheckedState] = useState(false);
     const [arrTasksForCheckboxes, setArrTasksForCheckboxes] = useState([]); //iterate and create checkboxes
@@ -24,7 +20,6 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
          isChecked: false,
        }
      );
-
 
     //fetch DB data for one user's tasks to map through later
     useEffect(() => {
@@ -56,8 +51,6 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         
     };
 
-    
-
     //A function to handle the post request
     // const postStudent = (newStudent) => {
     //     return fetch("http://localhost:8080/api/students", {
@@ -77,8 +70,6 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     //         });
     // };
 
-    //A function to handle the submit in both cases - Post and Put request!
-    
     const handleTaskSubmit = (e) => {
         e.preventDefault();
             //postStudent(student);
@@ -93,10 +84,6 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
     return(
     <div>
-      {/* <Button variant="primary" onClick={divVisibility}>
-        Add new Task
-      </Button> */}
-
       <Modal show={divVisibility} onHide={handleCloseClick}>
         <Modal.Header closeButton>
           <Modal.Title> Add a New Task </Modal.Title>
