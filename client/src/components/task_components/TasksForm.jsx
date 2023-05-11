@@ -9,8 +9,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     }
 
     const [sum, setSum]  =  useState(0);
-    const [checkedState, setCheckedState] = useState(false);
-    const [newItem, setNewItem] = useState();
+    const [tasksArray, setTasksArray] = useState([]);
     const [renderTasksFromTable, setRenderTasksFromTable] = useState([]);
     const [userTasksToPost, setUserTasksToPost] = useState(
         {
@@ -21,14 +20,19 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
        }
     );
 
-    //fetch DB data for one user's tasks to map through later
-    useEffect(() => {
+
+    const loadTasksFromDb = () => {
         fetch(`/api/tasks/${sendGoalId}`)
           .then((response) => response.json())
           .then((incomingData) => {
-            setRenderTasksFromTable([...renderTasksFromTable, incomingData]);
-            console.log(incomingData, "incoming data from table on useEffect")
+            setTasksArray(incomingData);
           });
+    }
+
+
+    //fetch DB data for one user's tasks to map through later
+    useEffect(() => {
+        loadTasksFromDb();
       }, []);
 
      const handleAddedTaskValue = (event) => {
@@ -39,14 +43,17 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
      const handleCheckChange = (event) => {
         const checked = event.target.checked;
         if(checked) {
-            setCheckedState(true);
             const is_checked = true;
-            setUserTasksToPost([...userTasksToPost, {is_checked}]);
+            setCheckedState(is_checked);
+            setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked}));
         } else if(!checked) {
             const is_checked = false;
-            setUserTasksToPost([...userTasksToPost, {is_checked}]);
-        } 
+            setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked}));        } 
     };
+
+    const onSaveTasks = (newTask) => {
+        setTasksArray((tasksArray) => [...tasksArray, newTask]);
+    }
 
     //A function to handle the post request
     const postTask = (newTask) => {
@@ -60,7 +67,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
             })
             .then((data) => {
                 console.log("From the post ", data);
-                setNewItem(data)
+                onSaveTasks(data)
                 //I'm sending data to the List of Tasks (the parent) for updating the list
                 //this line just for cleaning the form
             });
@@ -71,7 +78,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
                 id: "",
                 goal_fkey: sendGoalId,
                 task_text: "",
-                isChecked: false,
+                is_checked: false,
             }
         )
     }
@@ -119,7 +126,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
             </Form> 
 
             <ul>
-                {renderTasksFromTable.map((eachListItem) => {
+                {tasksArray.map((eachListItem) => {
                     return <li key={eachListItem.id}>
                         <Form className='form-tasks' onSubmit={handleCheckSubmit}>
                             <Form.Check
