@@ -10,8 +10,9 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
     const [sum, setSum]  =  useState(0);
     const [checkedState, setCheckedState] = useState(false);
-    const [checklistValues, setChecklistValues] = useState([]);
-    const [userTaskData, setUserTaskData] = useState(
+    const [newItem, setNewItem] = useState();
+    const [renderTasksFromTable, setRenderTasksFromTable] = useState([]);
+    const [userTasksToPost, setUserTasksToPost] = useState(
         {
          id: "",
          goal_fkey: sendGoalId,
@@ -25,14 +26,14 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         fetch(`/api/tasks/${sendGoalId}`)
           .then((response) => response.json())
           .then((incomingData) => {
-            setChecklistValues([...checklistValues, incomingData]);
+            setRenderTasksFromTable([...renderTasksFromTable, incomingData]);
             console.log(incomingData, "incoming data from table on useEffect")
           });
       }, []);
 
      const handleAddedTaskValue = (event) => {
         const task_text = event.target.value;
-        setUserTaskData((tableTaskData) => ({ ...tableTaskData, task_text }));
+        setUserTasksToPost((tableTaskData) => ({ ...tableTaskData, task_text }));
     };
 
      const handleCheckChange = (event) => {
@@ -40,10 +41,10 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         if(checked) {
             setCheckedState(true);
             const is_checked = true;
-            setUserTaskData([...userTaskData, {is_checked}]);
+            setUserTasksToPost([...userTasksToPost, {is_checked}]);
         } else if(!checked) {
             const is_checked = false;
-            setUserTaskData([...userTaskData, {is_checked}]);
+            setUserTasksToPost([...userTasksToPost, {is_checked}]);
         } 
     };
 
@@ -59,13 +60,14 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
             })
             .then((data) => {
                 console.log("From the post ", data);
+                setNewItem(data)
                 //I'm sending data to the List of Tasks (the parent) for updating the list
                 //this line just for cleaning the form
             });
     };
 
     const clearTaskForm = () => {
-        setUserTaskData({
+        setUserTasksToPost({
                 id: "",
                 goal_fkey: sendGoalId,
                 task_text: "",
@@ -76,7 +78,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
     const handleTaskSubmit = (e) => {
         e.preventDefault();
-        postTask(userTaskData);
+        postTask(userTasksToPost);
         clearTaskForm();
         console.log("handleTASKSubmit on add task works")
     };
@@ -85,7 +87,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         e.preventDefault();
         //keep the checked checked? And the unchecked unchecked? NOT SURE
         //keep count of checked?
-        let sumOfChecked = checklistValues.reduce((accumulator, currentItem)  => {
+        let sumOfChecked = renderTasksFromTable.reduce((accumulator, currentItem)  => {
             if(currentItem.is_checked ===  true){
                 accumulator += 1;
             }
@@ -103,7 +105,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         </Modal.Header>
         <Modal.Body>
             {sendGoalId}
-            <p>{`${sum} / ${checklistValues.length}`}</p>
+            <p>{`${sum} / ${renderTasksFromTable.length}`}</p>
             <Form className="add-task" onSubmit={handleTaskSubmit}>
                         <Form.Label> Create Tasks </Form.Label>
                         <input
@@ -117,7 +119,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
             </Form> 
 
             <ul>
-                {checklistValues.map((eachListItem) => {
+                {renderTasksFromTable.map((eachListItem) => {
                     return <li key={eachListItem.id}>
                         <Form className='form-tasks' onSubmit={handleCheckSubmit}>
                             <Form.Check
