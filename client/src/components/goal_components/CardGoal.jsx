@@ -7,8 +7,7 @@ import TasksForm from '../task_components/TasksForm';
 
 const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
 
-    const [show, setShow] = useState(false);
-    const handleShow = () => setShow(true);  
+    const [showModal, setShowModal] = useState(false);
 
     const onUpdateGoalForm = (eachGoal) => {
         toUpdateGoalForm(eachGoal)
@@ -18,9 +17,15 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
         toDelete(toDeleteGoal)
     }
 
+
+    const handleClickDiv = () => {
+        setShowModal(true);
+    }
+
+
     return (
         <div>
-        <Card onClick={handleShow} className='card-goal'>
+        <Card onClick={handleShow()} className='card-goal'>
             <Card.Body>
             <Card.Img src={eachGoal.image_fkey}></Card.Img>
             <Card.Title>{eachGoal.goal} {eachGoal.goal_purpose}</Card.Title>
@@ -28,7 +33,7 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
             <Button variant="outline-info" onClick={()=>{onUpdateGoalForm(eachGoal)}} style={{padding: '0.6em'}}> Edit </Button>
             </Card.Body>
         </Card>
-        <ListTasks divVisibility={show} sendGoalId={eachGoal.id}/>
+        <TasksForm divVisibility={handleClickDiv}/>
         </div>
     )
 

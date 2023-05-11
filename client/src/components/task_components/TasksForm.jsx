@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
-import { Button, Form } from "react-bootstrap"
+import React, {useState, useEffect} from 'react';
+import { Button, Form, Modal} from "react-bootstrap"
 
 const TasksForm = ({divVisibility, sendGoalId}) => {
     
-    const handleShow = () => setShow(false); 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false); 
+
     const [checkedState, setCheckedState] = useState(false);
-    const [arrTasksForCheckboxes, setArrTasksForCheckboxes] = useState([]);
+    const [arrTasksForCheckboxes, setArrTasksForCheckboxes] = useState([]); //iterate and create checkboxes
     const [checkedTaskArray, setCheckedTaskArray] = useState([]);
     //get info from DB to map through tasks to load in page, maybe load in other component
     const [tableTaskData, setTableTaskData] = useState(
@@ -23,7 +25,7 @@ const TasksForm = ({divVisibility, sendGoalId}) => {
         fetch(`/api/tasks/${sendGoalId}`)
           .then((response) => response.json())
           .then((incomingData) => {
-            setArrTasksForCheckboxes(incomingData.task_text);
+            setArrTasksForCheckboxes(incomingData);
           });
       }, []);
 
@@ -84,35 +86,56 @@ const TasksForm = ({divVisibility, sendGoalId}) => {
     };
 
     return(
-        <div>
-        
-        <Form className="add-task" onSubmit={handleTaskSubmit}>
-          <Form.Label> Create Tasks </Form.Label>
-          <input
-            id="add-a-task"
-            type="text"
-            placeholder="To-Do Items"
-            name="task"
-            onChange={handleAddedTaskValue}
-          />
-          <input type="submit" value = "Submit" />
-        </Form> 
+    <div>
+      {/* <Button variant="primary" onClick={divVisibility}>
+        Add new Task
+      </Button> */}
+
+      <Modal show={divVisibility} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title> Add a New Task </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+
+            <ul>
+                {arrTasksForCheckboxes.map((eachListItem) => {
+                    return <li key={eachListItem.id}>
+                    <Form className="add-task" onSubmit={handleTaskSubmit}>
+                        <Form.Label> Create Tasks </Form.Label>
+                        <input
+                            id="add-a-task"
+                            type="text"
+                            placeholder="To-Do Items"
+                            name="task"
+                            onChange={handleAddedTaskValue}
+                        />
+                        <input type="submit" value = "Submit" />
+                    </Form> 
+                    </li>
+                })}
+            </ul>
 
         <Form className='form-tasks' onSubmit={handleCheckSubmit}>
             <Form.Check
-            key={fetchedform1data.taskid}
+            key={tableTaskData.taskid}
             type={'checkbox'}
             id={`isTaskComplete`}
             value={checkedState}
             onChange={handleCheckChange}
-            label={fetchedform1data.task_text}
+            label={tableTaskData.task_text}
             />
             <Form.Group>
             <Button type="submit" variant="outline-success">Submit</Button>
             </Form.Group>
         </Form>
-        </div>
-    )
+
+        </Modal.Body>
+        <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>close</Button> 
+        </Modal.Footer>
+        </Modal>
+    </div>
+    );
 }
 
 export default TasksForm;
