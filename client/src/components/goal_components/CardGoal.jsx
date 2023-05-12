@@ -29,7 +29,8 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
         <Card className='card-goal'>
             <Card.Body>
             <Card.Img src={eachGoal.image_fkey}></Card.Img>
-            <Card.Title>{eachGoal.goal} {eachGoal.goal_purpose}</Card.Title>
+            <Card.Title>{eachGoal.goal}</Card.Title>
+            <p>{eachGoal.date.slice(0,10)} </p>
             <Button variant="outline-danger" onClick={()=>{onDelete(eachGoal)}} style={{padding: '0.6em', marginRight:'0.9em'}}><ioicons.IoTrash/></Button>
             <Button variant="outline-info" onClick={handleShowModal} style={{padding: '0.6em'}}> Open Modal </Button>
             </Card.Body>

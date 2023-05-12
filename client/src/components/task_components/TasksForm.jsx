@@ -9,7 +9,8 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         onCloseClick(boolean);
     }
 
-    const [sum, setSum]  =  useState(0);
+    //only checked object
+    const [checkedArr, setCheckedArr] = useState([]);
     //tasksArray contains the values for each checkbox, updated onSubmit with newest value
     const [tasksArray, setTasksArray] = useState([]);
     //userTasksToPost is one item that is posted onSubmit
@@ -44,9 +45,11 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
      const handleCheckChange = (event) => {
         const is_checked = event.target.checked;
+        const checkedTask = "here is where the entire object or id will go"
         //const value = event.target.value;
         if(is_checked) {
-            setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked: userTasksToPost.is_checked}));
+            setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked: !userTasksToPost.is_checked}));
+            setCheckedArr((checkedArr) => [...checkedArr, checkedTask]);
         }
     console.log(userTasksToPost, "each post updated");
     };
@@ -112,7 +115,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
           <Modal.Title> Add a New Task </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <p>{`${sum} / ${tasksArray.length} tasks completed`}</p>
+            <p>{`${checkedArr.length} / ${tasksArray.length} tasks completed`}</p>
             <Form className="add-task" onSubmit={handleTaskSubmit}>
                         <Form.Label> Create Tasks </Form.Label>
                         <input
@@ -132,7 +135,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
                 <Form.Check
                 key={eachListItem.id}
                 type="checkbox"
-                id={`isTaskComplete-${eachListItem.id}`}
+                id={`${eachListItem.id}`}
                 value={eachListItem.task_text}
                 onChange={handleCheckChange}
                 label={eachListItem.task_text}
@@ -140,7 +143,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
              ))}
 
             <Form.Group>
-                <Button type="submit" variant="primary"> Add Student </Button>
+                <Button type="submit" variant="primary"> Save Changes </Button>
             </Form.Group>
         </Form>
 
