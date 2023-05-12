@@ -10,7 +10,9 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     }
 
     const [sum, setSum]  =  useState(0);
+    //tasksArray contains the values for each checkbox, updated onSubmit with newest value
     const [tasksArray, setTasksArray] = useState([]);
+    //userTasksToPost is one item that is posted onSubmit
     const [userTasksToPost, setUserTasksToPost] = useState(
         {
          id: "",
@@ -45,9 +47,9 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         //const value = event.target.value;
         if(is_checked) {
             setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked: userTasksToPost.is_checked}));
-        } else if(!is_checked) {
-            setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked: userTasksToPost.is_checked})); 
-    }};
+        }
+    console.log(userTasksToPost, "each post updated");
+    };
 
     const onSaveTasks = (newTask) => {
         setTasksArray((tasksArray) => [...tasksArray, newTask]);
@@ -71,6 +73,11 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
             });
     };
 
+
+    //in check event listener, if checked, add to array called checkedArr,
+    //onSubmit : for each object task in tasksArray.id === checkedArr.id, send a put request that changes the false to true
+    //.then use reducer function to sum up those in_checked in tasksArray out of tasksArray.length
+
     const clearTaskForm = () => {
         setUserTasksToPost({
                 id: "",
@@ -90,21 +97,15 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     
     const handleCheckSubmit = (e) => {
         e.preventDefault();
-        // keep the checked checked? And the unchecked unchecked? NOT SURE
-        // keep count of checked?
-        let sumOfChecked = tasksArray.reduce((accumulator, currentItem)  => {
-            if(currentItem.is_checked ===  true){
-                accumulator += 1;
-            }
-            return accumulator;
-        }, 0);
-            console.log("handleCHECKSubmit on add task works")
-        setSum(sumOfChecked);
+
+        console.log(userTasksToPost, "from form should have some be true");
+        console.log(tasksArray, "fetched but updated onSubmit");
+        console.log(sum, "just curious to see if sum is working");
+
+    }
 
 
-    };
-
-    return(
+    return (
     <div>
       <Modal show={divVisibility} onHide={handleCloseClick}>
         <Modal.Header closeButton>

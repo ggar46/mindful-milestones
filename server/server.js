@@ -61,9 +61,9 @@ app.get('/api/images', async (req, res) => {
 
 
 // GET request for TASK_TRACKER in the endpoint '/api/tasks' (works)
-app.get('/api/tasks/:goalId', async (req, res) => {
+app.get('/api/tasks/:taskId', async (req, res) => {
     try {
-        const taskGoalId = req.params.goalId
+        const taskGoalId = req.params.taskId
         const { rows: task_tracker } = await db.query('SELECT * FROM task_tracker WHERE goal_fkey=$1', [taskGoalId]);
         res.send(task_tracker);
         res.status(200).end();
@@ -150,6 +150,25 @@ app.put('/api/goals/:goalId', async (req, res) =>{
     console.log("In the server, from the react - the goal to be edited", updatedGoal);
     const query = `UPDATE goal_info SET image_fkey=$1, date=$2, goal_purpose=$3, goal_obstacle=$4, strategy=$5, goal=$6 WHERE id=${goalId} RETURNING *`;
     const values = [updatedGoal.image_fkey, updatedGoal.date, updatedGoal.goal_purpose, updatedGoal.goal_obstacle, updatedGoal.strategy, updatedGoal.goal];
+    try {
+      const updated = await db.query(query, values);
+      console.log(updated.rows[0]);
+      res.send(updated.rows[0]);
+  
+    }catch(e){
+      console.log(e);
+      return res.status(400).json({e})
+    }
+  })
+
+// PUT request for TASKS in the endpoint '/api/tasks', no editing id/user (works)
+app.put('/api/tasks/:taskId', async (req, res) =>{
+    //console.log(req.params);
+    //This will be the id that I want to find in the DB - the goal to be updated
+    const taskId = req.params.taskId
+    const updatedTask = {goal_fkey: req.body.goal_fkey, task_text: req.body.task_text, is_checked: req.body.is_checked}
+    const query = `UPDATE task_tracker SET image_fkey=$1, date=$2, goal_purpose=$3, goal_obstacle=$4, strategy=$5, goal=$6 WHERE id=${goalId} RETURNING *`;
+    const values = [updatedTask.goal_fkey, updatedTask.task_text, updatedTask.goal_purpose, updatedTask.goal_obstacle, updatedTask.strategy, updatedTask.goal];
     try {
       const updated = await db.query(query, values);
       console.log(updated.rows[0]);
