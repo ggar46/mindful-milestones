@@ -1,5 +1,4 @@
-# Your First Express and React App with Vite
- Mindful Milestones
+#  Mindful Milestones
 
 ## Overview 
 
@@ -7,5 +6,6 @@
 
 ![Placeholder for Live Project Page Link](http://localhost:8080/)
 
-
-
+[![GitHub Pull Request](https://img.shields.io/github/issues-pr-closed/ggar46/mindfulmilestones)](https://github.com/ggar46/mindfulmilestones/pulls)
+[![GitHub repo size](https://img.shields.io/github/repo-size/ggar46/mindfulmilestones)](https://github.com/ggar46/mindfulmilestones/)
+[![GitHub contributors](https://img.shields.io/github/contributors/ggar46/mindfulmilestones)](https://github.com/ggar46/mindfulmilestones/)
