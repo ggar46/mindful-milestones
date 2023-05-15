@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import * as ioicons from 'react-icons/io5'
 import FormGoal from './FormGoal';
 import CardGoal from './CardGoal';
+import MyNavBar from '../Navbar';
 
 const ListGoalCards = () => {
 
@@ -15,11 +16,13 @@ const ListGoalCards = () => {
 
     const loadGoalsFromDB = () => {
         // A function to fetch the list of students that will be load anytime that list change
-        fetch("http://localhost:8080/api/goals")
+            fetch("/api/goals")
             .then((response) => response.json())
             .then((goalsFromDB) => {
                 setGoalCardArr(goalsFromDB);
             });
+
+  
     }
 
     useEffect(() => {
@@ -42,7 +45,7 @@ const ListGoalCards = () => {
     //A function to handle the Delete funtionality
     const onDelete = (toDeleteGoal) => {
         //console.log(student, "delete method")
-        return fetch(`http://localhost:8080/api/goals/${toDeleteGoal.id}`, {
+        return fetch(`/api/goals/${toDeleteGoal.id}`, {
             method: "DELETE"
         }).then((response) => {
             //console.log(response);
@@ -60,8 +63,10 @@ const ListGoalCards = () => {
 
 
     return (
+        <div>
+            <MyNavBar/>
         <div className="mybody">
-        <div className="list-students">
+        <div className="list-images">
             <h2> Goals </h2>
             <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
             <ul>
@@ -71,6 +76,7 @@ const ListGoalCards = () => {
             </ul>
         </div>
         
+        </div>
         </div>
     );
 }

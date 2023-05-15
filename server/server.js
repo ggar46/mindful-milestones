@@ -6,6 +6,7 @@ const db = require('./db/db-connection.js');
 const mockdata = require("./mockdata.js");
 const {createClient} = require('pexels');
 const fetch = require('node-fetch');
+const REACT_BUILD_DIR = path.join(__dirname, "..", "client", "dist");
 
 
 
@@ -13,15 +14,13 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
-
-// creates an endpoint for the route "/""
-app.get('/', (req, res) => {
-    res.json({ message: 'Hola, from My template ExpressJS with React-Vite' });
-});
+app.use(express.static(REACT_BUILD_DIR));
 
 //*************************************************************************************************************************************** */
 
-// MOCK DATA - GET REQUEST
+
+
+//MOCK DATA - GET REQUEST
 app.get("/api/pexels", (req, res) => {
     console.log(mockdata);
       res.json(mockdata);
@@ -62,14 +61,17 @@ app.get('/api/images', async (req, res) => {
 
 
 // GET request for TASK_TRACKER in the endpoint '/api/tasks' (works)
-app.get('/api/tasks', async (req, res) => {
+app.get('/api/tasks/:taskId', async (req, res) => {
     try {
-        const { rows: task_tracker } = await db.query('SELECT * FROM task_tracker');
+        const taskGoalId = req.params.taskId
+        const { rows: task_tracker } = await db.query('SELECT * FROM task_tracker WHERE goal_fkey=$1', [taskGoalId]);
         res.send(task_tracker);
+        res.status(200).end();
     } catch (e) {
         return res.status(400).json({ e });
     }
 });
+
 
 // GET request for GOAL_INFO in the endpoint '/api/goals' (works)
 app.get('/api/goals', async (req, res) => {
@@ -159,6 +161,25 @@ app.put('/api/goals/:goalId', async (req, res) =>{
     }
   })
 
+// PUT request for TASKS in the endpoint '/api/tasks', no editing id/user (works)
+app.put('/api/tasks/:taskId', async (req, res) =>{
+    //console.log(req.params);
+    //This will be the id that I want to find in the DB - the goal to be updated
+    const taskId = req.params.taskId
+    const updatedTask = {goal_fkey: req.body.goal_fkey, task_text: req.body.task_text, is_checked: req.body.is_checked}
+    const query = `UPDATE task_tracker SET image_fkey=$1, date=$2, goal_purpose=$3, goal_obstacle=$4, strategy=$5, goal=$6 WHERE id=${goalId} RETURNING *`;
+    const values = [updatedTask.goal_fkey, updatedTask.task_text, updatedTask.goal_purpose, updatedTask.goal_obstacle, updatedTask.strategy, updatedTask.goal];
+    try {
+      const updated = await db.query(query, values);
+      console.log(updated.rows[0]);
+      res.send(updated.rows[0]);
+  
+    }catch(e){
+      console.log(e);
+      return res.status(400).json({e})
+    }
+  })
+
 //*************************************************************************************************************************************** */
 
 // POST request IMAGE_TRACKER (works)
@@ -189,10 +210,11 @@ app.post('/api/tasks', async (req, res) => {
         const newTask = {
             goal_fkey: req.body.goal_fkey,
             task_text: req.body.task_text,
+            is_checked: req.body.is_checked
         };
         const result = await db.query(
-            'INSERT INTO task_tracker(goal_fkey, task_text) VALUES($1, $2) RETURNING *',
-            [newTask.goal_fkey, newTask.task_text],
+            'INSERT INTO task_tracker(goal_fkey, task_text, is_checked) VALUES($1, $2, $3) RETURNING *',
+            [newTask.goal_fkey, newTask.task_text, newTask.is_checked],
         );
         console.log(result.rows[0]);
         res.json(result.rows[0]);
@@ -232,6 +254,13 @@ app.post('/api/goals', async (req, res) => {
 });
 
 //*************************************************************************************************************************************** */
+
+// creates an endpoint for the route "/""
+app.get('/*', (req, res) => {
+    console.log("/* is executing")
+    res.sendFile(path.join(REACT_BUILD_DIR, 
+        'index.html'))
+});
 
 // console.log that your server is up and running
 app.listen(PORT, () => {

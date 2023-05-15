@@ -10,9 +10,6 @@ function MyNavBar(props) {
 
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
-  console.log("From Navbar", user);
-  console.log("From Navbar", isAuthenticated);
-
   return (
     <>
       <Navbar data-testid="navbar" bg="dark" variant="dark" sticky="top">
@@ -24,8 +21,9 @@ function MyNavBar(props) {
               className="d-lg-inline-block"
               alt="React Bootstrap logo"
             />
-          </Navbar.Brand>
-          <Nav.Link href="/Goals" >Goals</Nav.Link>
+          </Navbar.Brand> 
+        
+          <Nav.Link href="Goals" >Goals</Nav.Link>
           {!user ? null : <Nav.Link to="/user-profile" as={Link}>{user.name}</Nav.Link>}
 
           <Navbar.Toggle />
@@ -46,47 +44,3 @@ function MyNavBar(props) {
 };
 
 export default MyNavBar;
-
-// import Container from 'react-bootstrap/Container';
-// import Navbar from 'react-bootstrap/Navbar';
-// import Nav from 'react-bootstrap/Nav';
-// import Logo from '../assets/BlueTechtonicaWord.png'
-// import { useAuth0 } from '@auth0/auth0-react';
-// import { Link } from "react-router-dom";
-
-
-// function MyNavBar(props) {
-
-//   const { loginWithRedirect, logout} = useAuth0();
-
-//   return (
-//     <>
-//     <Navbar data-testid="navbar" bg="dark" variant="dark" sticky="top">
-//       <Container>
-//         <Navbar.Brand href="/">
-//         <img
-//               src={Logo}
-//               height="30"
-//               className="d-lg-inline-block"
-//               alt="React Bootstrap logo"
-//             />
-//         </Navbar.Brand>
-//         <Nav.Link href="/Goals" >Goals</Nav.Link>
-        
-
-//         <Navbar.Toggle />
-//         <Navbar.Collapse className="justify-content-end">
-//           <Navbar.Text>
-//           <Link onClick={() => loginWithRedirect()}>Log In</Link>;
-//           <Link onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
-//       Log Out
-//     </Link>
-//           </Navbar.Text>
-//         </Navbar.Collapse>
-//       </Container>
-//     </Navbar>
-//     </>
-//   );
-// };
-
-// export default MyNavBar;
