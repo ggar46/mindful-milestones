@@ -9,19 +9,17 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         onCloseClick(boolean);
     }
 
-    //only checked object, to use for count?? How to count?
-    const [checkedArr, setCheckedArr] = useState([]);
     //tasksArray contains the values for each checkbox, updated onSubmit with newest value
     const [tasksArray, setTasksArray] = useState([]);
-    //userTasksToPost is one item that is posted onSubmit
-    const [userTasksToPost, setUserTasksToPost] = useState(
+    //userTasksToPost is an array of objects to post on onSubmit
+    const [userTasksToPost, setUserTasksToPost] = useState([
         {
          id: "",
          goal_fkey: sendGoalId,
          task_text: "",
          is_checked: false,
        }
-    );
+    ]);
 
 
     const loadTasksFromDb = () => {
@@ -40,16 +38,17 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
      const handleAddedTaskValue = (event) => {
         const task_text = event.target.value;
-        setUserTasksToPost((tableTaskData) => ({ ...tableTaskData, task_text }));
+        setUserTasksToPost((tableTaskData) => ([{ ...tableTaskData, task_text: task_text}]));
     };
 
-     const handleCheckChange = (event) => {
+     const handleCheckChange = (event, id) => {
         const is_checked = event.target.checked;
-        const checkedTask = "here is where the entire object or id will go"
+        const value = event.target.value;
         //const value = event.target.value;
         if(is_checked) {
-            setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked: !userTasksToPost.is_checked}));
-            setCheckedArr((checkedArr) => [...checkedArr, checkedTask]);
+            setUserTasksToPost((userTasksToPost) => ([...userTasksToPost, {id: "", goal_fkey: sendGoalId, task_text: value, is_checked: !userTasksToPost.is_checked}]));
+            console.log(userTasksToPost, "from inside event handler (check)")
+
         }
     console.log(userTasksToPost, "each post updated");
     };
@@ -69,7 +68,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
                 return response.json();
             })
             .then((data) => {
-                console.log("From the post ", data);
+                //console.log("From the post ", data);
                 onSaveTasks(data)
                 //I'm sending data to the List of Tasks (the parent) for updating the list
                 //this line just for cleaning the form
@@ -78,19 +77,20 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
 
     //argument would be the object
-    const putTask = (toEditStudent) => {
-        return fetch(`http://localhost:8080/api/students/${toEditStudent.id}`, {
+    const putTask = (toEditTask) => {
+        console.log(toEditTask, "received in put request")
+        return fetch(`http://localhost:8080/api/tasks/${toEditTask.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(toEditStudent),
+            body: JSON.stringify(toEditTask),
         })
             .then((response) => {
                 return response.json();
             })
             .then((data) => {
-                onUpdateStudent(data);
+                console.log(data, "from put request")
                 //this line just for cleaning the form
-                clearForm();
+                //clearForm();
             });
     };
 
@@ -108,6 +108,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
     const handleTaskSubmit = (e) => {
         e.preventDefault();
+        console.log("HEEEEEEEEERRRRRREEE")
         postTask(userTasksToPost);
         clearTaskForm();
         console.log("handleTASKSubmit on add task works")
@@ -117,14 +118,14 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         e.preventDefault();
     //in check event listener, if checked, add to array called checkedArr,
     //onSubmit : for each object task in tasksArray.id === checkedArr.id, send a put request that changes the false to true
-        if(tasksArray.id === checkedArr.id){
-            putTask();
+
+        for(let i=0; i<userTasksToPost.length; i++){
+            console.log(userTasksToPost[i], "each task in array");
+            putTask(userTasksToPost[i]);
         }
 
-
-        console.log(userTasksToPost, "from form should have some be true");
-        console.log(tasksArray, "fetched but updated onSubmit");
-
+        console.log(userTasksToPost, "userTasksToPost");
+        console.log(tasksArray, "tasksArray");
 
     }
 
@@ -157,7 +158,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
                 type="checkbox"
                 id={`${eachListItem.id}`}
                 value={eachListItem.task_text}
-                onChange={handleCheckChange}
+                onChange={(event) => handleCheckChange(event, eachListItem.id)}
                 label={eachListItem.task_text}
              />
              ))}
