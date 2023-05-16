@@ -57,7 +57,7 @@ Access server.js file and install dependencies.
 cd server
 npm install
 ```
-Create a `.env` file in your server file
+Create a `.env` file in your server file and enter your Auth0 credential.
 
 ```bash
 cd server
@@ -69,9 +69,6 @@ Restore the Postgres Database file in the project by running the following comma
 psql postgres -f db.sql
 ```
 
-
-
-
 ```bash
 psql postgres -f db.sql
 ```
@@ -82,8 +79,6 @@ Open another terminal then cd into the client, install dependencies
 cd client
 npm install
 ```
-
-Create a .env file and enter your Auth0 credential.
 
 Start the browser
 
