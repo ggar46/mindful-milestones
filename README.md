@@ -87,7 +87,3 @@ npm start
 ```
 Note:
 Server runs on http://localhost:8080 and client on http://localhost:5173
-
-## Acknowledgements
-
-## Resources
