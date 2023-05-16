@@ -1,67 +1,123 @@
-# Your First Express and React App with Vite
- ⚡ Create a working full stack app with React and Express in minutes by running your client using Vite, your server using Express, and dumping your db in the template ⚡
+#  Mindful Milestones
 
-## Step by Step instructions - To use this project as your start point  🚀  
-### To create the whole project
+## About The Project
 
+ Mindful Milestones is a vision board app that helps  turn goals into actionable steps. Users can save images that inspire, motivate, or represent their dreams and aspirations, and then use them to create a visual representation of their goals. Once the user creates a vision board, they can turn their goals into actionable steps by breaking them down into tasks.
 
-1. Go to your source directory in your terminal and run the command `git clone https://github.com/Techtonica/Techtonica_Template_FullStack.git NAMENEWDIRECTORY`
+![Placeholder for Live Project Page Link](http://localhost:8080/)
 
-2. To clean the owner git out of the main directory, run the command `rm -rf .git`
+[![GitHub Pull Request](https://img.shields.io/github/issues-pr-closed/ggar46/mindfulmilestones)](https://github.com/ggar46/mindfulmilestones/pulls)
+[![GitHub repo size](https://img.shields.io/github/repo-size/ggar46/mindfulmilestones)](https://github.com/ggar46/mindfulmilestones/)
+[![GitHub contributors](https://img.shields.io/github/contributors/ggar46/mindfulmilestones)](https://github.com/ggar46/mindfulmilestones/)
 
-3. Then while still within the main directory in your terminal, run the command `git init` to start your own git track 
+## Table of Contents
 
-![You will something like this in your terminal](https://user-images.githubusercontent.com/102179075/227304861-7ad633d7-5ec0-463a-8554-9e8b4c8caaad.png?raw=true)
+- [Built With](#Built-With)
+- [Installation](#installation)
+- [Acknowledgements](#acknowledgements)
+- [Resources](#resources)
 
-4. Go to the server folder in the project (`cd server`) and run the command `npm install`
+## Built With 
+<table align="center">
+  <tr>
+    <td align="center" width="96">
+        <img src="https://user-images.githubusercontent.com/74997368/168923681-ece848fc-5700-430b-957f-e8de784e9847.png" width="48" height="48" alt="html" />
+      <br>html
+    </td>
+    <td align="center" width="96">
+        <img src="https://user-images.githubusercontent.com/74997368/168924521-589f95da-069a-496a-bcc1-ee6dd132ff12.png" width="48" height="48" alt="CSS" />
+      <br>CSS
+    </td>
+    <td align="center" width="96">
+        <img src="https://user-images.githubusercontent.com/74997368/168977094-6a5073a2-2f48-4f5a-ae0e-ed1421a678c6.png" width="48" height="48" alt="JavaScript" />
+      <br>JavaScript
+    </td>
+    <td align="center" width="96">
+        <img src="https://user-images.githubusercontent.com/74997368/168976819-15a1f4e0-29cf-4ac0-94a7-1f15eee374a1.png" width="48" height="48" alt="postgreSQL" />
+      <br>postgreSQL
+    </td>
+    <td align="center" width="96">
+        <img src="https://user-images.githubusercontent.com/74997368/168978951-5ac2af5e-c911-4e59-b493-683071cf1860.png" width="48" height="48" alt="Express" />
+      <br>Express
+    </td>
+    <td align="center" width="96">
+        <img src="https://user-images.githubusercontent.com/74997368/168979311-4a486cad-32c8-46f4-a5da-912fdc51b2d6.png" width="48" height="48" alt="React" />
+      <br>React
+    </td>
+    <td align="center" width="96">
+        <img src="https://user-images.githubusercontent.com/74997368/168979848-733f7090-0f78-401a-9ceb-4267231abef7.png" width="48" height="48" alt="Node" />
+      <br>Node
+    </td>
+    <td align="center" width="96">
+        <img src="https://user-images.githubusercontent.com/74997368/168980647-1690f9de-bf0e-4318-93cb-1b2ba3701ded.png" width="48" height="48" alt="Bootstrap" />
+      <br>Bootstrap
+    </td>
+    <td align="center" width="96">
+        <img src="https://pbs.twimg.com/profile_images/1337188620222906368/oNKK_fVe_400x400.jpg" width="48" height="48" alt="Render" />
+      <br>Render
+    </td>
+  </tr>
+</table>
 
-5. Inside your server folder, create an .env file with `touch .env`
+## Installation
 
-⚠️ All these instructions should be inside your server folder ⚠️
+First you need to get [Auth0 API](https://auth0.com/), [Pexels API](https://www.pexels.com/api/)
 
-6. There are two ways to restore the DB dump file the project already contains: 
+Clone the project repository
 
-A- If you have postgres set up postgres with an User:  
- * just run the command `psql -U postgres -f db.sql`. Make sure that you have your Postgres password on hand. The psql console will ask for your password. 
-
-B- If your initial configuration of postgres doesn't require a User:
-* just run the command `psql -f db.sql`
-
-7. Inside your server folder, open the file `.env.example` and copy the correct option for your configuation found there to your new .env file. 
-
-Here is what your `.env` might look like:
-
+```bash
+git clone https://github.com/ggar46/mindfulmilestones.git
 ```
-DB_URI="postgresql://localhost/techtonica"
-``` 
-For this template, the name of your db should be `techtonica`.
+Access project repo
 
-⚠️ If you don't see a `techtonica` db, you can create one. From the terminal, navigate to the psql command line with `psql` and type `create database techtonica;` - don't forget the semicolon!! ⚠️
+```bash
+cd mindfulmilestones
+```
+Remove owner git from the main directory using
 
-![You will something like this in your terminal](https://raw.githubusercontent.com/Yosolita1978/screenshoots/a4674c79f61b39547b068044c5e5f2bd8510a4b8/2023/H1/Screen%20Shot%202023-03-22%20at%2011.03.12%20PM.png)
+```bash
+rm -rf .git
+```
 
-8. Go to the client folder in the project (`cd .. and cd client`) and run the command `npm install`
+While still within the main directory in your terminal, run the command git init to start your own git 
 
-🔎 The `npm install` command installs the required dependencies defined in the package.json files and generates a node_modules folder with the installed modules.
+```bash
+git init
+```
 
-⚡ Note: Using Vite we can avoid all the package deprecation warnings ⚡
+Access server.js file and install dependencies.
 
-9. If you want to run both servers using concurrently (which is already a npm dependency on the server) you can keep the script in the package.json in the server that reads `"dev": " concurrently 'npm start' 'cd .. && cd client && npm run dev' "`. If you run the command `npm run dev` from within your server, both the client and backend servers will start.
+```bash
+cd server
+npm install
+```
+Create a `.env` file in your server file and enter your Auth0 credential.
 
-10. Go to localhost:5173 and you should see something like this  💪
+```bash
+cd server
+touch .env
+```
+Restore the Postgres Database file in the project by running the following command to restore the database file the project already contains
 
-![You will something like this in your terminal.](https://raw.githubusercontent.com/Yosolita1978/screenshoots/2f6afdd2318809714071b7625776c195903758ca/2023/H1/Screen%20Shot%202023-03-22%20at%2010.40.36%20PM.png)
+```bash
+psql postgres -f db.sql
+```
 
-⚡ **Notes** ⚡  
-* React requires **Node >= 14.0.0** & **npm >= 5.6**
-* This template is using icons from `react-icons/io5` and `react-bootstrap` in the frontend. You can see all the frontend dependencies in the package.json on the `client` folder
-* Please note that your backend server will run from `port 8080`, and your frontend React server will run from `port 5173` (the default Vite port).
+```bash
+psql postgres -f db.sql
+```
+<!-- continue later -->
+Open another terminal then cd into the client, install dependencies
 
-* Confused about why use Vite? 🤔 → Check out the [Create a new React app with Vite](https://scrimba.com/articles/create-react-app-with-vite/)
+```bash
+cd client
+npm install
+```
 
-⚙️ Links that you could need:
+Start the browser
 
-* The instructions for [pg](https://node-postgres.com/apis/pool)  
-* Setup [postgres correctly](https://github.com/Techtonica/curriculum/blob/main/databases/installing-postgresql.md)
-
-
+```bash
+npm start
+```
+Note:
+Server runs on http://localhost:8080 and client on http://localhost:5173
