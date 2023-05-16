@@ -22,10 +22,11 @@ function MyNavBar(props) {
               alt="React Bootstrap logo"
             />
           </Navbar.Brand> 
-        
-          <Nav.Link href="Goals" >Goals</Nav.Link>
+        {isAuthenticated ? (
+          <Nav.Link href="Goals" >Goals</Nav.Link>     ) : ""}
           {!user ? null : <Nav.Link to="/user-profile" as={Link}>{user.name}</Nav.Link>}
 
+      
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
           

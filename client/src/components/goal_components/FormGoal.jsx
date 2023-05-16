@@ -205,7 +205,7 @@ const FormGoal = ({
                 <option>Please choose an image by its description</option>
                 {arrayOfImages.map((oneImage) => {
                   return (
-                    <option id={oneImage.image_url} value={oneImage.image_url}>
+                    <option key={oneImage.image_url} id={oneImage.image_url} value={oneImage.image_url}>
                       {" "}
                       {oneImage.alt_text}{" "}
                     </option>
