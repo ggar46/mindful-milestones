@@ -18,8 +18,6 @@ app.use(express.static(REACT_BUILD_DIR));
 
 //*************************************************************************************************************************************** */
 
-
-
 //MOCK DATA - GET REQUEST
 app.get("/api/pexels", (req, res) => {
     console.log(mockdata);

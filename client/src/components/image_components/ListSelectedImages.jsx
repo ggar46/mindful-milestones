@@ -33,7 +33,7 @@ const ListSelectedImages = () => {
 
     return (
         <div className="mybody">
-            {isAuthenticated? (
+      
         <div className="list-images">
             <h2> Images </h2>
             <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
@@ -48,7 +48,7 @@ const ListSelectedImages = () => {
         </div>
         
 
-        ): ""}
+     
         </div>
     );
 }
