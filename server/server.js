@@ -167,8 +167,8 @@ app.put('/api/tasks/:taskId', async (req, res) =>{
     //This will be the id that I want to find in the DB - the goal to be updated
     const taskId = req.params.taskId
     const updatedTask = {goal_fkey: req.body.goal_fkey, task_text: req.body.task_text, is_checked: req.body.is_checked}
-    const query = `UPDATE task_tracker SET image_fkey=$1, date=$2, goal_purpose=$3, goal_obstacle=$4, strategy=$5, goal=$6 WHERE id=${goalId} RETURNING *`;
-    const values = [updatedTask.goal_fkey, updatedTask.task_text, updatedTask.goal_purpose, updatedTask.goal_obstacle, updatedTask.strategy, updatedTask.goal];
+    const query = `UPDATE task_tracker SET goal_fkey=$1, task_text=$2, is_checked=$3 WHERE id=${taskId} RETURNING *`;
+    const values = [updatedTask.goal_fkey, updatedTask.task_text, updatedTask.is_checked];
     try {
       const updated = await db.query(query, values);
       console.log(updated.rows[0]);

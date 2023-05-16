@@ -9,7 +9,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
         onCloseClick(boolean);
     }
 
-    //only checked object
+    //only checked object, to use for count?? How to count?
     const [checkedArr, setCheckedArr] = useState([]);
     //tasksArray contains the values for each checkbox, updated onSubmit with newest value
     const [tasksArray, setTasksArray] = useState([]);
@@ -77,9 +77,24 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     };
 
 
-    //in check event listener, if checked, add to array called checkedArr,
-    //onSubmit : for each object task in tasksArray.id === checkedArr.id, send a put request that changes the false to true
-    //.then use reducer function to sum up those in_checked in tasksArray out of tasksArray.length
+    //argument would be the object
+    const putTask = (toEditStudent) => {
+        return fetch(`http://localhost:8080/api/students/${toEditStudent.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(toEditStudent),
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                onUpdateStudent(data);
+                //this line just for cleaning the form
+                clearForm();
+            });
+    };
+
+
 
     const clearTaskForm = () => {
         setUserTasksToPost({
@@ -100,10 +115,16 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     
     const handleCheckSubmit = (e) => {
         e.preventDefault();
+    //in check event listener, if checked, add to array called checkedArr,
+    //onSubmit : for each object task in tasksArray.id === checkedArr.id, send a put request that changes the false to true
+        if(tasksArray.id === checkedArr.id){
+            putTask();
+        }
+
 
         console.log(userTasksToPost, "from form should have some be true");
         console.log(tasksArray, "fetched but updated onSubmit");
-        console.log(sum, "just curious to see if sum is working");
+
 
     }
 
@@ -115,7 +136,6 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
           <Modal.Title> Add a New Task </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <p>{`${checkedArr.length} / ${tasksArray.length} tasks completed`}</p>
             <Form className="add-task" onSubmit={handleTaskSubmit}>
                         <Form.Label> Create Tasks </Form.Label>
                         <input
@@ -141,10 +161,10 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
                 label={eachListItem.task_text}
              />
              ))}
-
-            <Form.Group>
+                <input type="submit" value = "Save Changes" />
+            {/* <Form.Group>
                 <Button type="submit" variant="primary"> Save Changes </Button>
-            </Form.Group>
+            </Form.Group> */}
         </Form>
 
         </Modal.Body>
