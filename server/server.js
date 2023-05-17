@@ -17,6 +17,29 @@ app.use(express.json());
 app.use(express.static(REACT_BUILD_DIR));
 
 //*************************************************************************************************************************************** */
+// creates new entry for user, else does nothing
+app.post("/user", cors(), async (req, res) => {
+    console.log(req.body.user_id, req.body.email);
+    try {
+      const newUser = {
+        user_id: req.body.user_id,
+        email: req.body.email,
+      };
+      const result = await db.query(
+        "INSERT INTO user_table(user_id, email) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING*",
+        [newUser.user_id, newUser.email]
+      );
+      console.log("result.rows[0]: ", result.rows[0]);
+      // if value is undefined, set value to {}
+      res.json(result.rows[0] ?? {});
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ e });
+    }
+  });
+
+
+
 
 //MOCK DATA - GET REQUEST
 app.get("/api/pexels", (req, res) => {
@@ -48,9 +71,10 @@ app.get("/api/pexels", (req, res) => {
 //*************************************************************************************************************************************** */
 
 // GET request for IMAGE_TRACKER in the endpoint '/api/images' (works)
-app.get('/api/images', async (req, res) => {
+app.get('/api/images/:user_fkey', async (req, res) => {
     try {
-        const { rows: image_tracker } = await db.query('SELECT * FROM image_tracker');
+        const taskGoalId = req.params.taskId
+        const { rows: image_tracker } = await db.query('SELECT * FROM image_tracker WHERE user_fkey=$1', [taskGoalId]);
         res.send(image_tracker);
     } catch (e) {
         return res.status(400).json({ e });
@@ -72,14 +96,26 @@ app.get('/api/tasks/:taskId', async (req, res) => {
 
 
 // GET request for GOAL_INFO in the endpoint '/api/goals' (works)
-app.get('/api/goals', async (req, res) => {
+app.get('/api/goals/:userId', async (req, res) => {
     try {
-        const { rows: goal_info } = await db.query('SELECT * FROM goal_info');
+        const userId = req.params.userId
+        const { rows: goal_info } = await db.query('SELECT * FROM goal_info WHERE user_fkey=$1', [userId]);
         res.send(goal_info);
     } catch (e) {
         return res.status(400).json({ e });
     }
 });
+
+
+// GET request for GOAL_INFO in the endpoint '/api/goals' (works)
+// app.get('/api/goals', async (req, res) => {
+//     try {
+//         const { rows: goal_info } = await db.query('SELECT * FROM goal_info');
+//         res.send(goal_info);
+//     } catch (e) {
+//         return res.status(400).json({ e });
+//     }
+// });
 
 // GET request for USER_TABLE in the endpoint '/api/users' (works)
 app.get('/api/users', async (req, res) => {
@@ -229,17 +265,17 @@ app.post('/api/tasks', async (req, res) => {
 app.post('/api/goals', async (req, res) => {
     try {
         const newGoal = {
-            user_fkey: req.body.user_fkey,
             image_fkey: req.body.image_fkey,
             date: req.body.date,
             goal_purpose: req.body.goal_purpose,
             goal_obstacle: req.body.goal_obstacle,
             strategy: req.body.strategy,
-            goal: req.body.goal
+            goal: req.body.goal,
+            user_fkey: req.body.user_fkey,
         };
         const result = await db.query(
-            'INSERT INTO goal_info(user_fkey, image_fkey, date, goal_purpose, goal_obstacle, strategy, goal) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-            [newGoal.user_fkey, newGoal.image_fkey, newGoal.date, newGoal.goal_purpose, newGoal.goal_obstacle, newGoal.strategy, newGoal.goal],
+            'INSERT INTO goal_info(image_fkey, date, goal_purpose, goal_obstacle, strategy, goal, user_fkey) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+            [newGoal.image_fkey, newGoal.date, newGoal.goal_purpose, newGoal.goal_obstacle, newGoal.strategy, newGoal.goal, newGoal.user_fkey],
         );
         console.log(result.rows[0]);
         res.json(result.rows[0]);
