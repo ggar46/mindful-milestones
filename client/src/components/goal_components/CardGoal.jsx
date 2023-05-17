@@ -1,9 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+
+
 import * as ioicons from 'react-icons/io5'
 import TasksForm from '../task_components/TasksForm';
+import { Grid, Image, Header, Button} from 'semantic-ui-react';
 
 const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
 
@@ -25,18 +26,31 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
     }
 
     return (
-        <div>
-        <Card className='card-goal'>
-            <Card.Body>
-            <Card.Img src={eachGoal.image_fkey}></Card.Img>
-            <Card.Title>{eachGoal.goal}</Card.Title>
-            <p>{eachGoal.date.slice(0,10)} </p>
-            <Button variant="outline-danger" onClick={()=>{onDelete(eachGoal)}} style={{padding: '0.6em', marginRight:'0.9em'}}><ioicons.IoTrash/></Button>
-            <Button variant="outline-info" onClick={handleShowModal} style={{padding: '0.6em'}}> Open Modal </Button>
-            </Card.Body>
-        </Card>
-        <TasksForm divVisibility={showModal} onCloseClick={handleCloseModal} sendGoalId={eachGoal.id}/>
-        </div>
+
+        <Grid.Row stretched className="bordered">
+            <Grid.Column>
+                <Image src={eachGoal.image_fkey}/>
+            </Grid.Column>
+            <Grid.Column>
+                <Header>{eachGoal.goal}</Header>
+                <p>{eachGoal.date.slice(0,10)} </p>
+            </Grid.Column>
+            <Grid.Column>
+                <div>
+                <Button onClick={()=>{onDelete(eachGoal)}} size="small"><ioicons.IoTrash/></Button>
+                <Button onClick={handleShowModal} size="small"> Open Modal </Button>
+                <TasksForm divVisibility={showModal} onCloseClick={handleCloseModal} sendGoalId={eachGoal.id}/>
+                </div>
+            </Grid.Column>
+  
+        </Grid.Row>
+  
+
+
+            
+        //add to listGoalCards (tasksForm)
+
+  
     )
 }
 

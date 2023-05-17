@@ -9,6 +9,8 @@
   display: flex;
   gap: 3em;
   padding: 1em;
+  width: 800px;
+  margin: auto;
 }
 
 a.navbar-brand {
@@ -79,3 +81,8 @@ button.btn.btn-primary {
   width: 400px;
 }
 
+.bordered {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+}

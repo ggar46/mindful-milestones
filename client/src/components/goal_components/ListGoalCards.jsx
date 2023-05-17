@@ -3,6 +3,7 @@ import * as ioicons from 'react-icons/io5'
 import FormGoal from './FormGoal';
 import CardGoal from './CardGoal';
 import MyNavBar from '../Navbar';
+import { Grid } from 'semantic-ui-react';
 
 const ListGoalCards = () => {
 
@@ -65,15 +66,16 @@ const ListGoalCards = () => {
     return (
         <div>
             <MyNavBar/>
-        <div className="mybody">
+        <div className="mybody" >
         <div className="list-images">
             <h2> Goals </h2>
             <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
-            <ul>
+            {/* make unordered list a grid using a UI library, semantic, outer grid here and on individual card by column and row.  */}
+            <Grid columns={3} divided textAlign='center' centered verticalAlign='middle'>
                 {goalCardArr.map((eachGoal) => {
-                    return <li key={eachGoal.id}> <CardGoal eachGoal={eachGoal} toDelete={onDelete} toUpdateGoalForm={onUpdateGoalForm} /></li>
+                    return <CardGoal key={eachGoal.id} eachGoal={eachGoal} toDelete={onDelete} toUpdateGoalForm={onUpdateGoalForm} />
                 })}
-            </ul>
+            </Grid>
         </div>
         
         </div>

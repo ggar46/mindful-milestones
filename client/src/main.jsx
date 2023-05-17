@@ -5,6 +5,7 @@ import './index.css';
 import Goals from './components/goal_components/Goals';
 import Profile from './components/Profile';
 import { Auth0Provider} from '@auth0/auth0-react';
+import 'semantic-ui-css/semantic.min.css'
 
 
 import {
