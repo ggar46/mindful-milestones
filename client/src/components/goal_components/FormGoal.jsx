@@ -133,8 +133,8 @@ const FormGoal = ({
 
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo
+      <Button id="addgoal" variant="primary" onClick={handleShow}>
+        Add Goal
       </Button>
 
       <Modal show={show} onHide={handleClose}>

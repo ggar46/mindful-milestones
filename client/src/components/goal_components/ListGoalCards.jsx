@@ -70,7 +70,6 @@ const ListGoalCards = () => {
         <div className="list-images">
             <h2> Goals </h2>
             <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
-            {/* make unordered list a grid using a UI library, semantic, outer grid here and on individual card by column and row.  */}
             <Grid columns={3} divided textAlign='center' centered verticalAlign='middle'>
                 {goalCardArr.map((eachGoal) => {
                     return <CardGoal key={eachGoal.id} eachGoal={eachGoal} toDelete={onDelete} toUpdateGoalForm={onUpdateGoalForm} />
