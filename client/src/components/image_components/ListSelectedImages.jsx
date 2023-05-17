@@ -9,8 +9,11 @@ const ListSelectedImages = () => {
 
     // this is my original state with an array of students 
     const [imageCardArr, setImageCardArr] = useState([]);
-    const { isAuthenticated, user } = useAuth0();
+    const { isAuthenticated, user } = useAuth0();//user.sub
 
+
+
+    //add usersub
     const loadImagesFromDB = () => {
         // A function to fetch the list of students that will be load anytime that list change
         fetch("/api/images")
@@ -20,6 +23,8 @@ const ListSelectedImages = () => {
             });
     }
 
+
+    //no need to add usersub, should already have it
     useEffect(() => {
         loadImagesFromDB();
     }, []);
