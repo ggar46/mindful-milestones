@@ -65,10 +65,9 @@ const ListGoalCards = () => {
 
     return (
         <div>
-            <MyNavBar/>
+
         <div className="mybody" >
         <div className="list-images">
-            <h2> Goals </h2>
             <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
             <Grid columns={3} divided textAlign='center' centered verticalAlign='middle'>
                 {goalCardArr.map((eachGoal) => {

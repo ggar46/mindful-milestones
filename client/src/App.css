@@ -5,6 +5,13 @@
   margin: 5px;
 }
 
+
+h2.goals-title{
+  text-align: center;
+  margin: auto;
+  padding: 1.5em;
+}
+
 .mybody {
   display: flex;
   gap: 3em;
@@ -81,6 +88,7 @@ button.btn.btn-primary {
   width: 400px;
 }
 
+
 .bordered {
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -96,3 +104,4 @@ button.btn.btn-primary {
 div.stretched.row.bordered{
   margin-top: 30px;;
 }
+
