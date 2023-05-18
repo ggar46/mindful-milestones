@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const FormImage = ({onSaveImageSendToImageCards}) => {
 
+  const { user, isAuthenticated, isLoading } = useAuth0(); //user.sub
   const [imageFormData, setImageFormData] = useState(
      {
       image_url: "",
-      user_fkey: "user",
+      user_fkey: user.sub,
       alt_text: "",
     }
   );
@@ -44,13 +46,13 @@ useEffect(() => {
 
 
 //my way, iteratee through and if person unchecks, then I want it removed
-const handleCheckChange = (e) => {
+const handleCheckChange = (passUser, event) => {
 
-    const checked = e.target.checked;
-    const value = e.target.value;
+    const checked = event.target.checked;
+    const value = event.target.value;
     const image_url = JSON.parse(value).src.small;
     const alt_text = JSON.parse(value).alt;
-    const user_fkey  = "user";
+    const user_fkey  = passUser;
 
     if (checked) {
       setCheckedImages([...checkedImages, { image_url, user_fkey, alt_text }]);
@@ -158,7 +160,7 @@ const handleSubmit = (e) => {
                 type="checkbox"
                 id={`checkbox-${eachImage.src.tiny}`}
                 value={JSON.stringify(eachImage)}
-                onChange={handleCheckChange}
+                onChange={(event) => handleCheckChange(user.sub, event)}
                 label={<img src={eachImage.src.tiny} alt={`${eachImage.alt}`} />}
              />
              ))}
