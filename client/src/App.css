@@ -74,6 +74,12 @@ input[type=text] {
   margin: auto;
 }
 
+button.newImageButton.btn.btn-primary {
+  display: flex;
+  margin: auto;
+  background: rgb(108, 137, 232);
+}
+
 .myicon {
   stroke: rgb(243, 121, 7);
   color: rgb(243, 121, 7);

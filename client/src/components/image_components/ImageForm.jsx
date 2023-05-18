@@ -127,7 +127,7 @@ const handleSubmit = (e) => {
 // // *********************************************************************************
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" className="newImageButton" onClick={handleShow}>
         Add new Image
       </Button>
 
@@ -166,18 +166,14 @@ const handleSubmit = (e) => {
              ))}
 
             <Form.Group>
-                <Button type="submit" variant="primary"> Add Student </Button>
+                <Button type="submit" variant="primary"> Save Images </Button>
             </Form.Group>
-        </Form>
-
-        </Modal.Body>
-        <Modal.Footer>
-
           <Button variant="secondary" onClick={handleClose}>
             close
           </Button>
-          
-        </Modal.Footer>
+        </Form>
+        </Modal.Body>
+  
       </Modal>
     </div>
   );
