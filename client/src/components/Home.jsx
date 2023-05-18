@@ -1,10 +1,9 @@
-import MyNavBar from "./Navbar";
 import ListSelectedImages from "./image_components/ListSelectedImages";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
 
-    const { isAuthenticated, user } = useAuth0();
+    const { isAuthenticated } = useAuth0();
 
     return(
         <div>

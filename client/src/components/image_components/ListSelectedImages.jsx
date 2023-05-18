@@ -3,6 +3,7 @@ import * as ioicons from 'react-icons/io5'
 import ImageForm from './ImageForm';
 import CardImage from './CardImage';
 import { useAuth0 } from "@auth0/auth0-react";
+import { Grid, Image } from 'semantic-ui-react'
 
 
 const ListSelectedImages = () => {
@@ -34,15 +35,13 @@ const ListSelectedImages = () => {
     return (
         <div>
         <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
-        <div className="mybody">
-            <div >
+        <Grid columns={3}>
                 {imageCardArr.map((eachImage) => {
-                    return <div key={eachImage.image_url}  className="list-selected-images">
+                    return <Grid.Column>
                         <CardImage eachImage={eachImage.image_url}/>   
-                        </div>  
+                        </Grid.Column>  
                 })}
-            </div>
-        </div>
+        </Grid>
         </div>
     );
 }
