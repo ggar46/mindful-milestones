@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 const FormGoal = ({
   onSaveGoalSendToGoalCards,
   editingGoalFormData,
   onUpdateGoalForm,
 }) => {
+
+  const { user } = useAuth0(); //user.sub
   // This is the original State with not initial student
   const [goalFormData, setGoalFormData] = useState(
     editingGoalFormData || {
@@ -15,7 +19,8 @@ const FormGoal = ({
       goal_purpose: "",
       goal_obstacle: "",
       strategy: "",
-      image_fkey: ""
+      image_fkey: "",
+      user_fkey: user.sub,
     }
   );
 
@@ -29,7 +34,8 @@ const FormGoal = ({
 
   //Call images array so dropdown has alt image options
   useEffect(() => {
-    fetch("/api/images")
+    let user = user.sub
+    fetch("/api/images/${user}")
       .then((response) => response.json())
       .then((dbData) => {
             setArrayOfImages(dbData);

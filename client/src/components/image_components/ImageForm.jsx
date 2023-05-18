@@ -45,17 +45,15 @@ const FormImage = ({onSaveImageSendToImageCards}) => {
 //     });
 // }
 
-
 //my way, iterate through and if person unchecks, then I want it removed
-const handleCheckChange = (passUser, event) => {
 
+const handleCheckChange = (passUser, event) => {
     const checked = event.target.checked;
     const value = event.target.value;
     console.log(value, "hopefully full JSON string 5/18.23")
     const image_url = JSON.parse(value).src.large;
     const alt_text = JSON.parse(value).alt;
     const user_fkey  = passUser;
-
     if (checked) {
       setCheckedImages([...checkedImages, { image_url, user_fkey, alt_text }]);
 

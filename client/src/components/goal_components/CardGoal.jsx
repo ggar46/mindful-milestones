@@ -26,7 +26,6 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
     }
 
     return (
-
         <Grid.Row stretched className="bordered">
             <Grid.Column>
                 <Image src={eachGoal.image_fkey}/>
@@ -43,15 +42,7 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
                 <TasksForm divVisibility={showModal} onCloseClick={handleCloseModal} sendGoalId={eachGoal.id}/>
                 </div>
             </Grid.Column>
-  
         </Grid.Row>
-  
-
-
-            
-        //add to listGoalCards (tasksForm)
-
-  
     )
 }
 

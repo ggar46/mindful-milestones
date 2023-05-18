@@ -4,9 +4,12 @@ import FormGoal from './FormGoal';
 import CardGoal from './CardGoal';
 import MyNavBar from '../Navbar';
 import { Grid } from 'semantic-ui-react';
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 const ListGoalCards = () => {
 
+    const { user, isAuthenticated, isLoading } = useAuth0(); //user.sub
     // this is my original state with an array of students 
     const [goalCardArr, setGoalCardArr] = useState([]);
 
@@ -15,26 +18,26 @@ const ListGoalCards = () => {
 
     const [setShowModal, showModalData] = useState(false);
 
-    const loadGoalsFromDB = () => {
-        // A function to fetch the list of students that will be load anytime that list change
-            fetch("/api/goals")
+    const loadGoalsFromDB = (userId) => {
+        // A function to fetch the list of goals that will be load anytime that list change
+            fetch(`/api/goals/${userId}`)
             .then((response) => response.json())
             .then((goalsFromDB) => {
                 setGoalCardArr(goalsFromDB);
             });
-
-  
     }
 
     useEffect(() => {
-        loadGoalsFromDB();
-    }, []);
+        if(user){
+            let userId = (user.sub);
+            loadGoalsFromDB(userId);
+        }
+    }, [user]);
 
     const onSaveGoalSendToGoalCards = (newGoal) => {
         //console.log(newStudent, "From the parent - List of Students");
         setGoalCardArr((goalCardArr) => [...goalCardArr, newGoal]);
     }
-
 
     //A function to control the update in the parent (student component)
     const updateGoalForm = (eachGoal) => {
