@@ -131,12 +131,6 @@ div.stretched.row.bordered{
   border-radius: 15px;
 }
 
-/* .list-selected-images{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
-} */
-
 .form-button-container {
   display: flex;
   justify-content: space-between;
@@ -171,8 +165,3 @@ button {
   background-color: rgb(107, 136, 232); 
   color: white;
 }
-
-/* .img.card-img custom-card-image{
-  border-radius: 15px;
-}
- */
