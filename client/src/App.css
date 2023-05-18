@@ -175,16 +175,16 @@ button.closeForm.btn.btn-secondary:hover {
 
 .login-button, .logout-button {
   display: flex;
+  background-color: rgb(144, 139, 237);
   margin: auto;
-  background: rgb(255, 255, 255);
-  color:rgb(0, 0, 0);
+  color:rgb(255, 255, 255);
   border-radius: 7px;
   padding: 13px;
   transition-duration: 0.4s;
 }
 
 .logout-button:hover, .logout-button:hover {
-  background-color: rgb(87, 80, 207);
+  background: rgb(0, 0, 0);
   color: white;
 }
 
