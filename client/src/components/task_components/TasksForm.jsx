@@ -125,7 +125,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
                             name="task"
                             onChange={handleAddedTaskValue}
                         />
-                        <input type="submit" value = "Submit" />
+                        <input classname="task-submit"  type="submit" value = "Submit" />
             </Form> 
 
 

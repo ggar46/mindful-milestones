@@ -34,11 +34,12 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
             <Grid.Column>
                 <Header>{eachGoal.goal}</Header>
                 <p>{eachGoal.date.slice(0,10)} </p>
+                <p> 1/5 Tasks (receive from tasks component, itereate where is_checked === true)</p>
             </Grid.Column>
             <Grid.Column>
                 <div>
                 <Button onClick={()=>{onDelete(eachGoal)}} size="small"><ioicons.IoTrash/></Button>
-                <Button onClick={handleShowModal} size="small"> Open Modal </Button>
+                <Button onClick={handleShowModal} size="small"> Goal Info </Button>
                 <TasksForm divVisibility={showModal} onCloseClick={handleCloseModal} sendGoalId={eachGoal.id}/>
                 </div>
             </Grid.Column>

@@ -3,7 +3,7 @@ import * as ioicons from 'react-icons/io5'
 import ImageForm from './ImageForm';
 import CardImage from './CardImage';
 import { useAuth0 } from "@auth0/auth0-react";
-import { Grid, Image } from 'semantic-ui-react'
+
 
 
 const ListSelectedImages = () => {
@@ -29,21 +29,16 @@ const ListSelectedImages = () => {
         //console.log(newStudent, "From the parent - List of Students");
         //console.log(newImage, "from listImageeFunction")
         setImageCardArr((imageCardArr) => [...imageCardArr, newImage]);
-        console.log(imageCardArr, "send this (ARRAY WITH 2 INSTEAD OF ONNE OBJECT")
     }
 
     return (
         <div>
             <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
-        <div className="card-container">
-            <Grid columns={3} className="image-card-container">
+            <div className="image-card-container">
                     {imageCardArr.map((eachImage) => {
-                        return <Grid.Column>
-                            <CardImage className="each-image-card" eachImage={eachImage.image_url}/>   
-                            </Grid.Column>  
+                        return <CardImage eachImage={eachImage.image_url}/>   
                     })}
-            </Grid>
-        </div>
+            </div>
         </div>
     );
 }
