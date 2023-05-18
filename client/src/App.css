@@ -123,6 +123,15 @@ button.closeForm.btn.btn-secondary{
   margin-top: 20px;
 }
 
+button.btn.btn-secondary {
+  display: flex;
+  background: rgb(230, 111, 111);
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
 newImageButton.btn.btn-primary:hover,
 #addgoal.btn.btn-primary:hover, input[type="submit"]:hover{
   background: rgb(54, 90, 210);
@@ -202,6 +211,12 @@ div.stretched.row.bordered {
   display: flex;
   padding-left: 5%;
   padding-right: 55%;
+}
+
+.goal-buttons-container{
+  display: flex;
+  padding-left: 5%;
+  padding-right: 0%;
 }
 
 .custom-card {

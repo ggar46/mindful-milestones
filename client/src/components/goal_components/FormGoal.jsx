@@ -216,13 +216,19 @@ const FormGoal = ({
           </Form.Group>
           {/* ********************************************************************************* */}
           <Form.Group>
-            <Button type="submit" variant="outline-success">
-              {goalFormData.id ? "Edit Student" : "Add Student"}
-            </Button>
+            <div className="goal-buttons-container">
+              <Button type="submit" variant="primary">
+                {goalFormData.id ? "Edit Student" : "Add Student"}
+              </Button>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+            </div>
+
             {goalFormData.id ? (
               <Button
                 type="button"
-                variant="outline-warning"
+                variant="primary"
                 onClick={clearForm}
               >
                 Cancel
@@ -231,14 +237,6 @@ const FormGoal = ({
           </Form.Group>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleClose}>
-          Save Changes
-        </Button>
-      </Modal.Footer>
     </Modal>
   </div>
   
