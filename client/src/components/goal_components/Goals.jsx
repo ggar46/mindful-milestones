@@ -1,4 +1,5 @@
 import ListGoalCards from "./ListGoalCards";
+import MyNavBar from "../Navbar";
 
 const Goals = () => {
 
