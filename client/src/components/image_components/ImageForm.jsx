@@ -165,12 +165,15 @@ const handleSubmit = (e) => {
              />
              ))}
 
+
+          <div className="form-button-container">
             <Form.Group>
                 <Button type="submit" variant="primary"> Save Images </Button>
             </Form.Group>
-          <Button variant="secondary" onClick={handleClose}>
-            close
-          </Button>
+            <Button variant="secondary" onClick={handleClose}>
+              close
+            </Button>
+          </div>
         </Form>
         </Modal.Body>
   
