@@ -17,7 +17,7 @@ function MyNavBar(props) {
           <Navbar.Brand href="/">
             <img
               src={brainWebLogo}
-              height="30"
+              height="73"
               className="d-lg-inline-block"
               alt="React Bootstrap logo"
             />
