@@ -161,3 +161,8 @@ div.stretched.row.bordered{
   height: 100%;
   object-fit: cover;
 }
+
+.custom-navbar-container {
+  height: 60px;
+
+}
