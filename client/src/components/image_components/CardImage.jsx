@@ -17,14 +17,3 @@ export default CardImage;
 
 
 
-
-
-
-// return (
-//     <Card>
-//          <Card.Body>
-//          <Card.Img src={eachImage} ></Card.Img>
-//          </Card.Body>
-//     </Card>
-// )
-// }
