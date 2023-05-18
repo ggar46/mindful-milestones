@@ -2,7 +2,7 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Logo from '../assets/BlueTechtonicaWord.png'
+import braingrey from '../assets/braingrey.png'
 import { useAuth0 } from "@auth0/auth0-react";
 import { Outlet, Link } from "react-router-dom";
 
@@ -12,12 +12,12 @@ function MyNavBar(props) {
 
   return (
     <>
-      <Navbar data-testid="navbar" bg="dark" variant="dark" sticky="top">
-        <Container>
+      <Navbar id="navbar" data-testid="navbar" bg="blue" variant="light" sticky="top" className="custom-navbar">
+        <Container className="custom-navbar-container">
           <Navbar.Brand href="/">
             <img
-              src={Logo}
-              height="30"
+              src={braingrey}
+              height="73"
               className="d-lg-inline-block"
               alt="React Bootstrap logo"
             />
@@ -31,7 +31,7 @@ function MyNavBar(props) {
           <Navbar.Collapse className="justify-content-end">
           
             <Navbar.Text>
-              {!isAuthenticated ? (<button onClick={() => loginWithRedirect()}>Log In</button>) : (<button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+              {!isAuthenticated ? (<button className="login-button" onClick={() => loginWithRedirect()}>Log In</button>) : (<button className="logout-button" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
               Log Out
               </button>)}
 

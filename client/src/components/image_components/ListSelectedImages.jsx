@@ -5,6 +5,7 @@ import CardImage from './CardImage';
 import { useAuth0 } from "@auth0/auth0-react";
 
 
+
 const ListSelectedImages = () => {
 
     // this is my original state with an array of students 
@@ -33,27 +34,16 @@ const ListSelectedImages = () => {
         //console.log(newStudent, "From the parent - List of Students");
         //console.log(newImage, "from listImageeFunction")
         setImageCardArr((imageCardArr) => [...imageCardArr, newImage]);
-        console.log(imageCardArr, "send this (ARRAY WITH 2 INSTEAD OF ONNE OBJECT")
     }
 
     return (
-        <div className="mybody">
-      
-        <div className="list-images">
-            <h2> Images </h2>
+        <div>
             <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
-            <ul>
-                {imageCardArr.map((eachImage) => {
-                    return <li key={eachImage.image_url}>  
-                        <CardImage eachImage={eachImage.image_url}/>   
-                    </li>
-                })}
-            </ul>
-          
-        </div>
-        
-
-     
+            <div className="image-card-container">
+                    {imageCardArr.map((eachImage) => {
+                        return <CardImage eachImage={eachImage.image_url}/>   
+                    })}
+            </div>
         </div>
     );
 }

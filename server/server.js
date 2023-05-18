@@ -47,7 +47,8 @@ app.get("/api/pexels", (req, res) => {
       res.json(mockdata);
   });
 
-  
+
+//uncomment for search  
 //API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
 // app.get('/api/pexels/:searchedbyuser', async (req, res) => {
 //     try {

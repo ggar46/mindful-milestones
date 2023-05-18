@@ -1,14 +1,85 @@
+/* General Styles */
 .App {
   min-height: 100vh;
-  background-color: rgb(238, 230, 225);
-  color:rgb(208, 109, 134);
+  background-color: rgb(255, 255, 255);
+  color: rgb(33, 29, 30);
   margin: 5px;
 }
 
-.mybody {
-  display: flex;
-  gap: 3em;
-  padding: 1em;
+h2.goals-title, h2.imagesTitle{
+  text-align: center;
+  margin: auto;
+  padding-top: 2em;
+  padding-bottom: .5em;
+  color:rgb(149, 119, 233);
+}
+
+h1 {
+  text-align: center;
+  margin: auto;
+  padding: 1.5em;
+}
+
+
+/* goal component  */
+.mygoalbody {
+  padding: 20px;
+}
+
+.list-goal-cards {
+  margin-top: 20px; /* Add desired margin space */
+}
+
+.goal-card-container {
+  height: 300px; /* Add desired height for each row */
+}
+
+.goal-cards {
+  margin-bottom: 20px
+}
+
+.image-card-container {
+  display: grid;
+  margin-top: 2%;
+  grid-gap: 10px;
+  grid-template-columns: repeat(4, minmax(320px, 1fr) ) ;
+  background-color: #f7f7f7;
+  width: 100%;
+  justify-items: center;
+  /* display: grid;
+  grid-template-columns: auto auto auto;
+  margin: 5%;
+  background-color: red;
+  height: 100%;
+  width: 100%;
+  padding: 5%; */
+}
+
+/* .each-card-div {
+  background-color: aquamarine;
+  width: 100%;
+  padding: 5%;
+  margin: 5%;
+} */
+
+.each-image-card{
+  height: 250px;
+  width: 300px;
+  margin-bottom: 4%;
+}
+
+.actual-image > img {
+  object-fit: cover;
+  max-width: 300px;
+  max-height: 250px !important;
+  height: 250px;
+  width: 300px;
+}
+
+a.nav-link{
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  font-size: large;
+  font-weight: bold;
 }
 
 a.navbar-brand {
@@ -16,21 +87,15 @@ a.navbar-brand {
 }
 
 .nav-link {
-  color: white !important;
+  color: rgb(139, 108, 200) !important;
   margin-left: 5em;
-}
-
-.list-students {
-  text-align: center;
-  margin-top: 25px;
-  flex: 1
 }
 
 ul {
   list-style-type: none;
 }
 
-
+/* Form Styles */
 form {
   flex-direction: column;
   align-items: center;
@@ -39,18 +104,88 @@ form {
   flex: 1;
 }
 
-input[type=text] {
+input[type="text"], select,
+textarea, input[type="submit"]{
   display: inline-block;
   margin-top: -10px;
   width: 100%;
   font-size: 15px;
   border-radius: 2px;
-  border: 3px solid #98d0f1
+  border: 3px solid #98d0f1;
+  padding: 0.5em;
 }
 
-button.btn.btn-primary {
+#date-label {
+  padding-top: 6px;
+  padding-right: 10px;
+  padding-bottom: 7.5px;
+}
+
+input#add-date {
+  display: inline-block;
+  margin-top: -10px;
+  width: 100%;
+  font-size: 15px;
+  border-radius: 2px;
+  border: 3px solid #98d0f1;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  /* padding: 0.5em; */
+}
+
+.btn.btn-primary {
   display: flex;
-  justify-content: space-around;
+  margin: auto;
+  background: rgb(175, 185, 244);
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+button.closeForm.btn.btn-secondary{
+  display: flex;
+  margin: auto;
+  background: rgb(230, 111, 111);
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+button.btn.btn-secondary {
+  display: flex;
+  background: rgb(230, 111, 111);
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+newImageButton.btn.btn-primary:hover,
+#addgoal.btn.btn-primary:hover, input[type="submit"]:hover{
+  background: rgb(54, 90, 210);
+  color:rgb(255, 255, 255);
+}
+
+button.closeForm.btn.btn-secondary:hover {
+  background: rgb(173, 35, 35);
+  color:rgb(255, 255, 255);
+}
+
+.login-button, .logout-button {
+  display: flex;
+  background-color: rgb(144, 139, 237);
+  margin: auto;
+  color:rgb(255, 255, 255);
+  border-radius: 7px;
+  padding: 13px;
+  transition-duration: 0.4s;
+}
+
+.logout-button:hover, .logout-button:hover {
+  background: rgb(0, 0, 0);
+  color: white;
 }
 
 .myicon {
@@ -61,14 +196,19 @@ button.btn.btn-primary {
 }
 
 .form-label {
-  margin-bottom: 0 !important;
+  margin-bottom: 7.5px;
   margin-top: 0.5em;
+}
+
+#goalField {
+  padding-bottom: 7px;;
 }
 
 .form-check {
   margin-top: 1em;
 }
 
+/* Card Styles */
 .card-body {
   margin-left: 2em;
   margin-right: 2em;
@@ -78,4 +218,83 @@ button.btn.btn-primary {
   height: 300px;
   width: 400px;
 }
+
+/* Container Styles */
+.bordered {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin: auto;
+}
+
+#addgoal {
+  padding: 10px;
+  margin: auto;
+}
+
+div.stretched.row.bordered {
+  /* margin-top: 30px; */
+  margin-right: 90px;
+  margin-left: 90px;
+  border-radius: 15px;
+  margin-top: 10px;
+  
+}
+
+.form-button-container {
+  display: flex;
+  padding-left: 5%;
+  padding-right: 55%;
+}
+
+.goal-buttons-container{
+  display: flex;
+  padding-left: 12%;
+  padding-right: 0%;
+}
+
+.newTaskButtons {
+  display: flex;
+  padding-left: 13%;
+  padding-right: 0%;
+}
+
+.custom-card {
+  overflow: hidden;
+  width: 300px;
+  height: 400px;
+}
+
+.custom-navbar-container {
+  height: 45px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+#navbar {
+  background-color: rgb(231, 235, 241);
+  height: 75px;
+}
+
+/* Image Styles */
+.image.ui.image {
+  border-radius: 15px;
+}
+
+#trash {
+  background-color: rgb(249, 118, 118);
+}
+
+/* Button Styles */
+button {
+  border-radius: 15px;
+  background-color: rgb(107, 136, 232);
+  color: white;
+}
+
+div.ui.centered.divided.center.aligned.middle.three.column.grid {
+  padding-top: 20px;
+}
+
 

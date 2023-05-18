@@ -125,7 +125,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
                             name="task"
                             onChange={handleAddedTaskValue}
                         />
-                        <input type="submit" value = "Submit" />
+                        <input classname="task-submit"  type="submit" value = "Submit" />
             </Form> 
 
 
@@ -142,15 +142,12 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
              />
              ))}
 
-            <Form.Group>
+            <Form.Group className='newTaskButtons'>
                 <Button type="submit" variant="primary"> Save Changes </Button>
+                <Button variant="secondary" onClick={handleCloseClick}>close</Button> 
             </Form.Group>
         </Form>
-
         </Modal.Body>
-        <Modal.Footer>
-        <Button variant="secondary" onClick={handleCloseClick}>close</Button> 
-        </Modal.Footer>
         </Modal>
     </div>
     );

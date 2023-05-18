@@ -3,7 +3,9 @@ import * as ioicons from 'react-icons/io5'
 import FormGoal from './FormGoal';
 import CardGoal from './CardGoal';
 import MyNavBar from '../Navbar';
+import { Grid } from 'semantic-ui-react';
 import { useAuth0 } from "@auth0/auth0-react";
+
 
 const ListGoalCards = () => {
 
@@ -66,18 +68,20 @@ const ListGoalCards = () => {
 
     return (
         <div>
-            <MyNavBar/>
-        <div className="mybody">
-        <div className="list-images">
-            <h2> Goals </h2>
+
+        <div className="mygoalbody" >
+
             <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
-            <ul>
-                {goalCardArr.map((eachGoal) => {
-                    return <li key={eachGoal.id}> <CardGoal eachGoal={eachGoal} toDelete={onDelete} toUpdateGoalForm={onUpdateGoalForm} /></li>
-                })}
-            </ul>
-        </div>
         
+        <div className="list-goal-cards">
+        <div className="goal-card-container">
+            <Grid columns={3} divided textAlign='center' centered verticalAlign='middle'>
+                {goalCardArr.map((eachGoal) => {
+                    return <CardGoal className="goal-cards" key={eachGoal.id} eachGoal={eachGoal} toDelete={onDelete} toUpdateGoalForm={onUpdateGoalForm} />
+                })}
+            </Grid>
+        </div>
+        </div>   
         </div>
         </div>
     );

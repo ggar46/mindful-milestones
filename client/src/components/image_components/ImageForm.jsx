@@ -17,15 +17,16 @@ const FormImage = ({onSaveImageSendToImageCards}) => {
   const [arrayOfImages, setArrayOfImages] = useState([]); //from API directly, will use for search
   const [show, setShow] = useState(false);
   const [checkedImages, setCheckedImages] = useState([]);
-  // const [searchedValue, seetSearchedValue] = useState([]);
+  // //uncomment for search
+  // const [searchedValue, setSearchedValue] = useState([]);
  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);  
 
 
-  //useful to rerender as API changes
-useEffect(() => {
-  }, [imageFormData]);
+//useful to rerender as API changes, not needed for API
+// useEffect(() => {
+//   }, [imageFormData]);
 
   useEffect(() => {
     fetch("/api/pexels")
@@ -35,7 +36,7 @@ useEffect(() => {
       });
   }, []);
 
-//API fetch request
+//API fetch request, uncomment for search
 // const searchByUserInput = (incomingData) => {
 //   fetch(`/api/pexels/${incomingData}`)
 //     .then((response) => response.json())
@@ -44,16 +45,15 @@ useEffect(() => {
 //     });
 // }
 
+//my way, iterate through and if person unchecks, then I want it removed
 
-//my way, iteratee through and if person unchecks, then I want it removed
 const handleCheckChange = (passUser, event) => {
-
     const checked = event.target.checked;
     const value = event.target.value;
-    const image_url = JSON.parse(value).src.small;
+    console.log(value, "hopefully full JSON string 5/18.23")
+    const image_url = JSON.parse(value).src.large;
     const alt_text = JSON.parse(value).alt;
     const user_fkey  = passUser;
-
     if (checked) {
       setCheckedImages([...checkedImages, { image_url, user_fkey, alt_text }]);
 
@@ -67,10 +67,11 @@ const handleCheckChange = (passUser, event) => {
   };
 
 
-  // const handleSearchedValue = (event) => {
-  //   const value = event.target.value;
-  //   seetSearchedValue(value);
-  //  }
+// //uncomment for search
+//   const handleSearchedValue = (event) => {
+//     const value = event.target.value;
+//     setSearchedValue(value);
+//    }
 
 
 
@@ -118,16 +119,17 @@ const handleSubmit = (e) => {
   };
 
 
+//uncomment for search
 // const handleSearchSubmit = (e) => {
 //   e.preventDefault();
-//   //put searched value into api get reeequest, which will automatically get 3 results
+//   //put searched value into api get request, which will automatically get 3 results
 //   searchByUserInput(searchedValue);
 // }
 
 // // *********************************************************************************
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" className="newImageButton" onClick={handleShow}>
         Add new Image
       </Button>
 
@@ -138,7 +140,7 @@ const handleSubmit = (e) => {
         <Modal.Body>
 
 
-{/* 
+        {/* uncomment for search
         <Form className="form-search" onSubmit={handleSearchSubmit}>
           <Form.Label> Select image/images </Form.Label>
           <input
@@ -165,19 +167,20 @@ const handleSubmit = (e) => {
              />
              ))}
 
+
+          <div className="form-button-container">
             <Form.Group>
-                <Button type="submit" variant="primary"> Add Student </Button>
+                <Button type="submit" variant="primary"> Save Images </Button> 
+ 
             </Form.Group>
+                <Button className="closeForm" variant="secondary" onClick={handleClose}>
+                  close
+                </Button>
+          </div>
+  
         </Form>
-
         </Modal.Body>
-        <Modal.Footer>
-
-          <Button variant="secondary" onClick={handleClose}>
-            close
-          </Button>
-          
-        </Modal.Footer>
+  
       </Modal>
     </div>
   );
