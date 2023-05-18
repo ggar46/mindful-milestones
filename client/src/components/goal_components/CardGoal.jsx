@@ -38,7 +38,7 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
             </Grid.Column>
             <Grid.Column>
                 <div>
-                <Button onClick={()=>{onDelete(eachGoal)}} size="small"><ioicons.IoTrash/></Button>
+                <Button id="trash" onClick={()=>{onDelete(eachGoal)}} size="small"><ioicons.IoTrash/></Button>
                 <Button onClick={handleShowModal} size="small"> Goal Info </Button>
                 <TasksForm divVisibility={showModal} onCloseClick={handleCloseModal} sendGoalId={eachGoal.id}/>
                 </div>
