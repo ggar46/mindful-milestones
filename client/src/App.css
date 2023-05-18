@@ -215,7 +215,13 @@ div.stretched.row.bordered {
 
 .goal-buttons-container{
   display: flex;
-  padding-left: 5%;
+  padding-left: 12%;
+  padding-right: 0%;
+}
+
+.newTaskButtons {
+  display: flex;
+  padding-left: 13%;
   padding-right: 0%;
 }
 
