@@ -37,8 +37,8 @@ const ListSelectedImages = () => {
         <div className="mybody">
             <div >
                 {imageCardArr.map((eachImage) => {
-                    return <div className="list-selected-images">
-                        <CardImage key={eachImage.image_url} eachImage={eachImage.image_url}/>   
+                    return <div key={eachImage.image_url}  className="list-selected-images">
+                        <CardImage eachImage={eachImage.image_url}/>   
                         </div>  
                 })}
             </div>
