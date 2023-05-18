@@ -135,7 +135,8 @@ button.newImageButton.btn.btn-primary {
 }
 
 div.stretched.row.bordered{
-  margin-top: 30px;;
+  margin-top: 30px;
+  border-radius: 15px;
 }
 
 /* .list-selected-images{
@@ -164,5 +165,22 @@ div.stretched.row.bordered{
 
 .custom-navbar-container {
   height: 60px;
-
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
+
+.image.ui.image{
+  border-radius: 15px;
+}
+
+button {
+  border-radius: 15px;
+  background-color: rgb(107, 136, 232); 
+  color: white;
+}
+
+/* .img.card-img custom-card-image{
+  border-radius: 15px;
+}
+ */
