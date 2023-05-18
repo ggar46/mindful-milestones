@@ -9,7 +9,7 @@ const Home = () => {
         <div>
             {isAuthenticated? (
             <div>
-            <h2 className="imagesTitle"> Images </h2>
+            <h2 className="imagesTitle"> Vision Board </h2>
             <ListSelectedImages/>
             </div>
             ):  ("")}
