@@ -6,8 +6,13 @@
   margin: 5px;
 }
 
-h2.goals-title,
-h2.imagesTitle,
+h2.goals-title, h2.imagesTitle{
+  text-align: center;
+  margin: auto;
+  padding-top: 2em;
+  padding-bottom: .5em;
+}
+
 h1 {
   text-align: center;
   margin: auto;
@@ -68,6 +73,12 @@ h1 {
   max-height: 250px !important;
   height: 250px;
   width: 300px;
+}
+
+a.nav-link{
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  font-size: large;
+  font-weight: bold;
 }
 
 a.navbar-brand {
@@ -166,8 +177,8 @@ button.closeForm.btn.btn-secondary:hover {
   margin: auto;
   background: rgb(255, 255, 255);
   color:rgb(0, 0, 0);
-  border-radius: 15px;
-  padding: 10px;
+  border-radius: 7px;
+  padding: 13px;
   transition-duration: 0.4s;
 }
 
@@ -221,8 +232,12 @@ button.closeForm.btn.btn-secondary:hover {
 }
 
 div.stretched.row.bordered {
-  margin-top: 30px;
+  /* margin-top: 30px; */
+  margin-right: 90px;
+  margin-left: 90px;
   border-radius: 15px;
+  margin-top: 10px;
+  
 }
 
 .form-button-container {
@@ -250,10 +265,15 @@ div.stretched.row.bordered {
 }
 
 .custom-navbar-container {
-  height: 60px;
+  height: 45px;
   flex-grow: 1;
   display: flex;
   align-items: center;
+}
+
+#navbar {
+  background-color: rgb(231, 235, 241);
+  height: 75px;
 }
 
 /* Image Styles */
@@ -272,6 +292,8 @@ button {
   color: white;
 }
 
-
+div.ui.centered.divided.center.aligned.middle.three.column.grid {
+  padding-top: 20px;
+}
 
 

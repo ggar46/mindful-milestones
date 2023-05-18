@@ -2,7 +2,7 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import brainWebLogo from '../assets/brainWebLogo.png'
+import braingrey from '../assets/braingrey.png'
 import { useAuth0 } from "@auth0/auth0-react";
 import { Outlet, Link } from "react-router-dom";
 
@@ -12,11 +12,11 @@ function MyNavBar(props) {
 
   return (
     <>
-      <Navbar data-testid="navbar" bg="white" variant="light" sticky="top" className="custom-navbar">
+      <Navbar id="navbar" data-testid="navbar" bg="blue" variant="light" sticky="top" className="custom-navbar">
         <Container className="custom-navbar-container">
           <Navbar.Brand href="/">
             <img
-              src={brainWebLogo}
+              src={braingrey}
               height="73"
               className="d-lg-inline-block"
               alt="React Bootstrap logo"

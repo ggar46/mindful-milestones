@@ -69,6 +69,7 @@ const ListGoalCards = () => {
         <div className="mygoalbody" >
 
             <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
+        
         <div className="list-goal-cards">
         <div className="goal-card-container">
             <Grid columns={3} divided textAlign='center' centered verticalAlign='middle'>
