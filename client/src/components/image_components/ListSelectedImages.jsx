@@ -32,10 +32,10 @@ const ListSelectedImages = () => {
     }
 
     return (
+        <div>
+        <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
         <div className="mybody">
-      
         <div className="list-selected-images">
-            <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
             <div>
                 {imageCardArr.map((eachImage) => {
                     return <div>
@@ -43,11 +43,8 @@ const ListSelectedImages = () => {
                         </div>  
                 })}
             </div>
-          
         </div>
-        
-
-     
+        </div>
         </div>
     );
 }

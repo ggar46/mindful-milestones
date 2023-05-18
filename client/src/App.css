@@ -69,16 +69,18 @@ input[type=text] {
   border: 3px solid #98d0f1
 }
 
-#addgoal.btn.btn-primary {
-  display: flex;
-  margin: auto;
-}
-
 button.newImageButton.btn.btn-primary {
   display: flex;
   margin: auto;
   background: rgb(108, 137, 232);
 }
+
+#addgoal.btn.btn-primary {
+  display: flex;
+  margin: auto;
+}
+
+
 
 .myicon {
   stroke: rgb(243, 121, 7);
@@ -133,3 +135,4 @@ div.stretched.row.bordered{
   justify-content: space-between;
   padding: 3%;
 }
+
