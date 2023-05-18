@@ -10,7 +10,6 @@ const Home = () => {
         <div>
             {isAuthenticated? (
             <div>
-            <h1 className="homeTitle">Home page!</h1>
             <h2 className="imagesTitle"> Images </h2>
             <ListSelectedImages/>
             </div>
