@@ -144,7 +144,7 @@ const FormGoal = ({
       <Modal.Body>
         <Form className="form-students" onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label>Goal</Form.Label>
+            <Form.Label id="goalField">Goal</Form.Label>
             <input
               type="text"
               id="add-goal"
