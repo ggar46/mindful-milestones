@@ -34,14 +34,16 @@ const ListSelectedImages = () => {
 
     return (
         <div>
-        <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
-        <Grid columns={3}>
-                {imageCardArr.map((eachImage) => {
-                    return <Grid.Column>
-                        <CardImage eachImage={eachImage.image_url}/>   
-                        </Grid.Column>  
-                })}
-        </Grid>
+            <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
+        <div className="card-container">
+            <Grid columns={3} className="image-card-container">
+                    {imageCardArr.map((eachImage) => {
+                        return <Grid.Column>
+                            <CardImage className="each-image-card" eachImage={eachImage.image_url}/>   
+                            </Grid.Column>  
+                    })}
+            </Grid>
+        </div>
         </div>
     );
 }

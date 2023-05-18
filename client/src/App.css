@@ -13,22 +13,21 @@ h1 {
   margin: auto;
   padding: 1.5em;
 }
-/* 
-.image-container {
-  display: grid;
-  justify-items: center;
-  gap: 3em;
-  padding: 1em;
-  grid-template-columns: repeat(3, 1fr);
-}
 
-
-.list-selected-images {
-  flex: 0 0 33.33%; 
+.card-container{
   display: flex;
   justify-content: center;
-  margin: 10px;
-} */
+  margin-top: 40px;
+  height: 100vh;
+}
+
+.image-card-container {
+  margin: auto;
+}
+
+.each-image-card{
+  margin: auto;
+}
 
 a.navbar-brand {
   margin-inline-start: -5em;
