@@ -25,12 +25,25 @@ h1{
 }
 
 .mybody {
+  display: grid;
+  justify-items: center;
+  gap: 3em;
+  padding: 1em;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.list-selected-images {
+  margin: 10px;
+}
+
+/* .mybody {
   display: flex;
+  justify-content: center;
   gap: 3em;
   padding: 1em;
   width: 980px;
   margin: auto;
-}
+} */
 
 a.navbar-brand {
   margin-inline-start: -5em;
@@ -125,10 +138,11 @@ div.stretched.row.bordered{
   margin-top: 30px;;
 }
 
-.list-selected-images{
+/* .list-selected-images{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-}
+  justify-items: center;
+} */
 
 .form-button-container {
   display: flex;
