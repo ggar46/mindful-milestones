@@ -35,7 +35,6 @@ const ListSelectedImages = () => {
         <div className="mybody">
       
         <div className="list-selected-images">
-            <h2> Images </h2>
             <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
             <div>
                 {imageCardArr.map((eachImage) => {

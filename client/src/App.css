@@ -12,6 +12,18 @@ h2.goals-title{
   padding: 1.5em;
 }
 
+h2.imagesTitle{
+  text-align: center;
+  margin: auto;
+  padding: 1.5em;
+}
+
+h1{
+  text-align: center;
+  margin: auto;
+  padding: 1.5em;
+}
+
 .mybody {
   display: flex;
   gap: 3em;
