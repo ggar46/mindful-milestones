@@ -5,12 +5,26 @@ const CardImage = ({eachImage}) => {
 
     console.log(eachImage, "in card")
     return (
-        <Card>
-             <Card.Body>
-             <Card.Img src={eachImage}></Card.Img>
-             </Card.Body>
-        </Card>
-    )
-}
+        <Card className="custom-card">
+        <Card.Img src={eachImage} className="custom-card-image"></Card.Img>
+      </Card>
+      )
+    }
+
+
 
 export default CardImage;
+
+
+
+
+
+
+// return (
+//     <Card>
+//          <Card.Body>
+//          <Card.Img src={eachImage} ></Card.Img>
+//          </Card.Body>
+//     </Card>
+// )
+// }
