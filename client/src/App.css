@@ -89,6 +89,21 @@ button.newImageButton.btn.btn-primary,
   padding: 10px;
 }
 
+.login-button, .logout-button {
+  display: flex;
+  margin: auto;
+  background: rgb(255, 255, 255);
+  color:rgb(0, 0, 0);
+  border-radius: 15px;
+  padding: 10px;
+  transition-duration: 0.4s;
+}
+
+.logout-button:hover, .logout-button:hover {
+  background-color: rgb(87, 80, 207);
+  color: white;
+}
+
 .myicon {
   stroke: rgb(243, 121, 7);
   color: rgb(243, 121, 7);
