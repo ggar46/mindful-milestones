@@ -84,9 +84,16 @@ button.newImageButton.btn.btn-primary,
 #addgoal.btn.btn-primary {
   display: flex;
   margin: auto;
-  background: rgb(108, 137, 232);
+  background: rgb(166, 185, 249);
+  color: black;
   border-radius: 15px;
   padding: 10px;
+}
+
+newImageButton.btn.btn-primary:hover,
+#addgoal.btn.btn-primary:hover {
+  background: rgb(27, 71, 218);
+  color:rgb(255, 255, 255);
 }
 
 .login-button, .logout-button {
