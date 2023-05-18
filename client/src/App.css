@@ -14,6 +14,24 @@ h1 {
   padding: 1.5em;
 }
 
+
+/* goal component  */
+.mygoalbody {
+  padding: 20px;
+}
+
+.list-goal-cards {
+  margin-top: 20px; /* Add desired margin space */
+}
+
+.goal-card-container {
+  height: 300px; /* Add desired height for each row */
+}
+
+.goal-cards {
+  margin-bottom: 20px
+}
+
 .card-container{
   display: flex;
   justify-content: center;
@@ -156,3 +174,7 @@ button {
   background-color: rgb(107, 136, 232);
   color: white;
 }
+
+
+
+

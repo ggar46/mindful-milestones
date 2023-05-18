@@ -66,16 +66,18 @@ const ListGoalCards = () => {
     return (
         <div>
 
-        <div className="mybody" >
-        <div className="list-goal-cards">
+        <div className="mygoalbody" >
+
             <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
+        <div className="list-goal-cards">
+        <div className="goal-card-container">
             <Grid columns={3} divided textAlign='center' centered verticalAlign='middle'>
                 {goalCardArr.map((eachGoal) => {
-                    return <CardGoal key={eachGoal.id} eachGoal={eachGoal} toDelete={onDelete} toUpdateGoalForm={onUpdateGoalForm} />
+                    return <CardGoal className="goal-cards" key={eachGoal.id} eachGoal={eachGoal} toDelete={onDelete} toUpdateGoalForm={onUpdateGoalForm} />
                 })}
             </Grid>
         </div>
-        
+        </div>   
         </div>
         </div>
     );
