@@ -155,7 +155,7 @@ const FormGoal = ({
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Date</Form.Label>
+            <Form.Label id="date-label">Date</Form.Label>
             <input
               type="date"
               id="add-date"

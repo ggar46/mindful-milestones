@@ -93,7 +93,7 @@ form {
 }
 
 input[type="text"], select,
-textarea, input[type="submit"]  {
+textarea, input[type="submit"]{
   display: inline-block;
   margin-top: -10px;
   width: 100%;
@@ -101,6 +101,24 @@ textarea, input[type="submit"]  {
   border-radius: 2px;
   border: 3px solid #98d0f1;
   padding: 0.5em;
+}
+
+#date-label {
+  padding-top: 6px;
+  padding-right: 10px;
+  padding-bottom: 7.5px;
+}
+
+input#add-date {
+  display: inline-block;
+  margin-top: -10px;
+  width: 100%;
+  font-size: 15px;
+  border-radius: 2px;
+  border: 3px solid #98d0f1;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  /* padding: 0.5em; */
 }
 
 .btn.btn-primary {
