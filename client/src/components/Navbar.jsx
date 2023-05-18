@@ -12,7 +12,7 @@ function MyNavBar(props) {
 
   return (
     <>
-      <Navbar data-testid="navbar" bg="light" variant="light" sticky="top">
+      <Navbar data-testid="navbar" bg="white" variant="light" sticky="top" className="custom-navbar">
         <Container className="custom-navbar-container">
           <Navbar.Brand href="/">
             <img
