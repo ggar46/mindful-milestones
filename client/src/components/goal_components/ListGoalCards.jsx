@@ -9,7 +9,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const ListGoalCards = () => {
 
-    const { user, isAuthenticated, isLoading } = useAuth0(); //user.sub
     // this is my original state with an array of students 
     const [goalCardArr, setGoalCardArr] = useState([]);
 
@@ -18,9 +17,9 @@ const ListGoalCards = () => {
 
     const [setShowModal, showModalData] = useState(false);
 
-    const loadGoalsFromDB = (userId) => {
+    const loadGoalsFromDB = () => {
         // A function to fetch the list of goals that will be load anytime that list change
-            fetch(`/api/goals/${userId}`)
+            fetch(`/api/goals/`)
             .then((response) => response.json())
             .then((goalsFromDB) => {
                 setGoalCardArr(goalsFromDB);
@@ -28,11 +27,9 @@ const ListGoalCards = () => {
     }
 
     useEffect(() => {
-        if(user){
-            let userId = (user.sub);
-            loadGoalsFromDB(userId);
-        }
-    }, [user]);
+            loadGoalsFromDB();
+    }, []);
+
 
     const onSaveGoalSendToGoalCards = (newGoal) => {
         //console.log(newStudent, "From the parent - List of Students");

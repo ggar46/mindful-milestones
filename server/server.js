@@ -72,6 +72,16 @@ app.get("/api/pexels", (req, res) => {
 //*************************************************************************************************************************************** */
 
 // GET request for IMAGE_TRACKER in the endpoint '/api/images' (works)
+app.get('/api/images/', async (req, res) => {
+    try {
+        const { rows: image_tracker } = await db.query('SELECT * FROM image_tracker', []);
+        res.send(image_tracker);
+    } catch (e) {
+        return res.status(400).json({ e });
+    }
+});
+
+// GET request for IMAGE_TRACKER in the endpoint '/api/images' (works)
 app.get('/api/images/:user_fkey', async (req, res) => {
     try {
         const taskGoalId = req.params.taskId
@@ -95,6 +105,15 @@ app.get('/api/tasks/:taskId', async (req, res) => {
     }
 });
 
+// GET request for GOAL_INFO in the endpoint '/api/goals' (works)
+app.get('/api/goals', async (req, res) => {
+    try {
+        const { rows: goal_info } = await db.query('SELECT * FROM goal_info');
+        res.send(goal_info);
+    } catch (e) {
+        return res.status(400).json({ e });
+    }
+});
 
 // GET request for GOAL_INFO in the endpoint '/api/goals' (works)
 app.get('/api/goals/:userId', async (req, res) => {
@@ -107,16 +126,6 @@ app.get('/api/goals/:userId', async (req, res) => {
     }
 });
 
-
-// GET request for GOAL_INFO in the endpoint '/api/goals' (works)
-// app.get('/api/goals', async (req, res) => {
-//     try {
-//         const { rows: goal_info } = await db.query('SELECT * FROM goal_info');
-//         res.send(goal_info);
-//     } catch (e) {
-//         return res.status(400).json({ e });
-//     }
-// });
 
 // GET request for USER_TABLE in the endpoint '/api/users' (works)
 app.get('/api/users', async (req, res) => {
