@@ -4,9 +4,7 @@ import MyNavBar from './components/Navbar';
 import CardGoal from './components/goal_components/CardGoal';
 import TasksForm from './components/task_components/TasksForm';
 import CardImage from './components/image_components/CardImage';
-import Goals from './components/goal_components/Goals';
-// import ListGoalCards from './components/goal_components/ListGoalCards';
-import FormGoal from './components/goal_components/FormGoal';
+import Home from './components/Home';
 
 test('Navbar renders correctly', () => {
   const { getByTestId } = render(<MyNavBar />);
@@ -21,25 +19,24 @@ test('Task content renders correctly', () => {
   expect(taskElement).toBeDefined();
 });
 
-//could not test listCards because of API call
-
-// test('Task content renders correctly', () => {
-//   const { getByTestId } = render(<Goals />);
-//   const taskElement = getByTestId('taskModal');
-//   expect(taskElement).toBeDefined();
-// });
-
-test('Task content renders correctly', () => {
+test('CardGoal renders correctly', () => {
   const { getByTestId } = render(<CardGoal />);
   const taskElement = getByTestId('taskModal');
   expect(taskElement).toBeDefined();
 });
 
-test('Task content renders correctly', () => {
+test('CardImage renders correctly', () => {
   const { getByTestId } = render(<CardImage />);
   const taskElement = getByTestId('taskModal');
   expect(taskElement).toBeDefined();
 });
+
+test('Home renders correctly', () => {
+  const { getByTestId } = render(<Home />);
+  const taskElement = getByTestId('taskModal');
+  expect(taskElement).toBeDefined();
+});
+
 
 
 

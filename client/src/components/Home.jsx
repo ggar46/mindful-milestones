@@ -9,7 +9,7 @@ const Home = () => {
     
 
     return(
-        <div>
+        <div data-testid="taskModal">
             {isAuthenticated? (
             <div>
             <h2 className="imagesTitle"> Vision Board </h2>

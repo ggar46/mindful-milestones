@@ -6,10 +6,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 const FormImage = ({onSaveImageSendToImageCards}) => {
 
   const { user, isAuthenticated, isLoading } = useAuth0(); //user.sub
+
+  const userProperty = () => {
+    if(user){
+      return user[sub] || '';
+    } else {
+      console.log("no user");
+      return '';
+    }
+  }
+
+
   const [imageFormData, setImageFormData] = useState(
      {
       image_url: "",
-      user_fkey: user.sub,
+      user_fkey: userProperty,
       alt_text: "",
     }
   );
@@ -78,7 +89,7 @@ const handleCheckChange = (passUser, event) => {
   const clearForm = () => {
     setImageFormData({
         image_url: "",
-        user_fkey: "user",
+        user_fkey: userProperty,
         alt_text: "",
     });
   };
@@ -128,7 +139,7 @@ const handleSubmit = (e) => {
 
 // // *********************************************************************************
   return (
-    <div>
+    <div data-testid="taskModal">
       <Button variant="primary" className="newImageButton" onClick={handleShow}>
         Add new Image
       </Button>
