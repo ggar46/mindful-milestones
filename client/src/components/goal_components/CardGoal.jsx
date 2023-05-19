@@ -8,6 +8,8 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
 
     const [showModal, setShowModal] = useState(false);
     //const handleShowModal = () => setShowModal(true); 
+    const [countOfChecked, setCountOfChecked] = useState(0);
+    const [total, setTotal] = useState(0);
 
     const onDelete = (toDeleteGoal) => {
         toDelete(toDeleteGoal)
@@ -23,6 +25,11 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
         setShowModal(false);
     }
 
+    const handleCheckedCount = (countOfChecked, total) => {
+        setCountOfChecked(countOfChecked);
+        setTotal(total);
+    }
+
     return (
         <Grid.Row stretched className="bordered">
             <Grid.Column>
@@ -31,13 +38,13 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
             <Grid.Column>
                 <Header>{eachGoal.goal}</Header>
                 <p>{eachGoal.date.slice(0,10)} </p>
-                <p> 1/5 Tasks (receive from tasks component, itereate where is_checked === true)</p>
+                <p> {countOfChecked}/{total} tasks completed</p>
             </Grid.Column>
             <Grid.Column>
                 <div>
                 <Button id="trash" onClick={()=>{onDelete(eachGoal)}} size="small"><ioicons.IoTrash/></Button>
                 <Button onClick={handleShowModal} size="small"> Goal Info </Button>
-                <TasksForm divVisibility={showModal} onCloseClick={handleCloseModal} sendGoalId={eachGoal.id}/>
+                <TasksForm onNumbers={handleCheckedCount} divVisibility={showModal} onCloseClick={handleCloseModal} sendGoalId={eachGoal.id}/>
                 </div>
             </Grid.Column>
         </Grid.Row>

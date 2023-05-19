@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Button, Form, Modal} from "react-bootstrap"
 
 
-const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
+const TasksForm = ({divVisibility, sendGoalId, onCloseClick, onNumbers}) => {
     
     const handleCloseClick = () => {
         const boolean = false;
@@ -12,6 +12,8 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     //only checked object
     const [checkedArr, setCheckedArr] = useState([]);
     //tasksArray contains the values for each checkbox from database, updated onSubmit with newest value
+    //map through each element, return array saved into a variable should contain only values where element.is_checked === true
+    //then take the .length of that and save it to a state
     const [tasksArrayDB, setTasksArrayDB] = useState([]);
     //userTasksToPost is one item that is posted onSubmit
     const [userTasksToPost, setUserTasksToPost] = useState(
@@ -23,27 +25,25 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
        }
     );
 
-
-useEffect(() => {
-    const loadTasksFromDb = async () => {
-        try{
-            fetch(`/api/tasks/${sendGoalId}`)
-            .then((response) => response.json())
-            .then((incomingData) => {
-              setTasksArrayDB(incomingData);
-            });
-        } catch (error) {
-            console.log(`Error fetching data:${error}`);
+    useEffect(() => {
+        const loadTasksFromDb = async () => {
+            try{
+                fetch(`/api/tasks/${sendGoalId}`)
+                .then((response) => response.json())
+                .then((incomingData) => {
+                setTasksArrayDB(incomingData);
+                });
+            } catch (error) {
+                console.log(`Error fetching data:${error}`);
+            }
         }
-    }
-    loadTasksFromDb();
-}, []);
+        loadTasksFromDb();
+    }, []);
 
-
-    //fetch DB data for one user's tasks to map through later
-    // useEffect(() => {
-    //     loadTasksFromDb();
-    //   }, []);
+    useEffect(() => {
+        const completedTasks = tasksArrayDB.filter((task) => task.is_checked);
+        onNumbers(completedTasks.length, tasksArrayDB.length);
+    }, [tasksArrayDB]);
 
      const handleAddedTaskValue = (event) => {
         const task_text = event.target.value;
@@ -133,6 +133,10 @@ useEffect(() => {
 
     const handleTaskSubmit = (e) => {
         e.preventDefault();
+        if (userTasksToPost.task_text.trim() === '') {
+            alert('Please enter a task.');
+            return;
+          }
         postTask(userTasksToPost);
         clearTaskForm();
         console.log("handleTASKSubmit on add task works")
@@ -140,9 +144,7 @@ useEffect(() => {
     
     const handleCheckSubmit = (e) => {
         e.preventDefault();
-      
-        const completedTasks = tasksArrayDB.filter((task) => task.is_checked);
-        const completedTaskCount = completedTasks.length;
+
       
         console.log(userTasksToPost, 'from form should have some be true');
         console.log(tasksArrayDB, 'fetched but updated onSubmit');
