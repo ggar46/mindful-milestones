@@ -7,12 +7,12 @@ const FormImage = ({onSaveImageSendToImageCards}) => {
 
   const { user, isAuthenticated, isLoading } = useAuth0(); //user.sub
 
-  const userProperty = () => {
+  const setUser = () => {
     if(user){
-      return user[sub] || '';
+      const currentUser = user.sub;
+      return currentUser;
     } else {
-      console.log("no user");
-      return '';
+      console.log("fail");
     }
   }
 
@@ -20,7 +20,7 @@ const FormImage = ({onSaveImageSendToImageCards}) => {
   const [imageFormData, setImageFormData] = useState(
      {
       image_url: "",
-      user_fkey: userProperty,
+      user_fkey: setUser,
       alt_text: "",
     }
   );
@@ -89,7 +89,7 @@ const handleCheckChange = (passUser, event) => {
   const clearForm = () => {
     setImageFormData({
         image_url: "",
-        user_fkey: userProperty,
+        user_fkey: setUser,
         alt_text: "",
     });
   };
@@ -97,7 +97,7 @@ const handleCheckChange = (passUser, event) => {
   //A function to handle the post request, need to post one at a time instead of array
   const postfromImageForm = (newImageForm) => {
     //console.log(newImageForm, "should have correct url")
-    return fetch("/api/images", {
+    return fetch(`/api/images/${setUser}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newImageForm)
@@ -173,7 +173,7 @@ const handleSubmit = (e) => {
                 type="checkbox"
                 id={`checkbox-${eachImage.src.tiny}`}
                 value={JSON.stringify(eachImage)}
-                onChange={(event) => handleCheckChange(user.sub, event)}
+                onChange={(event) => handleCheckChange(setUser, event)}
                 label={<img src={eachImage.src.tiny} alt={`${eachImage.alt}`} />}
              />
              ))}
