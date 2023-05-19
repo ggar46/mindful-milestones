@@ -3,7 +3,7 @@ services:
     plan: free
     type: web
     env: node
-    repo: https://github.com/ggar46/https://github.com/ggar46/mindfulmilestones
+    repo: https://github.com/ggar46/mindfulmilestones
     buildCommand: cd client && npm install && npm run build && cd ../server && npm install
     startCommand: cd server && node server.js
     envVars:
