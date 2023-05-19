@@ -6,7 +6,7 @@ import Home from './components/Home';
 function App() {
 
   return (
-    <div className="App">
+    <div data-testid="taskModal" className="App">
       <MyNavBar />
       <Home/>
     </div>

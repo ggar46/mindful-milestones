@@ -9,6 +9,23 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
         onCloseClick(boolean);
     }
 
+    const getGoalProperty = (propertyName) => {
+        if (sendGoal) {
+          return sendGoal[propertyName] || '';
+        } else {
+          console.log('you got it');
+          return '';
+        }
+      };
+    
+      const eachGoalId = getGoalProperty('id');
+      const eachGoalName = getGoalProperty('goal');
+      const eachGoalDate = getGoalProperty('date')?.slice(0, 10);
+      const eachGoalImage = getGoalProperty('image_fkey');
+      const eachGoalPurpose = getGoalProperty('goal_purpose');
+      const eachGoalObstacle = getGoalProperty('goal_obstacle');
+      const eachGoalStrategy = getGoalProperty('strategy');
+    
     //only checked object
     const [checkedArr, setCheckedArr] = useState([]);
     //tasksArray contains the values for each checkbox from database, updated onSubmit with newest value
@@ -19,7 +36,7 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
     const [userTasksToPost, setUserTasksToPost] = useState(
         {
          id: "",
-         goal_fkey: sendGoal.id,
+         goal_fkey: eachGoalId,
          task_text: "",
          is_checked: false,
        }
@@ -37,12 +54,19 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
                 console.log(`Error fetching data:${error}`);
             }
         }
-        loadTasksFromDb();
-    }, []);
+        if (sendGoal) {
+            loadTasksFromDb();
+          }
+    }, [sendGoal]);
 
     useEffect(() => {
-        const completedTasks = tasksArrayDB.filter((task) => task.is_checked);
-        onNumbers(completedTasks.length, tasksArrayDB.length);
+        try{
+            const completedTasks = tasksArrayDB.filter((task) => task.is_checked);
+            onNumbers(completedTasks.length, tasksArrayDB.length);
+        } catch (error) {
+            console.log(`Error fetching data:${error}`);
+        }
+ 
     }, [tasksArrayDB]);
 
      const handleAddedTaskValue = (event) => {
@@ -68,7 +92,7 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             is_checked: !updatedTask.is_checked,
-            goal_fkey: userTasksToPost.goal_fkey,
+            goal_fkey: eachGoalId,
             task_text: updatedTask.task_text,
           }),
         })
@@ -153,18 +177,18 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
 
 
     return (
-    <div>
+    <div data-testid="taskModal">
       <Modal show={divVisibility} onHide={handleCloseClick}>
         <Modal.Header closeButton>
-          <Modal.Title id="modal-goal-title"> {sendGoal.goal} </Modal.Title>
+          <Modal.Title  id="modal-goal-title"> {eachGoalName} </Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <div id="goal-info-modal-body">
-                <span>Goal Date : {sendGoal.date.slice(0,10)}</span> 
-                <img id="img-inside-modal" src={sendGoal.image_fkey}/>
-                <p><span> Purpose :   </span> {sendGoal.goal_purpose} </p>
-                <p><span> Possible Obstacles :   </span>{sendGoal.goal_obstacle}</p>
-                <p><span> Strategy :   </span>{sendGoal.strategy}</p>
+                <span>Goal Date : {eachGoalDate}</span> 
+                <img id="img-inside-modal" src={eachGoalImage}/>
+                <p><span> Purpose :   </span> {eachGoalPurpose} </p>
+                <p><span> Possible Obstacles :   </span>{eachGoalObstacle}</p>
+                <p><span> Strategy :   </span>{eachGoalStrategy}</p>
             </div>
             <Form className="add-task" onSubmit={handleTaskSubmit}>
                         <Form.Label> <h4>Create Tasks</h4> </Form.Label>
