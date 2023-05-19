@@ -38,7 +38,7 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
             <Grid.Column>
                 <Header>{eachGoal.goal}</Header>
                 <p>{eachGoal.date.slice(0,10)} </p>
-                <p> {countOfChecked}/{total} tasks completed</p>
+                <p id="tasks-completed"> {countOfChecked}/{total} tasks completed</p>
             </Grid.Column>
             <Grid.Column>
                 <div>

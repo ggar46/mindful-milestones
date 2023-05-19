@@ -379,3 +379,9 @@ span {
   text-align: left;
   margin-bottom: 10px;
 }
+
+#tasks-completed {
+  background-color: yellow;
+  width: 50%;
+  padding: 2%;
+}
