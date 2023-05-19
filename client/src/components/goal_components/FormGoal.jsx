@@ -19,7 +19,6 @@ const FormGoal = ({
       goal_obstacle: "",
       strategy: "",
       image_fkey: "",
-      user_fkey: "",
     }
   );
 
@@ -78,7 +77,7 @@ const FormGoal = ({
       goal_purpose: "",
       goal_obstacle: "",
       strategy: "",
-      image_fkey: ""
+      image_fkey: "",
     });
   };
 
