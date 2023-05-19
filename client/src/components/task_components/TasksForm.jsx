@@ -156,11 +156,18 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
     <div>
       <Modal show={divVisibility} onHide={handleCloseClick}>
         <Modal.Header closeButton>
-          <Modal.Title> Add a New Task </Modal.Title>
+          <Modal.Title id="modal-goal-title"> {sendGoal.goal} </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+            <div id="goal-info-modal-body">
+                <span>Goal Date : {sendGoal.date.slice(0,10)}</span> 
+                <img id="img-inside-modal" src={sendGoal.image_fkey}/>
+                <p><span> Purpose :   </span> {sendGoal.goal_purpose} </p>
+                <p><span> Possible Obstacles :   </span>{sendGoal.goal_obstacle}</p>
+                <p><span> Strategy :   </span>{sendGoal.strategy}</p>
+            </div>
             <Form className="add-task" onSubmit={handleTaskSubmit}>
-                        <Form.Label> Create Tasks </Form.Label>
+                        <Form.Label> <h4>Create Tasks</h4> </Form.Label>
                         <input
                             id="add-a-task"
                             type="text"
