@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Button, Form, Modal} from "react-bootstrap"
 
 
-const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
+const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
     
     const handleCloseClick = () => {
         const boolean = false;
@@ -12,38 +12,38 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     //only checked object
     const [checkedArr, setCheckedArr] = useState([]);
     //tasksArray contains the values for each checkbox from database, updated onSubmit with newest value
+    //map through each element, return array saved into a variable should contain only values where element.is_checked === true
+    //then take the .length of that and save it to a state
     const [tasksArrayDB, setTasksArrayDB] = useState([]);
     //userTasksToPost is one item that is posted onSubmit
     const [userTasksToPost, setUserTasksToPost] = useState(
         {
          id: "",
-         goal_fkey: sendGoalId,
+         goal_fkey: sendGoal.id,
          task_text: "",
          is_checked: false,
        }
     );
 
-
-useEffect(() => {
-    const loadTasksFromDb = async () => {
-        try{
-            fetch(`/api/tasks/${sendGoalId}`)
-            .then((response) => response.json())
-            .then((incomingData) => {
-              setTasksArrayDB(incomingData);
-            });
-        } catch (error) {
-            console.log(`Error fetching data:${error}`);
+    useEffect(() => {
+        const loadTasksFromDb = async () => {
+            try{
+                fetch(`/api/tasks/${sendGoal.id}`)
+                .then((response) => response.json())
+                .then((incomingData) => {
+                setTasksArrayDB(incomingData);
+                });
+            } catch (error) {
+                console.log(`Error fetching data:${error}`);
+            }
         }
-    }
-    loadTasksFromDb();
-}, []);
+        loadTasksFromDb();
+    }, []);
 
-
-    //fetch DB data for one user's tasks to map through later
-    // useEffect(() => {
-    //     loadTasksFromDb();
-    //   }, []);
+    useEffect(() => {
+        const completedTasks = tasksArrayDB.filter((task) => task.is_checked);
+        onNumbers(completedTasks.length, tasksArrayDB.length);
+    }, [tasksArrayDB]);
 
      const handleAddedTaskValue = (event) => {
         const task_text = event.target.value;
@@ -124,7 +124,7 @@ useEffect(() => {
     const clearTaskForm = () => {
         setUserTasksToPost({
                 id: "",
-                goal_fkey: sendGoalId,
+                goal_fkey: sendGoal.id,
                 task_text: "",
                 is_checked: false,
             }
@@ -133,6 +133,10 @@ useEffect(() => {
 
     const handleTaskSubmit = (e) => {
         e.preventDefault();
+        if (userTasksToPost.task_text.trim() === '') {
+            alert('Please enter a task.');
+            return;
+          }
         postTask(userTasksToPost);
         clearTaskForm();
         console.log("handleTASKSubmit on add task works")
@@ -140,13 +144,11 @@ useEffect(() => {
     
     const handleCheckSubmit = (e) => {
         e.preventDefault();
-      
-        const completedTasks = tasksArrayDB.filter((task) => task.is_checked);
-        const completedTaskCount = completedTasks.length;
+
       
         console.log(userTasksToPost, 'from form should have some be true');
         console.log(tasksArrayDB, 'fetched but updated onSubmit');
-        console.log(completedTaskCount, 'number of completed tasks');
+        console.log(sendGoal.id, 'goal id');
       };
 
 
@@ -154,12 +156,18 @@ useEffect(() => {
     <div>
       <Modal show={divVisibility} onHide={handleCloseClick}>
         <Modal.Header closeButton>
-          <Modal.Title> Add a New Task </Modal.Title>
+          <Modal.Title id="modal-goal-title"> {sendGoal.goal} </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <p>{`${checkedArr.length} / ${tasksArrayDB.length} tasks completed`}</p>
+            <div id="goal-info-modal-body">
+                <span>Goal Date : {sendGoal.date.slice(0,10)}</span> 
+                <img id="img-inside-modal" src={sendGoal.image_fkey}/>
+                <p><span> Purpose :   </span> {sendGoal.goal_purpose} </p>
+                <p><span> Possible Obstacles :   </span>{sendGoal.goal_obstacle}</p>
+                <p><span> Strategy :   </span>{sendGoal.strategy}</p>
+            </div>
             <Form className="add-task" onSubmit={handleTaskSubmit}>
-                        <Form.Label> Create Tasks </Form.Label>
+                        <Form.Label> <h4>Create Tasks</h4> </Form.Label>
                         <input
                             id="add-a-task"
                             type="text"

@@ -6,12 +6,13 @@
   margin: 5px;
 }
 
-h2.goals-title, h2.imagesTitle{
+h2.goals-title,
+h2.imagesTitle {
   text-align: center;
   margin: auto;
   padding-top: 2em;
-  padding-bottom: .5em;
-  color:rgb(149, 119, 233);
+  padding-bottom: 0.5em;
+  color: rgb(149, 119, 233);
 }
 
 h1 {
@@ -19,7 +20,6 @@ h1 {
   margin: auto;
   padding: 1.5em;
 }
-
 
 /* goal component  */
 .mygoalbody {
@@ -35,34 +35,20 @@ h1 {
 }
 
 .goal-cards {
-  margin-bottom: 20px
+  margin-bottom: 20px;
 }
 
 .image-card-container {
   display: grid;
   margin-top: 2%;
   grid-gap: 10px;
-  grid-template-columns: repeat(4, minmax(320px, 1fr) ) ;
+  grid-template-columns: repeat(4, minmax(320px, 1fr));
   background-color: #f7f7f7;
   width: 100%;
   justify-items: center;
-  /* display: grid;
-  grid-template-columns: auto auto auto;
-  margin: 5%;
-  background-color: red;
-  height: 100%;
-  width: 100%;
-  padding: 5%; */
 }
 
-/* .each-card-div {
-  background-color: aquamarine;
-  width: 100%;
-  padding: 5%;
-  margin: 5%;
-} */
-
-.each-image-card{
+.each-image-card {
   height: 250px;
   width: 300px;
   margin-bottom: 4%;
@@ -76,8 +62,8 @@ h1 {
   width: 300px;
 }
 
-a.nav-link{
-  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+a.nav-link {
+  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-size: large;
   font-weight: bold;
 }
@@ -104,15 +90,23 @@ form {
   flex: 1;
 }
 
-input[type="text"], select,
-textarea, input[type="submit"]{
+input[type='text'],select,textarea,input[type='submit'] {
   display: inline-block;
   margin-top: -10px;
   width: 100%;
   font-size: 15px;
   border-radius: 2px;
-  border: 3px solid #98d0f1;
   padding: 0.5em;
+}
+
+input[type='submit']{
+  display: inline-block;
+  margin-top: -10px;
+  width: 100%;
+  font-size: 15px;
+  border-radius: 2px;
+  padding: 0.5em;
+  background-color: rgb(248, 248, 159);
 }
 
 #date-label {
@@ -127,10 +121,8 @@ input#add-date {
   width: 100%;
   font-size: 15px;
   border-radius: 2px;
-  border: 3px solid #98d0f1;
   padding-top: 5px;
   padding-bottom: 5px;
-  /* padding: 0.5em; */
 }
 
 .btn.btn-primary {
@@ -143,7 +135,7 @@ input#add-date {
   margin-top: 20px;
 }
 
-button.closeForm.btn.btn-secondary{
+button.closeForm.btn.btn-secondary {
   display: flex;
   margin: auto;
   background: rgb(230, 111, 111);
@@ -162,28 +154,31 @@ button.btn.btn-secondary {
   margin-top: 20px;
 }
 
-newImageButton.btn.btn-primary:hover,
-#addgoal.btn.btn-primary:hover, input[type="submit"]:hover{
+.newImageButton.btn.btn-primary:hover,
+#addgoal.btn.btn-primary:hover,
+input[type='submit']:hover {
   background: rgb(54, 90, 210);
-  color:rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
 }
 
 button.closeForm.btn.btn-secondary:hover {
   background: rgb(173, 35, 35);
-  color:rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
 }
 
-.login-button, .logout-button {
+.login-button,
+.logout-button {
   display: flex;
   background-color: rgb(144, 139, 237);
   margin: auto;
-  color:rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
   border-radius: 7px;
-  padding: 13px;
+  padding: 8px;
   transition-duration: 0.4s;
 }
 
-.logout-button:hover, .logout-button:hover {
+.logout-button:hover,
+.logout-button:hover {
   background: rgb(0, 0, 0);
   color: white;
 }
@@ -201,7 +196,7 @@ button.closeForm.btn.btn-secondary:hover {
 }
 
 #goalField {
-  padding-bottom: 7px;;
+  padding-bottom: 7px;
 }
 
 .form-check {
@@ -233,12 +228,10 @@ button.closeForm.btn.btn-secondary:hover {
 }
 
 div.stretched.row.bordered {
-  /* margin-top: 30px; */
   margin-right: 90px;
   margin-left: 90px;
   border-radius: 15px;
   margin-top: 10px;
-  
 }
 
 .form-button-container {
@@ -247,8 +240,10 @@ div.stretched.row.bordered {
   padding-right: 55%;
 }
 
-.goal-buttons-container{
+.goal-buttons-container {
   display: flex;
+  width: 100%;
+  justify-content: space-evenly;
   padding-left: 12%;
   padding-right: 0%;
 }
@@ -297,4 +292,106 @@ div.ui.centered.divided.center.aligned.middle.three.column.grid {
   padding-top: 20px;
 }
 
+#img-inside-modal {
+  width: 250px;
+  margin-bottom: 18px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
+#goal-info-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 45px;
+}
+
+#modal-goal-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* Modal Body */
+.modal-body {
+  text-align: center;
+  margin-top: -50px;
+}
+
+/* Modal Close Button */
+.modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Modal Body Text Alignment */
+.modal-text {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+span {
+  font-weight: bolder;
+  font-size: medium;
+  color:rgb(54, 90, 210);
+  padding-left: 5%;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+#tasks-completed {
+  background-color: yellow;
+  width: 40%;
+  padding: 2%;
+}
