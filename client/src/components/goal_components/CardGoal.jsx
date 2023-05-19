@@ -1,7 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-
-
 import * as ioicons from 'react-icons/io5'
 import TasksForm from '../task_components/TasksForm';
 import { Grid, Image, Header, Button} from 'semantic-ui-react';

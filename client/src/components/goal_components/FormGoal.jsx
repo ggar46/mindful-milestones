@@ -10,7 +10,6 @@ const FormGoal = ({
   onUpdateGoalForm,
 }) => {
 
-  const { user } = useAuth0(); //user.sub
   // This is the original State with not initial student
   const [goalFormData, setGoalFormData] = useState(
     editingGoalFormData || {
@@ -20,7 +19,7 @@ const FormGoal = ({
       goal_obstacle: "",
       strategy: "",
       image_fkey: "",
-      user_fkey: user.sub,
+      user_fkey: "",
     }
   );
 
@@ -34,8 +33,7 @@ const FormGoal = ({
 
   //Call images array so dropdown has alt image options
   useEffect(() => {
-    let user = user.sub
-    fetch("/api/images/${user}")
+    fetch("/api/images/")
       .then((response) => response.json())
       .then((dbData) => {
             setArrayOfImages(dbData);
