@@ -206,23 +206,49 @@ app.put('/api/goals/:goalId', async (req, res) =>{
   })
 
 // PUT request for TASKS in the endpoint '/api/tasks', no editing id/user (works)
-app.put('/api/tasks/:taskId', async (req, res) =>{
-    //console.log(req.params);
-    //This will be the id that I want to find in the DB - the goal to be updated
-    const taskId = req.params.taskId
-    const updatedTask = {goal_fkey: req.body.goal_fkey, task_text: req.body.task_text, is_checked: req.body.is_checked}
-    const query = `UPDATE task_tracker SET image_fkey=$1, date=$2, goal_purpose=$3, goal_obstacle=$4, strategy=$5, goal=$6 WHERE id=${goalId} RETURNING *`;
-    const values = [updatedTask.goal_fkey, updatedTask.task_text, updatedTask.goal_purpose, updatedTask.goal_obstacle, updatedTask.strategy, updatedTask.goal];
+// app.put('/api/tasks/:taskId', async (req, res) =>{
+//     //console.log(req.params);
+//     //This will be the id that I want to find in the DB - the goal to be updated
+//     const taskId = req.params.taskId
+//     const updatedTask = {goal_fkey: req.body.goal_fkey, task_text: req.body.task_text, is_checked: req.body.is_checked}
+//     const query = `UPDATE task_tracker SET image_fkey=$1, date=$2, goal_purpose=$3, goal_obstacle=$4, strategy=$5, goal=$6 WHERE id=${taskId} RETURNING *`;
+//     const values = [updatedTask.goal_fkey, updatedTask.task_text, updatedTask.goal_purpose, updatedTask.goal_obstacle, updatedTask.strategy, updatedTask.goal];
+//     try {
+//       const updated = await db.query(query, values);
+//       console.log(updated.rows[0]);
+//       res.send(updated.rows[0]);
+  
+//     }catch(e){
+//       console.log(e);
+//       return res.status(400).json({e})
+//     }
+//   })
+
+app.put('/api/tasks/:taskId', async (req, res) => {
+    const taskId = req.params.taskId;
+    const updatedTask = {
+      goal_fkey: req.body.goal_fkey,
+      task_text: req.body.task_text,
+      is_checked: req.body.is_checked,
+    };
+    const query =
+      'UPDATE task_tracker SET goal_fkey=$1, task_text=$2, is_checked=$3 WHERE id=$4 RETURNING *';
+    const values = [
+      updatedTask.goal_fkey,
+      updatedTask.task_text,
+      updatedTask.is_checked,
+      taskId,
+    ];
     try {
       const updated = await db.query(query, values);
       console.log(updated.rows[0]);
       res.send(updated.rows[0]);
-  
-    }catch(e){
+    } catch (e) {
       console.log(e);
-      return res.status(400).json({e})
+      return res.status(400).json({ error: e });
     }
-  })
+  });
+  
 
 //*************************************************************************************************************************************** */
 

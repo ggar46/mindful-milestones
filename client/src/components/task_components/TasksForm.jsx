@@ -11,8 +11,8 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
     //only checked object
     const [checkedArr, setCheckedArr] = useState([]);
-    //tasksArray contains the values for each checkbox, updated onSubmit with newest value
-    const [tasksArray, setTasksArray] = useState([]);
+    //tasksArray contains the values for each checkbox from database, updated onSubmit with newest value
+    const [tasksArrayDB, setTasksArrayDB] = useState([]);
     //userTasksToPost is one item that is posted onSubmit
     const [userTasksToPost, setUserTasksToPost] = useState(
         {
@@ -24,38 +24,78 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     );
 
 
-    const loadTasksFromDb = () => {
-        fetch(`/api/tasks/${sendGoalId}`)
-          .then((response) => response.json())
-          .then((incomingData) => {
-            setTasksArray(incomingData);
-          });
+useEffect(() => {
+    const loadTasksFromDb = async () => {
+        try{
+            fetch(`/api/tasks/${sendGoalId}`)
+            .then((response) => response.json())
+            .then((incomingData) => {
+              setTasksArrayDB(incomingData);
+            });
+        } catch (error) {
+            console.log(`Error fetching data:${error}`);
+        }
     }
+    loadTasksFromDb();
+}, []);
 
 
     //fetch DB data for one user's tasks to map through later
-    useEffect(() => {
-        loadTasksFromDb();
-      }, []);
+    // useEffect(() => {
+    //     loadTasksFromDb();
+    //   }, []);
 
      const handleAddedTaskValue = (event) => {
         const task_text = event.target.value;
         setUserTasksToPost((tableTaskData) => ({ ...tableTaskData, task_text }));
     };
 
-     const handleCheckChange = (event) => {
-        const is_checked = event.target.checked;
-        const checkedTask = "here is where the entire object or id will go"
-        //const value = event.target.value;
-        if(is_checked) {
-            setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked: !userTasksToPost.is_checked}));
-            setCheckedArr((checkedArr) => [...checkedArr, checkedTask]);
-        }
-    console.log(userTasksToPost, "each post updated");
-    };
+    const handleCheckChange = (id) => {
+        setTasksArrayDB((prevTasks) => {
+          return prevTasks.map((eachOne) =>
+            eachOne.id === id
+              ? { ...eachOne, is_checked: !eachOne.is_checked }
+              : eachOne
+          );
+        });
+      
+        // Find the updated task by ID
+        const updatedTask = tasksArrayDB.find((task) => task.id === id);
+      
+        // Send a PUT request to update the checkbox state in the database
+        fetch(`/api/tasks/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            is_checked: !updatedTask.is_checked,
+            goal_fkey: userTasksToPost.goal_fkey,
+            task_text: updatedTask.task_text,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Checkbox state updated in the database:', data);
+          })
+          .catch((error) => {
+            console.log('Error updating checkbox state:', error);
+          });
+      };
+      
+      
+
+    //  const handleCheckChange = (event) => {
+    //     const is_checked = event.target.checked;
+    //     const checkedTask = "here is where the entire object or id will go"
+    //     //const value = event.target.value;
+    //     if(is_checked) {
+    //         setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked: !userTasksToPost.is_checked}));
+    //         setCheckedArr((checkedArr) => [...checkedArr, checkedTask]);
+    //     }
+    // console.log(userTasksToPost, "each post updated");
+    // };
 
     const onSaveTasks = (newTask) => {
-        setTasksArray((tasksArray) => [...tasksArray, newTask]);
+        setTasksArrayDB((tasksArray) => [...tasksArray, newTask]);
     }
 
     //A function to handle the post request
@@ -100,12 +140,14 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
     
     const handleCheckSubmit = (e) => {
         e.preventDefault();
-
-        console.log(userTasksToPost, "from form should have some be true");
-        console.log(tasksArray, "fetched but updated onSubmit");
-        console.log(sum, "just curious to see if sum is working");
-
-    }
+      
+        const completedTasks = tasksArrayDB.filter((task) => task.is_checked);
+        const completedTaskCount = completedTasks.length;
+      
+        console.log(userTasksToPost, 'from form should have some be true');
+        console.log(tasksArrayDB, 'fetched but updated onSubmit');
+        console.log(completedTaskCount, 'number of completed tasks');
+      };
 
 
     return (
@@ -115,7 +157,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
           <Modal.Title> Add a New Task </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <p>{`${checkedArr.length} / ${tasksArray.length} tasks completed`}</p>
+            <p>{`${checkedArr.length} / ${tasksArrayDB.length} tasks completed`}</p>
             <Form className="add-task" onSubmit={handleTaskSubmit}>
                         <Form.Label> Create Tasks </Form.Label>
                         <input
@@ -131,13 +173,14 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick}) => {
 
 
         <Form className='form-tasks' onSubmit={handleCheckSubmit}>
-            {tasksArray.map((eachListItem) => (
+            {tasksArrayDB.map((eachListItem) => (
                 <Form.Check
                 key={eachListItem.id}
                 type="checkbox"
+                checked={eachListItem.is_checked}
                 id={`${eachListItem.id}`}
                 value={eachListItem.task_text}
-                onChange={handleCheckChange}
+                onChange={() => handleCheckChange(eachListItem.id)}
                 label={eachListItem.task_text}
              />
              ))}
