@@ -1,5 +1,5 @@
 services:
-  - nname: server
+  - name: server
     plan: free
     type: web
     env: node
