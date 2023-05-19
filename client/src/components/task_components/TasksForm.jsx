@@ -159,7 +159,6 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick, onNumbers}) => {
           <Modal.Title> Add a New Task </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <p>{`${checkedArr.length} / ${tasksArrayDB.length} tasks completed`}</p>
             <Form className="add-task" onSubmit={handleTaskSubmit}>
                         <Form.Label> Create Tasks </Form.Label>
                         <input
