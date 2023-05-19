@@ -16,6 +16,24 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
     }
 
 
+    const getGoalProperty = (propertyName) => {
+        if (eachGoal) {
+          return eachGoal[propertyName] || '';
+        } else {
+          console.log('you got it');
+          return '';
+        }
+      };
+    
+      const eachGoalId = getGoalProperty('id');
+      const eachGoalName = getGoalProperty('goal');
+      const eachGoalDate = getGoalProperty('date')?.slice(0, 10);
+      const eachGoalImage = getGoalProperty('image_fkey');
+    //   const eachGoalPurpose = getGoalProperty('goal_purpose');
+    //   const eachGoalObstacle = getGoalProperty('goal_obstacle');
+    //   const eachGoalStrategy = getGoalProperty('strategy');
+
+
 //result needs to reach modal in show={show}
     const handleShowModal = () => {
         setShowModal(true);
@@ -31,13 +49,13 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
     }
 
     return (
-        <Grid.Row stretched className="bordered">
+        <Grid.Row stretched className="bordered"  data-testid="navbar">
             <Grid.Column>
-                <Image src={eachGoal.image_fkey}/>
+                <Image src={eachGoalImage}/>
             </Grid.Column>
             <Grid.Column>
-                <Header>{eachGoal.goal}</Header>
-                <p>{eachGoal.date.slice(0,10)} </p>
+                <Header>{eachGoalName}</Header>
+                <p>{eachGoalDate} </p>
                 <p id="tasks-completed"> {countOfChecked}/{total} tasks completed</p>
             </Grid.Column>
             <Grid.Column>

@@ -14,6 +14,7 @@ export default defineConfig({
         target: "http://localhost:8080",
         changeorigin: true,
         secure: false,
+        setupFiles: './setupTest.js',
       },
     }
   },

@@ -19,11 +19,16 @@ const ListGoalCards = () => {
 
     const loadGoalsFromDB = () => {
         // A function to fetch the list of goals that will be load anytime that list change
+        try{
             fetch(`/api/goals/`)
             .then((response) => response.json())
             .then((goalsFromDB) => {
                 setGoalCardArr(goalsFromDB);
             });
+        } catch {
+            console.log("api fetch did not work");
+        }
+
     }
 
     useEffect(() => {
@@ -64,7 +69,7 @@ const ListGoalCards = () => {
 
 
     return (
-        <div>
+        <div >
 
         <div className="mygoalbody" >
 
