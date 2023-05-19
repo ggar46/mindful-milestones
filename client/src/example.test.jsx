@@ -1,10 +1,10 @@
-
-import MyNavBar from './components/Navbar';
 import {expect, test} from 'vitest';
 import {render, screen} from '@testing-library/react';
+import MyNavBar from './components/Navbar';
 import CardGoal from './components/goal_components/CardGoal';
 import TasksForm from './components/task_components/TasksForm';
-// import Goals from './components/goal_components/Goals';
+import CardImage from './components/image_components/CardImage';
+import Goals from './components/goal_components/Goals';
 // import ListGoalCards from './components/goal_components/ListGoalCards';
 import FormGoal from './components/goal_components/FormGoal';
 
@@ -31,6 +31,12 @@ test('Task content renders correctly', () => {
 
 test('Task content renders correctly', () => {
   const { getByTestId } = render(<CardGoal />);
+  const taskElement = getByTestId('taskModal');
+  expect(taskElement).toBeDefined();
+});
+
+test('Task content renders correctly', () => {
+  const { getByTestId } = render(<CardImage />);
   const taskElement = getByTestId('taskModal');
   expect(taskElement).toBeDefined();
 });

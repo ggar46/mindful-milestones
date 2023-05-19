@@ -3,12 +3,21 @@ import Card from 'react-bootstrap/Card';
 
 const CardImage = ({eachImage}) => {
 
-    console.log(eachImage, "in card")
+  const getImage = () => {
+    if(eachImage) {
+      return eachImage;
+    } else {
+      return "";
+    }
+  }
+
+
+    console.log(getImage(), "in card")
     return (
-      <div className="each-image-card">
+      <div data-testid="taskModal" className="each-image-card">
         {/* <Card className="custom-card"> */}
         <div className="actual-image">
-          <img src={eachImage} size="200px" className="custom-card-image"/>
+          <img src={getImage()} size="200px" className="custom-card-image"/>
         </div>
       {/* </Card> */}
       </div>
