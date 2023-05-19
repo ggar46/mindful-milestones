@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Button, Form, Modal} from "react-bootstrap"
 
 
-const TasksForm = ({divVisibility, sendGoalId, onCloseClick, onNumbers}) => {
+const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
     
     const handleCloseClick = () => {
         const boolean = false;
@@ -19,7 +19,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick, onNumbers}) => {
     const [userTasksToPost, setUserTasksToPost] = useState(
         {
          id: "",
-         goal_fkey: sendGoalId,
+         goal_fkey: sendGoal.id,
          task_text: "",
          is_checked: false,
        }
@@ -28,7 +28,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick, onNumbers}) => {
     useEffect(() => {
         const loadTasksFromDb = async () => {
             try{
-                fetch(`/api/tasks/${sendGoalId}`)
+                fetch(`/api/tasks/${sendGoal.id}`)
                 .then((response) => response.json())
                 .then((incomingData) => {
                 setTasksArrayDB(incomingData);
@@ -124,7 +124,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick, onNumbers}) => {
     const clearTaskForm = () => {
         setUserTasksToPost({
                 id: "",
-                goal_fkey: sendGoalId,
+                goal_fkey: sendGoal.id,
                 task_text: "",
                 is_checked: false,
             }
@@ -148,7 +148,7 @@ const TasksForm = ({divVisibility, sendGoalId, onCloseClick, onNumbers}) => {
       
         console.log(userTasksToPost, 'from form should have some be true');
         console.log(tasksArrayDB, 'fetched but updated onSubmit');
-        console.log(completedTaskCount, 'number of completed tasks');
+        console.log(sendGoal.id, 'goal id');
       };
 
 
