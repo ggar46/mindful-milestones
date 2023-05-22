@@ -29,28 +29,28 @@ const FormImage = ({onSaveImageSendToImageCards}) => {
   const [show, setShow] = useState(false);
   const [checkedImages, setCheckedImages] = useState([]);
   //uncomment for search
-  const [searchedValue, setSearchedValue] = useState([]);
+  // const [searchedValue, setSearchedValue] = useState([]);
  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);  
 
 
-  // useEffect(() => {
-  //   fetch("/api/pexels")
-  //     .then((response) => response.json())
-  //     .then((dbData) => {
-  //       setArrayOfImages(dbData.photos);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch("/api/pexels")
+      .then((response) => response.json())
+      .then((dbData) => {
+        setArrayOfImages(dbData.photos);
+      });
+  }, []);
 
 //API fetch request, uncomment for search
-const searchByUserInput = (incomingData) => {
-  fetch(`/api/pexels/${incomingData}`)
-    .then((response) => response.json())
-    .then((dbData) => {
-      setArrayOfImages(dbData.photos);
-    });
-}
+// const searchByUserInput = (incomingData) => {
+//   fetch(`/api/pexels/${incomingData}`)
+//     .then((response) => response.json())
+//     .then((dbData) => {
+//       setArrayOfImages(dbData.photos);
+//     });
+// }
 
 const handleCheckChange = (passUser, event) => {
     const checked = event.target.checked;
@@ -72,10 +72,10 @@ const handleCheckChange = (passUser, event) => {
   };
 
 //uncomment for search
-  const handleSearchedValue = (event) => {
-    const value = event.target.value;
-    setSearchedValue(value);
-   }
+  // const handleSearchedValue = (event) => {
+  //   const value = event.target.value;
+  //   setSearchedValue(value);
+  //  }
 
   const clearForm = () => {
     setImageFormData({
@@ -121,11 +121,11 @@ const handleSubmit = (e) => {
 
 
 //uncomment for search
-const handleSearchSubmit = (e) => {
-  e.preventDefault();
-  //put searched value into api get request, which will automatically get 3 results
-  searchByUserInput(searchedValue);
-}
+// const handleSearchSubmit = (e) => {
+//   e.preventDefault();
+//   //put searched value into api get request, which will automatically get 3 results
+//   searchByUserInput(searchedValue);
+// }
 
 // // *********************************************************************************
   return (
@@ -142,7 +142,7 @@ const handleSearchSubmit = (e) => {
 
 
         {/* uncomment for search */}
-        <Form className="form-search" onSubmit={handleSearchSubmit}>
+        {/* <Form className="form-search" onSubmit={handleSearchSubmit}>
           <Form.Label> Select image/images </Form.Label>
           <input
             id="searched-value"
@@ -152,7 +152,7 @@ const handleSearchSubmit = (e) => {
             onChange={handleSearchedValue}
           />
           <input type="submit" value = "Submit" />
-        </Form>
+        </Form> */}
 
 
 
