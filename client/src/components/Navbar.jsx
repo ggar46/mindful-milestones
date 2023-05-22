@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import braingrey from '../assets/braingrey.png'
 import { useAuth0 } from "@auth0/auth0-react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 function MyNavBar(props) {
 
@@ -24,8 +24,7 @@ function MyNavBar(props) {
           </Navbar.Brand> 
         {isAuthenticated ? (
           <Nav.Link href="Goals" >Goals</Nav.Link>     ) : ""}
-          {!user ? null : <Nav.Link to="/user-profile" as={Link}>{user.name}</Nav.Link>}
-
+          {!user ? null : <Navbar.Text  id="username"> Welcome, {user.name}</Navbar.Text>}
       
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">

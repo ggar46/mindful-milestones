@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 
 const FormImage = ({onSaveImageSendToImageCards}) => {
 
-  const { user, isAuthenticated, isLoading } = useAuth0(); //user.sub
+  // const { user, isAuthenticated, isLoading } = useAuth0(); //user.sub
 
-  const setUser = () => {
-    if(user){
-      const currentUser = user.sub;
-      return currentUser;
-    } else {
-      console.log("fail");
-    }
-  }
+  // const setUser = () => {
+  //   if(user){
+  //     const currentUser = user.sub;
+  //     return currentUser;
+  //   } else {
+  //     console.log("fail");
+  //   }
+  // }
 
 
   const [imageFormData, setImageFormData] = useState(
      {
       image_url: "",
-      user_fkey: setUser,
+      user_fkey: "",
       alt_text: "",
     }
   );
@@ -97,7 +97,7 @@ const handleCheckChange = (passUser, event) => {
   //A function to handle the post request, need to post one at a time instead of array
   const postfromImageForm = (newImageForm) => {
     //console.log(newImageForm, "should have correct url")
-    return fetch(`/api/images/${setUser}`, {
+    return fetch(`/api/images`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newImageForm)

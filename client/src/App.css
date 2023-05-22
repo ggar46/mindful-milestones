@@ -62,17 +62,17 @@ h1 {
   width: 300px;
 }
 
-a.nav-link {
+a.nav-link, #username {
   font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-size: large;
   font-weight: bold;
 }
 
-a.navbar-brand {
+a.navbar-brand, #username {
   margin-inline-start: -5em;
 }
 
-.nav-link {
+.nav-link, #username {
   color: rgb(139, 108, 200) !important;
   margin-left: 5em;
 }
@@ -260,14 +260,14 @@ div.stretched.row.bordered {
   height: 400px;
 }
 
-.custom-navbar-container {
+.custom-navbar-container,  #username {
   height: 45px;
   flex-grow: 1;
   display: flex;
   align-items: center;
 }
 
-#navbar {
+#navbar, #usernamee{
   background-color: rgb(231, 235, 241);
   height: 75px;
 }
