@@ -38,36 +38,32 @@ app.post("/user", cors(), async (req, res) => {
     }
   });
 
-
-
-
 //MOCK DATA - GET REQUEST
-app.get("/api/pexels", (req, res) => {
-    console.log(mockdata);
-      res.json(mockdata);
-  });
-
+// app.get("/api/pexels", (req, res) => {
+//     console.log(mockdata);
+//       res.json(mockdata);
+//   });
 
 //uncomment for search  
 //API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
-// app.get('/api/pexels/:searchedbyuser', async (req, res) => {
-//     try {
-//       console.log('code reached here');
-//       const client = createClient(process.env.API_KEY);
-//       const searchedbyuser = req.params.searchedbyuser;
-//       const url = `https://api.pexels.com/v1/search?query=${searchedbyuser}&per_page=3`;
-//       const data = await fetch(url, {
-//         headers: {
-//           Authorization: process.env.API_KEY,
-//         },
-//       });
-//       const searchresults = await data.json();
-//       res.json(searchresults);
-//     } catch (err) {
-//       console.error(err);
-//       res.status(500).json({ message: 'Server Error' });
-//     }
-//   });
+app.get('/api/pexels/:searchedbyuser', async (req, res) => {
+    try {
+      console.log('code reached here');
+      const client = createClient(process.env.API_KEY);
+      const searchedbyuser = req.params.searchedbyuser;
+      const url = `https://api.pexels.com/v1/search?query=${searchedbyuser}&per_page=3`;
+      const data = await fetch(url, {
+        headers: {
+          Authorization: process.env.API_KEY,
+        },
+      });
+      const searchresults = await data.json();
+      res.json(searchresults);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server Error' });
+    }
+  });
  
 //*************************************************************************************************************************************** */
 
