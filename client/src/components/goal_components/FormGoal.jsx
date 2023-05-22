@@ -10,7 +10,8 @@ const FormGoal = ({
   onUpdateGoalForm,
 }) => {
 
-  // This is the original State with not initial student
+  const { user, isAuthenticated } = useAuth0();//user.sub
+  const currentUser = user ? user.sub :  "";
   const [goalFormData, setGoalFormData] = useState(
     editingGoalFormData || {
       goal: "",
@@ -19,6 +20,7 @@ const FormGoal = ({
       goal_obstacle: "",
       strategy: "",
       image_fkey: "",
+      user_fkey: currentUser,
     }
   );
 
@@ -32,12 +34,15 @@ const FormGoal = ({
 
   //Call images array so dropdown has alt image options
   useEffect(() => {
-    fetch("/api/images/")
+    if(isAuthenticated){
+      fetch(`/api/images/${user.sub}`)
       .then((response) => response.json())
       .then((dbData) => {
             setArrayOfImages(dbData);
           });
-  }, []);
+    }
+
+  }, [isAuthenticated, user]);
 
   //create functions that handle the event of the user typing into the form
   const handleGoalChange = (event) => {
@@ -67,17 +72,19 @@ const FormGoal = ({
 
   const handleImageDropdown = (event) => {
     const image_fkey = event.target.value;
-    setGoalFormData((student) => ({ ...student, image_fkey }));
+    setGoalFormData((goalFormData) => ({ ...goalFormData, image_fkey }));
   };
 
   const clearForm = () => {
     setGoalFormData({
+      id: "",
       goal: "",
       date: "",
       goal_purpose: "",
       goal_obstacle: "",
       strategy: "",
       image_fkey: "",
+      user_fkey: currentUser,
     });
   };
 
@@ -94,7 +101,7 @@ const FormGoal = ({
         return response.json();
       })
       .then((data) => {
-        //console.log("From the post ", data);
+        console.log("From the faulty post ", data);
         //I'm sending data to the List of Students (the parent) for updating the list
         onSaveGoalSendToGoalCards(data);
         //this line just for cleaning the form

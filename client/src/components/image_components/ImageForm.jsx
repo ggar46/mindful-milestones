@@ -1,26 +1,16 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
-// import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const FormImage = ({onSaveImageSendToImageCards}) => {
 
-  // const { user, isAuthenticated, isLoading } = useAuth0(); //user.sub
-
-  // const setUser = () => {
-  //   if(user){
-  //     const currentUser = user.sub;
-  //     return currentUser;
-  //   } else {
-  //     console.log("fail");
-  //   }
-  // }
-
-
+  const { user } = useAuth0(); //user.sub
+  const currentUser = user ? user.sub :  "";
   const [imageFormData, setImageFormData] = useState(
      {
       image_url: "",
-      user_fkey: "fakeid",
+      user_fkey: currentUser,
       alt_text: "",
     }
   );
@@ -52,13 +42,13 @@ const searchByUserInput = (incomingData) => {
     });
 }
 
-const handleCheckChange = (passUser, event) => {
+const handleCheckChange = (currentUser, event) => {
     const checked = event.target.checked;
     const value = event.target.value;
     console.log(value, "hopefully full JSON string 5/18.23")
     const image_url = JSON.parse(value).src.large;
     const alt_text = JSON.parse(value).alt;
-    const user_fkey  = imageFormData.user_fkey;
+    const user_fkey  = currentUser;
     if (checked) {
       setCheckedImages([...checkedImages, { image_url, user_fkey, alt_text }]);
 
@@ -80,7 +70,7 @@ const handleCheckChange = (passUser, event) => {
   const clearForm = () => {
     setImageFormData({
         image_url: "",
-        user_fkey: "fakeid",
+        user_fkey: currentUser,
         alt_text: "",
     });
   };
@@ -163,7 +153,7 @@ const handleSearchSubmit = (e) => {
                 type="checkbox"
                 id={`checkbox-${eachImage.src.tiny}`}
                 value={JSON.stringify(eachImage)}
-                onChange={(event) => handleCheckChange("", event)}
+                onChange={(event) => handleCheckChange(currentUser, event)}
                 label={<img src={eachImage.src.tiny} alt={`${eachImage.alt}`} />}
              />
              ))}

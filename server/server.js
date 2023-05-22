@@ -38,15 +38,11 @@ app.post("/user", cors(), async (req, res) => {
     }
   });
 
-
-
-
 //MOCK DATA - GET REQUEST
-app.get("/api/pexels", (req, res) => {
-    console.log(mockdata);
-      res.json(mockdata);
-  });
-
+// app.get("/api/pexels", (req, res) => {
+//     console.log(mockdata);
+//       res.json(mockdata);
+//   });
 
 //uncomment for search  
 //API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
@@ -72,19 +68,9 @@ app.get('/api/pexels/:searchedbyuser', async (req, res) => {
 //*************************************************************************************************************************************** */
 
 // GET request for IMAGE_TRACKER in the endpoint '/api/images' (works)
-app.get('/api/images/', async (req, res) => {
-    try {
-        const { rows: image_tracker } = await db.query('SELECT * FROM image_tracker', []);
-        res.send(image_tracker);
-    } catch (e) {
-        return res.status(400).json({ e });
-    }
-});
-
-// GET request for IMAGE_TRACKER in the endpoint '/api/images' (works)
 app.get('/api/images/:user_fkey', async (req, res) => {
     try {
-        const userId = req.params.taskId
+        const userId = req.params.user_fkey;
         const { rows: image_tracker } = await db.query('SELECT * FROM image_tracker WHERE user_fkey=$1', [userId]);
         res.send(image_tracker);
     } catch (e) {

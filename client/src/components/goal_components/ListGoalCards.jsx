@@ -3,11 +3,13 @@ import FormGoal from './FormGoal';
 import CardGoal from './CardGoal';
 // import MyNavBar from '../Navbar';
 import { Grid } from 'semantic-ui-react';
-// import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
+import MyNavBar from "../Navbar";
 
 
 const ListGoalCards = () => {
 
+    const { user, isAuthenticated } = useAuth0();//user.sub
     // this is my original state with an array of students 
     const [goalCardArr, setGoalCardArr] = useState([]);
 
@@ -18,21 +20,25 @@ const ListGoalCards = () => {
 
     const loadGoalsFromDB = () => {
         // A function to fetch the list of goals that will be load anytime that list change
-        try{
-            fetch(`/api/goals/`)
-            .then((response) => response.json())
-            .then((goalsFromDB) => {
-                setGoalCardArr(goalsFromDB);
-            });
-        } catch {
-            console.log("api fetch did not work");
+        if(isAuthenticated){
+            try{
+                fetch(`/api/goals/${user.sub}`)
+                .then((response) => response.json())
+                .then((goalsFromDB) => {
+                    setGoalCardArr(goalsFromDB);
+                });
+            } catch {
+                console.log("api fetch did not work");
+            }
+        } else {
+            console.log("load goals function in list is not working")
         }
 
     }
 
     useEffect(() => {
             loadGoalsFromDB();
-    }, []);
+    }, [isAuthenticated, user]);
 
 
     const onSaveGoalSendToGoalCards = (newGoal) => {
@@ -69,11 +75,10 @@ const ListGoalCards = () => {
 
     return (
         <div >
-
+        <MyNavBar/>
+        <h2 className="goals-title"> Goals </h2>
         <div className="mygoalbody" >
-
             <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
-        
         <div className="list-goal-cards">
         <div className="goal-card-container">
             <Grid columns={3} divided textAlign='center' centered verticalAlign='middle'>

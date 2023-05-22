@@ -1,4 +1,4 @@
-
+import React, { useEffect } from 'react'
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -9,6 +9,25 @@ import { Outlet } from "react-router-dom";
 function MyNavBar(props) {
 
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+
+    useEffect(() => {
+    if (isAuthenticated === true) {
+      fetch("/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("From the post ", data);
+        })
+        .catch((error) => {
+          console.error("An error occurred:", error.message);
+        });
+    }
+  }, [isAuthenticated, user]);
 
   return (
     <>

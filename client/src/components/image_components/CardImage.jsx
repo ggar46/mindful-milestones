@@ -11,7 +11,7 @@ const CardImage = ({eachImage}) => {
   }
 
 
-    console.log(getImage, "in card")
+    // console.log(getImage, "in card")
     return (
       <div data-testid="taskModal" className="each-image-card">
         {/* <Card className="custom-card"> */}
