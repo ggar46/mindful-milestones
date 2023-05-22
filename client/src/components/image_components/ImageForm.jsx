@@ -120,6 +120,7 @@ const handleSearchSubmit = (e) => {
 
 // // *********************************************************************************
   return (
+    user && isAuthenticated &&
     <div data-testid="taskModal">
       <Button variant="primary" className="newImageButton" onClick={handleShow}>
         Add new Image
