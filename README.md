@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/main/client/src/assets/braingrey.png" width=110% height="300" alt="logoimage" />
+<img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/main/client/src/assets/braingrey.png" width=100% alt="logoimage" />
 
 #  Mindful Milestones
 
