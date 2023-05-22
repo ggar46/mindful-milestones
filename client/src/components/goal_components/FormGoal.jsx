@@ -11,6 +11,7 @@ const FormGoal = ({
 }) => {
 
   const { user, isAuthenticated } = useAuth0();//user.sub
+  const currentUser = user ? user.sub :  "";
   const [goalFormData, setGoalFormData] = useState(
     editingGoalFormData || {
       goal: "",
@@ -19,6 +20,7 @@ const FormGoal = ({
       goal_obstacle: "",
       strategy: "",
       image_fkey: "",
+      user_fkey: currentUser,
     }
   );
 
@@ -70,17 +72,19 @@ const FormGoal = ({
 
   const handleImageDropdown = (event) => {
     const image_fkey = event.target.value;
-    setGoalFormData((student) => ({ ...student, image_fkey }));
+    setGoalFormData((goalFormData) => ({ ...goalFormData, image_fkey }));
   };
 
   const clearForm = () => {
     setGoalFormData({
+      id: "",
       goal: "",
       date: "",
       goal_purpose: "",
       goal_obstacle: "",
       strategy: "",
       image_fkey: "",
+      user_fkey: currentUser,
     });
   };
 
@@ -97,7 +101,7 @@ const FormGoal = ({
         return response.json();
       })
       .then((data) => {
-        //console.log("From the post ", data);
+        console.log("From the faulty post ", data);
         //I'm sending data to the List of Students (the parent) for updating the list
         onSaveGoalSendToGoalCards(data);
         //this line just for cleaning the form
