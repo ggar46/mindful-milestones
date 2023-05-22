@@ -10,7 +10,7 @@ const FormGoal = ({
   onUpdateGoalForm,
 }) => {
 
-  // This is the original State with not initial student
+  const { user, isAuthenticated } = useAuth0();//user.sub
   const [goalFormData, setGoalFormData] = useState(
     editingGoalFormData || {
       goal: "",
@@ -32,12 +32,15 @@ const FormGoal = ({
 
   //Call images array so dropdown has alt image options
   useEffect(() => {
-    fetch("/api/images/")
+    if(isAuthenticated){
+      fetch(`/api/images/${user.sub}`)
       .then((response) => response.json())
       .then((dbData) => {
             setArrayOfImages(dbData);
           });
-  }, []);
+    }
+
+  }, [isAuthenticated, user]);
 
   //create functions that handle the event of the user typing into the form
   const handleGoalChange = (event) => {
