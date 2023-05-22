@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ImageForm from './ImageForm';
 import CardImage from './CardImage';
+import MyNavBar from '../Navbar'
 // import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -43,6 +44,8 @@ const ListSelectedImages = () => {
 
     return (
         <div>
+            <MyNavBar />
+            <h2 className="imagesTitle"> Vision Board </h2>
             <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
             <div className="image-card-container">
                     {imageCardArr.map((eachImage) => {

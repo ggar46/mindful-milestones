@@ -4,6 +4,7 @@ import CardGoal from './CardGoal';
 // import MyNavBar from '../Navbar';
 import { Grid } from 'semantic-ui-react';
 // import { useAuth0 } from "@auth0/auth0-react";
+import MyNavBar from "../Navbar";
 
 
 const ListGoalCards = () => {
@@ -69,11 +70,10 @@ const ListGoalCards = () => {
 
     return (
         <div >
-
+        <MyNavBar/>
+        <h2 className="goals-title"> Goals </h2>
         <div className="mygoalbody" >
-
             <FormGoal key={editingGoalFormData ? editingGoalFormData.id : null} setShowModal={setShowModal} onSaveGoalSendToGoalCards={onSaveGoalSendToGoalCards} editingGoalFormData={editingGoalFormData} onUpdateGoalForm={onUpdateGoalForm} />
-        
         <div className="list-goal-cards">
         <div className="goal-card-container">
             <Grid columns={3} divided textAlign='center' centered verticalAlign='middle'>
