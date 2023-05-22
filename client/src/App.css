@@ -106,7 +106,7 @@ input[type='submit']{
   font-size: 15px;
   border-radius: 2px;
   padding: 0.5em;
-  background-color: rgb(248, 248, 159);
+  background-color: rgb(186, 198, 243);
 }
 
 #date-label {
@@ -394,4 +394,9 @@ span {
   background-color: yellow;
   width: 40%;
   padding: 2%;
+}
+
+#text-in-search-bar {
+  font-size: large;
+  padding-bottom: 30px;
 }

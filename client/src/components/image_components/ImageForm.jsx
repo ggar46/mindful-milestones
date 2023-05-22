@@ -143,7 +143,7 @@ const handleSearchSubmit = (e) => {
 
         {/* uncomment for search */}
         <Form className="form-search" onSubmit={handleSearchSubmit}>
-          <Form.Label> Select image/images </Form.Label>
+          <Form.Label id="text-in-search-bar"> Search for images using a word or phrase </Form.Label>
           <input
             id="searched-value"
             type="text"
