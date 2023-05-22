@@ -1,6 +1,6 @@
 #  Mindful Milestones
 
-<img src="file:///Users/tpl622_2/Desktop/brainWebLogo.png" width="500" height="300" alt="logoimage" />
+<img src="(https://ibb.co/NYFVzZY)" width="500" height="300" alt="logoimage" />
 
 ## About The Project
 
