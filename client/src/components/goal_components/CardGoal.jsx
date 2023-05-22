@@ -25,7 +25,7 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
         }
       };
     
-      const eachGoalId = getGoalProperty('id');
+    //   const eachGoalId = getGoalProperty('id');
       const eachGoalName = getGoalProperty('goal');
       const eachGoalDate = getGoalProperty('date')?.slice(0, 10);
       const eachGoalImage = getGoalProperty('image_fkey');

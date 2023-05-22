@@ -26,10 +26,10 @@ app.post("/user", cors(), async (req, res) => {
         email: req.body.email,
       };
       const result = await db.query(
-        "INSERT INTO user_table(user_id, email) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING*",
+        "INSERT INTO user_table(user_id, email) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING *",
         [newUser.user_id, newUser.email]
       );
-      console.log("result.rows[0]: ", result.rows[0]);
+      console.log("from user route in the server  -  result.rows[0]: ", result.rows[0]);
       // if value is undefined, set value to {}
       res.json(result.rows[0] ?? {});
     } catch (e) {
@@ -50,24 +50,24 @@ app.get("/api/pexels", (req, res) => {
 
 //uncomment for search  
 //API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
-// app.get('/api/pexels/:searchedbyuser', async (req, res) => {
-//     try {
-//       console.log('code reached here');
-//       const client = createClient(process.env.API_KEY);
-//       const searchedbyuser = req.params.searchedbyuser;
-//       const url = `https://api.pexels.com/v1/search?query=${searchedbyuser}&per_page=3`;
-//       const data = await fetch(url, {
-//         headers: {
-//           Authorization: process.env.API_KEY,
-//         },
-//       });
-//       const searchresults = await data.json();
-//       res.json(searchresults);
-//     } catch (err) {
-//       console.error(err);
-//       res.status(500).json({ message: 'Server Error' });
-//     }
-//   });
+app.get('/api/pexels/:searchedbyuser', async (req, res) => {
+    try {
+      console.log('code reached here');
+      const client = createClient(process.env.API_KEY);
+      const searchedbyuser = req.params.searchedbyuser;
+      const url = `https://api.pexels.com/v1/search?query=${searchedbyuser}&per_page=3`;
+      const data = await fetch(url, {
+        headers: {
+          Authorization: process.env.API_KEY,
+        },
+      });
+      const searchresults = await data.json();
+      res.json(searchresults);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server Error' });
+    }
+  });
  
 //*************************************************************************************************************************************** */
 
@@ -84,8 +84,8 @@ app.get('/api/images/', async (req, res) => {
 // GET request for IMAGE_TRACKER in the endpoint '/api/images' (works)
 app.get('/api/images/:user_fkey', async (req, res) => {
     try {
-        const taskGoalId = req.params.taskId
-        const { rows: image_tracker } = await db.query('SELECT * FROM image_tracker WHERE user_fkey=$1', [taskGoalId]);
+        const userId = req.params.taskId
+        const { rows: image_tracker } = await db.query('SELECT * FROM image_tracker WHERE user_fkey=$1', [userId]);
         res.send(image_tracker);
     } catch (e) {
         return res.status(400).json({ e });
@@ -257,12 +257,12 @@ app.post('/api/images', async (req, res) => {
     try {
         const newImage = {
             image_url: req.body.image_url,
+            alt_text: req.body.alt_text,
             user_fkey: req.body.user_fkey,
-            alt_text: req.body.alt_text
         };
         const result = await db.query(
-            'INSERT INTO image_tracker(image_url, user_fkey, alt_text) VALUES($1, $2, $3) RETURNING *',
-            [newImage.image_url, newImage.user_fkey, newImage.alt_text],
+            'INSERT INTO image_tracker(image_url, alt_text, user_fkey) VALUES($1, $2, $3) RETURNING *',
+            [newImage.image_url, newImage.alt_text, newImage.user_fkey],
         );
         console.log(result.rows[0]);
         res.json(result.rows[0]);

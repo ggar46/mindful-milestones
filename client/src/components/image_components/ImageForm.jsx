@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 
 const FormImage = ({onSaveImageSendToImageCards}) => {
 
-  const { user, isAuthenticated, isLoading } = useAuth0(); //user.sub
+  // const { user, isAuthenticated, isLoading } = useAuth0(); //user.sub
 
-  const setUser = () => {
-    if(user){
-      const currentUser = user.sub;
-      return currentUser;
-    } else {
-      console.log("fail");
-    }
-  }
+  // const setUser = () => {
+  //   if(user){
+  //     const currentUser = user.sub;
+  //     return currentUser;
+  //   } else {
+  //     console.log("fail");
+  //   }
+  // }
 
 
   const [imageFormData, setImageFormData] = useState(
      {
       image_url: "",
-      user_fkey: setUser,
+      user_fkey: "fakeid",
       alt_text: "",
     }
   );
@@ -28,35 +28,29 @@ const FormImage = ({onSaveImageSendToImageCards}) => {
   const [arrayOfImages, setArrayOfImages] = useState([]); //from API directly, will use for search
   const [show, setShow] = useState(false);
   const [checkedImages, setCheckedImages] = useState([]);
-  // //uncomment for search
-  // const [searchedValue, setSearchedValue] = useState([]);
+  //uncomment for search
+  const [searchedValue, setSearchedValue] = useState([]);
  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);  
 
 
-//useful to rerender as API changes, not needed for API
-// useEffect(() => {
-//   }, [imageFormData]);
-
-  useEffect(() => {
-    fetch("/api/pexels")
-      .then((response) => response.json())
-      .then((dbData) => {
-        setArrayOfImages(dbData.photos);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api/pexels")
+  //     .then((response) => response.json())
+  //     .then((dbData) => {
+  //       setArrayOfImages(dbData.photos);
+  //     });
+  // }, []);
 
 //API fetch request, uncomment for search
-// const searchByUserInput = (incomingData) => {
-//   fetch(`/api/pexels/${incomingData}`)
-//     .then((response) => response.json())
-//     .then((dbData) => {
-//       setArrayOfImages(dbData.photos);
-//     });
-// }
-
-//my way, iterate through and if person unchecks, then I want it removed
+const searchByUserInput = (incomingData) => {
+  fetch(`/api/pexels/${incomingData}`)
+    .then((response) => response.json())
+    .then((dbData) => {
+      setArrayOfImages(dbData.photos);
+    });
+}
 
 const handleCheckChange = (passUser, event) => {
     const checked = event.target.checked;
@@ -64,7 +58,7 @@ const handleCheckChange = (passUser, event) => {
     console.log(value, "hopefully full JSON string 5/18.23")
     const image_url = JSON.parse(value).src.large;
     const alt_text = JSON.parse(value).alt;
-    const user_fkey  = passUser;
+    const user_fkey  = imageFormData.user_fkey;
     if (checked) {
       setCheckedImages([...checkedImages, { image_url, user_fkey, alt_text }]);
 
@@ -77,27 +71,23 @@ const handleCheckChange = (passUser, event) => {
     }
   };
 
-
-// //uncomment for search
-//   const handleSearchedValue = (event) => {
-//     const value = event.target.value;
-//     setSearchedValue(value);
-//    }
-
-
+//uncomment for search
+  const handleSearchedValue = (event) => {
+    const value = event.target.value;
+    setSearchedValue(value);
+   }
 
   const clearForm = () => {
     setImageFormData({
         image_url: "",
-        user_fkey: setUser,
+        user_fkey: "fakeid",
         alt_text: "",
     });
   };
 
   //A function to handle the post request, need to post one at a time instead of array
   const postfromImageForm = (newImageForm) => {
-    //console.log(newImageForm, "should have correct url")
-    return fetch(`/api/images/${setUser}`, {
+    return fetch(`/api/images`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newImageForm)
@@ -131,11 +121,11 @@ const handleSubmit = (e) => {
 
 
 //uncomment for search
-// const handleSearchSubmit = (e) => {
-//   e.preventDefault();
-//   //put searched value into api get request, which will automatically get 3 results
-//   searchByUserInput(searchedValue);
-// }
+const handleSearchSubmit = (e) => {
+  e.preventDefault();
+  //put searched value into api get request, which will automatically get 3 results
+  searchByUserInput(searchedValue);
+}
 
 // // *********************************************************************************
   return (
@@ -151,7 +141,7 @@ const handleSubmit = (e) => {
         <Modal.Body>
 
 
-        {/* uncomment for search
+        {/* uncomment for search */}
         <Form className="form-search" onSubmit={handleSearchSubmit}>
           <Form.Label> Select image/images </Form.Label>
           <input
@@ -162,7 +152,7 @@ const handleSubmit = (e) => {
             onChange={handleSearchedValue}
           />
           <input type="submit" value = "Submit" />
-        </Form> */}
+        </Form>
 
 
 
@@ -173,7 +163,7 @@ const handleSubmit = (e) => {
                 type="checkbox"
                 id={`checkbox-${eachImage.src.tiny}`}
                 value={JSON.stringify(eachImage)}
-                onChange={(event) => handleCheckChange(setUser, event)}
+                onChange={(event) => handleCheckChange("", event)}
                 label={<img src={eachImage.src.tiny} alt={`${eachImage.alt}`} />}
              />
              ))}
