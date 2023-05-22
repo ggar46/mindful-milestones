@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 
-
 const FormGoal = ({
   onSaveGoalSendToGoalCards,
   editingGoalFormData,
@@ -11,16 +10,14 @@ const FormGoal = ({
 }) => {
 
   const { user, isAuthenticated } = useAuth0();//user.sub
-  const currentUser = user ? user.sub :  "";
   const [goalFormData, setGoalFormData] = useState(
-    editingGoalFormData || {
+    {
       goal: "",
       date: "",
       goal_purpose: "",
       goal_obstacle: "",
       strategy: "",
       image_fkey: "",
-      user_fkey: currentUser,
     }
   );
 
@@ -34,7 +31,7 @@ const FormGoal = ({
 
   //Call images array so dropdown has alt image options
   useEffect(() => {
-    if(isAuthenticated){
+    if(isAuthenticated && user){
       fetch(`/api/images/${user.sub}`)
       .then((response) => response.json())
       .then((dbData) => {
@@ -78,13 +75,12 @@ const FormGoal = ({
   const clearForm = () => {
     setGoalFormData({
       id: "",
-      goal: "",
+      image_fkey: "",
       date: "",
       goal_purpose: "",
       goal_obstacle: "",
       strategy: "",
-      image_fkey: "",
-      user_fkey: currentUser,
+      goal: "",
     });
   };
 
@@ -92,6 +88,7 @@ const FormGoal = ({
   // *********************************************************************************
   //A function to handle the post request
   const postGoalForm = (newUserForm) => {
+    newUserForm.user_fkey = user.sub
     return fetch("/api/goals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -110,24 +107,24 @@ const FormGoal = ({
   };
 
   //A function to handle the put request
-  const putReqGoalForm = (toEditGoalInfo) => {
-    handleShow;
-    console.log('working')
-    console.log("from put req goal", toEditGoalInfo)
-    return fetch(`/api/goals/${toEditGoalInfo.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(toEditGoalInfo)
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        onUpdateGoalForm(data);
-        //this line just for cleaning the form
-        clearForm();
-      });
-  };
+  // const putReqGoalForm = (toEditGoalInfo) => {
+  //   handleShow;
+  //   console.log('working')
+  //   console.log("from put req goal", toEditGoalInfo)
+  //   return fetch(`/api/goals/${toEditGoalInfo.id}`, {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(toEditGoalInfo)
+  //   })
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       onUpdateGoalForm(data);
+  //       //this line just for cleaning the form
+  //       clearForm();
+  //     });
+  // };
   // *********************************************************************************
   //A function to handle the submit in both cases - Post and Put request!
   const handleSubmit = (e) => {
@@ -137,6 +134,7 @@ const FormGoal = ({
     console.log("reached if statement")
       putReqGoalForm(goalFormData);
     } else {
+      console.log(goalFormData, "here it is in handleSubmit")
       postGoalForm(goalFormData);
     }
   };
@@ -144,6 +142,7 @@ const FormGoal = ({
 
 
   return (
+    user && isAuthenticated &&
     <div>
       <Button id="addgoal" variant="primary" onClick={handleShow}>
         Add Goal
@@ -207,7 +206,7 @@ const FormGoal = ({
                 id="add-goal-strategy"
                 placeholder="Goal Strategy"
                 required
-                value={goalFormData.goal_strategy}
+                value={goalFormData.strategy}
                 onChange={handleStrategy}
                 className="form-control"
               />
@@ -255,118 +254,3 @@ const FormGoal = ({
 };
 
 export default FormGoal;
-
-
-
-
-
-// return (
-//   <div>
-//   <Button id="addgoal" variant="primary" onClick={handleShow}>
-//     Add Goal
-//   </Button>
-
-//   <Modal show={show} onHide={handleClose}>
-//     <Modal.Header closeButton>
-//       <Modal.Title>New Goal Form</Modal.Title>
-//     </Modal.Header>
-//     <Modal.Body>
-//       <Form className="form-students" onSubmit={handleSubmit}>
-//         <Form.Group>
-//           <Form.Label id="goalField">Goal</Form.Label>
-//           <input
-//             type="text"
-//             id="add-goal"
-//             placeholder="Goal"
-//             required
-//             value={goalFormData.goal}
-//             onChange={handleGoalChange}
-//           />
-//         </Form.Group>
-//         <Form.Group>
-//           <Form.Label id="date-label">Date</Form.Label>
-//           <input
-//             type="date"
-//             id="add-date"
-//             placeholder="Date"
-//             required
-//             value={goalFormData.date}
-//             onChange={handleDateChange}
-//           />
-//         </Form.Group>
-//         <Form.Group>
-//           <Form.Label>Goal Purpose</Form.Label>
-//           <textarea
-//             id="add-goal-purpose"
-//             placeholder="Goal Purpose"
-//             required
-//             value={goalFormData.goal_purpose}
-//             onChange={handleGoalPurpose}
-//           />
-//         </Form.Group>
-//         <Form.Group>
-//           <Form.Label>Goal Obstacles</Form.Label>
-//           <textarea
-//             id="add-goal-obstacle"
-//             placeholder="Goal Obstacle"
-//             required
-//             value={goalFormData.goal_obstacle}
-//             onChange={handleGoalObstacle}
-//           />
-//         </Form.Group>
-//         <Form.Group>
-//           <Form.Label>Goal Strategy</Form.Label>
-//           <textarea
-//             id="add-goal-strategy"
-//             placeholder="Goal Strategy"
-//             required
-//             value={goalFormData.goal_strategy}
-//             onChange={handleStrategy}
-//           />
-//         </Form.Group>
-//         {/* ********************************************************************************* */}
-//         <Form.Group>
-//           <Form.Label>Select Image</Form.Label>
-//           <select onChange={handleImageDropdown}>
-//             <option>Please choose an image by its description</option>
-//             {arrayOfImages.map((oneImage) => {
-//               return (
-//                 <option
-//                   key={oneImage.image_url}
-//                   id={oneImage.image_url}
-//                   value={oneImage.image_url}
-//                 >
-//                   {" "}
-//                   {oneImage.alt_text}{" "}
-//                 </option>
-//               );
-//             })}
-//           </select>
-//         </Form.Group>
-//         {/* ********************************************************************************* */}
-//         <Form.Group>
-//           <div className="goal-buttons-container">
-//             <Button type="submit" variant="primary">
-//               {goalFormData.id ? "Edit Student" : "Add Student"}
-//             </Button>
-//             <Button variant="secondary" onClick={handleClose}>
-//               Close
-//             </Button>
-//           </div>
-
-//           {goalFormData.id ? (
-//             <Button
-//               type="button"
-//               variant="primary"
-//               onClick={clearForm}
-//             >
-//               Cancel
-//             </Button>
-//           ) : null}
-//         </Form.Group>
-//       </Form>
-//     </Modal.Body>
-//   </Modal>
-// </div>
-
-// );

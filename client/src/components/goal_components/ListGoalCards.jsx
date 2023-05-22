@@ -10,6 +10,7 @@ import MyNavBar from "../Navbar";
 const ListGoalCards = () => {
 
     const { user, isAuthenticated } = useAuth0();//user.sub
+    
     // this is my original state with an array of students 
     const [goalCardArr, setGoalCardArr] = useState([]);
 
@@ -19,26 +20,26 @@ const ListGoalCards = () => {
     const [setShowModal, showModalData] = useState(false);
 
     const loadGoalsFromDB = () => {
-        // A function to fetch the list of goals that will be load anytime that list change
-        if(isAuthenticated){
-            try{
-                fetch(`/api/goals/${user.sub}`)
-                .then((response) => response.json())
-                .then((goalsFromDB) => {
-                    setGoalCardArr(goalsFromDB);
-                });
-            } catch {
-                console.log("api fetch did not work");
-            }
-        } else {
-            console.log("load goals function in list is not working")
-        }
+      // A function to fetch the list of goals that will be load anytime that list change
+      if(isAuthenticated){
+          try{
+              fetch(`/api/goals/${user.sub}`)
+              .then((response) => response.json())
+              .then((goalsFromDB) => {
+                  setGoalCardArr(goalsFromDB);
+              });
+          } catch {
+              console.log("api fetch did not work");
+          }
+      } else {
+          console.log("load goals function in list is not working")
+      }
 
-    }
+  }
 
-    useEffect(() => {
-            loadGoalsFromDB();
-    }, [isAuthenticated, user]);
+  useEffect(() => {
+          loadGoalsFromDB();
+  }, [isAuthenticated, user]);
 
 
     const onSaveGoalSendToGoalCards = (newGoal) => {

@@ -10,9 +10,10 @@ function MyNavBar(props) {
 
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
-    useEffect(() => {
-    if (isAuthenticated === true) {
-      fetch("/user", {
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log(user, "check user")
+      fetch("/api/user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),
@@ -23,9 +24,9 @@ function MyNavBar(props) {
         .then((data) => {
           console.log("From the post ", data);
         })
-        .catch((error) => {
-          console.error("An error occurred:", error.message);
-        });
+        // .catch((error) => {
+        //   console.error("An error occurred:", error.message);
+        // });
     }
   }, [isAuthenticated, user]);
 

@@ -18,11 +18,12 @@ app.use(express.static(REACT_BUILD_DIR));
 
 //*************************************************************************************************************************************** */
 // creates new entry for user, else does nothing
-app.post("/user", cors(), async (req, res) => {
-    console.log(req.body.user_id, req.body.email);
+app.post("/api/user", cors(), async (req, res) => {
+    console.log(req.body.user, "backend user");
+    
     try {
       const newUser = {
-        user_id: req.body.user_id,
+        user_id: req.body.sub,
         email: req.body.email,
       };
       const result = await db.query(
@@ -92,14 +93,14 @@ app.get('/api/tasks/:taskId', async (req, res) => {
 });
 
 // GET request for GOAL_INFO in the endpoint '/api/goals' (works)
-app.get('/api/goals', async (req, res) => {
-    try {
-        const { rows: goal_info } = await db.query('SELECT * FROM goal_info');
-        res.send(goal_info);
-    } catch (e) {
-        return res.status(400).json({ e });
-    }
-});
+// app.get('/api/goals', async (req, res) => {
+//     try {
+//         const { rows: goal_info } = await db.query('SELECT * FROM goal_info');
+//         res.send(goal_info);
+//     } catch (e) {
+//         return res.status(400).json({ e });
+//     }
+// });
 
 // GET request for GOAL_INFO in the endpoint '/api/goals' (works)
 app.get('/api/goals/:userId', async (req, res) => {

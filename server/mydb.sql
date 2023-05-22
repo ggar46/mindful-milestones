@@ -133,7 +133,6 @@ ALTER TABLE public.task_tracker ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY
 
 INSERT INTO public.goal_info (id, image_fkey, date, goal_purpose, goal_obstacle, strategy, goal, user_fkey) OVERRIDING SYSTEM VALUE VALUES (37, 'https://images.pexels.com/photos/167682/pexels-photo-167682.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', '2023-12-18', 'Expand skillset, keep brain busy.', 'Lack motivation during the evenings.', 'Start with small but consistent lessons.', 'Self-Study 2 hours per week', 'google-oauth2|103809964263193763340');
 INSERT INTO public.goal_info (id, image_fkey, date, goal_purpose, goal_obstacle, strategy, goal, user_fkey) OVERRIDING SYSTEM VALUE VALUES (38, 'https://images.pexels.com/photos/2897128/pexels-photo-2897128.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', '2023-08-10', 'Crochet a blanket for Christmas.', 'Don''t have materials or skills.', 'Watch two youtube videos every weekend and practice throughout the week. Ask crochet community for help.', 'Learn to Crochet', 'google-oauth2|103809964263193763340');
-INSERT INTO public.goal_info (id, image_fkey, date, goal_purpose, goal_obstacle, strategy, goal, user_fkey) OVERRIDING SYSTEM VALUE VALUES (53, 'https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', '2023-07-18', 'Have more fiber and variety in my diet', 'Do not crave fruit and do not always have fruit. Pastries are easier to eat.', 'Cut fruit as soon as bought from store, consume lots of smoothies this summer.', 'Eat More Fruit', 'google-oauth2|103809964263193763340');
 
 
 --
@@ -142,33 +141,17 @@ INSERT INTO public.goal_info (id, image_fkey, date, goal_purpose, goal_obstacle,
 
 INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/10035858/pexels-photo-10035858.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', 'Pink Clouds and Sea ', 'google-oauth2|103809964263193763340');
 INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/167682/pexels-photo-167682.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', 'Black Click Pen on White Paper', 'google-oauth2|103809964263193763340');
-INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/36363/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=650&w=940', 'White Stone Mountains', 'google-oauth2|103809964263193763340');
 INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', 'Person Swimming on Body of Water', 'google-oauth2|103809964263193763340');
-INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', 'Top View Photo of Food Dessert', 'google-oauth2|103809964263193763340');
 INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/2897128/pexels-photo-2897128.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', 'Person Holding Crochet Hook', 'google-oauth2|103809964263193763340');
 INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/5926380/pexels-photo-5926380.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', 'From above crop faceless male developer in black hoodie writing software code on netbook while working in light studio', 'google-oauth2|103809964263193763340');
 INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/1883385/pexels-photo-1883385.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', 'Selective Focus Photography of Pink and Yellow Tulips Flowers', 'google-oauth2|103809964263193763340');
-INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', 'Close-up Photograph of Flowers', 'google-oauth2|103809964263193763340');
-INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', 'Scenic View Of Snow Capped Mountains During Night', 'google-oauth2|103809964263193763340');
-INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', 'Mountain Covered Snow Under Star', 'google-oauth2|103809964263193763340');
+INSERT INTO public.image_tracker (image_url, alt_text, user_fkey) VALUES ('https://images.pexels.com/photos/1547813/pexels-photo-1547813.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', 'Red Trees', 'google-oauth2|103809964263193763340');
 
 
 --
 -- Data for Name: task_tracker; Type: TABLE DATA; Schema: public; Owner: tpl622_2
 --
 
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (52, '36', 'Buy fruit', true);
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (59, '37', 'another', true);
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (56, '36', 'newe item', true);
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (58, '37', 'new', true);
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (60, '59', 'hike', true);
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (61, '60', 'jnk', true);
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (62, '61', 'jjjj', false);
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (63, '38', 'New', true);
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (21, '17', 'something else', true);
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (50, '29', 'dd', false);
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (51, '32', 'new item2', false);
-INSERT INTO public.task_tracker (id, goal_fkey, task_text, is_checked) OVERRIDING SYSTEM VALUE VALUES (57, '37', 'nuevo', true);
 
 
 --
@@ -183,7 +166,7 @@ INSERT INTO public.user_table (user_id, email) VALUES ('google-oauth2|1046223938
 -- Name: goal_info_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl622_2
 --
 
-SELECT pg_catalog.setval('public.goal_info_id_seq', 61, true);
+SELECT pg_catalog.setval('public.goal_info_id_seq', 67, true);
 
 
 --
