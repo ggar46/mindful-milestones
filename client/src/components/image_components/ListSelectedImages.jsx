@@ -37,6 +37,7 @@ const ListSelectedImages = () => {
     }
 
     return (
+      user && isAuthenticated &&
         <div>
             <MyNavBar />
             <h2 className="imagesTitle"> Vision Board </h2>
