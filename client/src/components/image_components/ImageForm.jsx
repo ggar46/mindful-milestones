@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
-import { useAuth0, isAuthenticated } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const FormImage = ({onSaveImageSendToImageCards}) => {
 
-  const { user } = useAuth0(); //user.sub
+  const { user, isAuthenticated} = useAuth0(); //user.sub
   const currentUser = user ? user.sub :  "";
   const [imageFormData, setImageFormData] = useState(
      {
