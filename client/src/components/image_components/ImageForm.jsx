@@ -77,6 +77,7 @@ const handleCheckChange = (currentUser, event) => {
 
   //A function to handle the post request, need to post one at a time instead of array
   const postfromImageForm = (newImageForm) => {
+    newImageForm.user_fkey = user.sub
     return fetch(`/api/images`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
