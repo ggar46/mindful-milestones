@@ -402,7 +402,7 @@ span {
 }
 
 #homepage {
-  background-color: antiquewhite;
+  background-color: rgb(236, 235, 242);
   text-align: center;
   height: 100px;
   width: 500px;
@@ -421,8 +421,28 @@ span {
 }
 
 #homepage-content {
-  background-color: aquamarine;
+  background-color: rgb(235, 235, 242);
   height: 160px;
   padding-top: 20%;
-  
+}
+
+.description  {
+  margin-top: 8%;
+  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: large;
+}
+
+.login {
+  display: flex;
+  background-color: rgb(150, 157, 240);
+  margin: auto;
+  color: rgb(255, 255, 255);
+  border-radius: 7px;
+  padding: 8px;
+  transition-duration: 0.4s;
+}
+
+.login:hover {
+  background: rgb(0, 0, 0);
+  color: white;
 }
