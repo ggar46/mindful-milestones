@@ -75,6 +75,7 @@ const ListGoalCards = () => {
 
 
     return (
+        user && isAuthenticated &&
         <div >
         <MyNavBar/>
         <h2 className="goals-title"> Goals </h2>
