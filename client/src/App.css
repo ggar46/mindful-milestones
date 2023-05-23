@@ -414,14 +414,14 @@ span {
 @media (min-width: 500px) {
   #homepage {
     height: 600px;
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 5%;
   }
 }
 
 #homepage-content {
-  background-color: rgb(235, 235, 242);
+  background-color: rgb(236, 235, 242);
   height: 160px;
   padding-top: 20%;
 }
