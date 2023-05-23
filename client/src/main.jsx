@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import Goals from './components/goal_components/Goals';
-import Profile from './components/Profile';
 import { Auth0Provider} from '@auth0/auth0-react';
 import 'semantic-ui-css/semantic.min.css'
 
@@ -25,10 +24,6 @@ const router = createBrowserRouter([
   {
     path: "/Goals",
     element: <Goals/>,
-  },
-  {
-    path: "/user-profile",
-    element: <Profile/>
   },
 ]);
 
