@@ -6,10 +6,10 @@ import Login from './components/Login';
 
 function App() {
 
-  const {isAuthenticated} = useAuth0();
+  const {isAuthenticated, isLoading} = useAuth0();
   return (
     <div data-testid="taskModal" className="App">
-      {!isAuthenticated ? <Login  /> : null}
+      {!isAuthenticated && !isLoading ? <Login  /> : null}
       <Home/>
     </div>
   )
