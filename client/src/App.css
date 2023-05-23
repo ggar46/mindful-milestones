@@ -400,3 +400,29 @@ span {
   font-size: large;
   padding-bottom: 30px;
 }
+
+#homepage {
+  background-color: antiquewhite;
+  text-align: center;
+  height: 100px;
+  width: 500px;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 5%;
+}
+
+@media (min-width: 500px) {
+  #homepage {
+    height: 600px;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 5%;
+  }
+}
+
+#homepage-content {
+  background-color: aquamarine;
+  height: 160px;
+  padding-top: 20%;
+  
+}

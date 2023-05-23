@@ -5,7 +5,8 @@ import brainWebLogo from "../assets/brainWebLogo.png";
 const Login = () => {
   const { loginWithRedirect } = useAuth0();
   return (
-    <div>
+    <div id="homepage">
+    <div id="homepage-content">
       <div className="homepagetitle">
         <img width="400" src={brainWebLogo}></img>
       </div>
@@ -20,6 +21,7 @@ const Login = () => {
       >
         Log In
       </button>
+      </div>
     </div>
   );
 };
