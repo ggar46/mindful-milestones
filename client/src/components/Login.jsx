@@ -21,7 +21,7 @@ const Login = () => {
         className="login"
         onClick={() => loginWithRedirect()}
       >
-        Log In
+        Here
       </button>
       </div>
     </div>

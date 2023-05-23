@@ -157,12 +157,12 @@ button.btn.btn-secondary {
 .newImageButton.btn.btn-primary:hover,
 #addgoal.btn.btn-primary:hover,
 input[type='submit']:hover {
-  background: rgb(54, 90, 210);
+  background: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
 }
 
 button.closeForm.btn.btn-secondary:hover {
-  background: rgb(173, 35, 35);
+  background: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
 }
 
@@ -357,7 +357,8 @@ div.ui.centered.divided.center.aligned.middle.three.column.grid {
 
 .modal-close:hover,
 .modal-close:focus {
-  color: black;
+  color: white;
+  background-color: black;
   text-decoration: none;
   cursor: pointer;
 }
