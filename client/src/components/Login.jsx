@@ -11,7 +11,7 @@ const Login = () => {
       </div>
       <p className="description">
         {" "}
-        Description
+        Sign up or log in to begin!
       </p>
       <button
         textalign="center"
