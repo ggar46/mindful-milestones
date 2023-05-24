@@ -137,6 +137,7 @@ const FormGoal = ({
       console.log(goalFormData, "here it is in handleSubmit")
       postGoalForm(goalFormData);
     }
+    handleClose();
   };
 
 
