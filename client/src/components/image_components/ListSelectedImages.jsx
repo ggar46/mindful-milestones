@@ -36,6 +36,18 @@ const ListSelectedImages = () => {
         setImageCardArr((imageCardArr) => [...imageCardArr, newImage]);
     }
 
+    const onDelete = (imageId) => {
+      console.log(imageId, "delete method")
+      return fetch(`/api/images/${imageId}`, {
+          method: "DELETE"
+      }).then((response) => {
+          //console.log(response);
+          if (response.ok) {
+            loadImagesFromDB();
+          }
+      })
+  }
+
     return (
       user && isAuthenticated &&
         <div>
@@ -44,7 +56,7 @@ const ListSelectedImages = () => {
             <ImageForm onSaveImageSendToImageCards={onSaveImageSendToImageCards}/>
             <div className="image-card-container">
                     {imageCardArr.map((eachImage, index) => {
-                        return <CardImage key={index} eachImage={eachImage.image_url}/>   
+                        return <CardImage key={index} toDelete={onDelete} eachImage={eachImage.image_url}/>   
                     })}
             </div>
         </div>

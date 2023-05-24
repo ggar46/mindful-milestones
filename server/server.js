@@ -127,18 +127,18 @@ app.get('/api/users', async (req, res) => {
 //*************************************************************************************************************************************** */
 
 // DELETE request for IMAGE_TRACKER in the endpoint '/api/images', REMOVED BECAUSE IF DELETE IMAGE AND SELECTED ONE FOR A GOAL, WHEN YOU DELETE AN IMAGE THERE IS NOW AN ERROR WITH THE GOAL'S IMAGE
-// app.delete('/api/images/:imageId', async (req, res) => {
-//     try {
-//         const imageId = req.params.imageId;
-//         await db.query('DELETE FROM image_tracker WHERE image_url=$1', [imageId]);
-//         console.log("From the delete request-url", imageId);
-//         res.status(200).end();
-//     } catch (e) {
-//         console.log(e);
-//         return res.status(400).json({ e });
+app.delete('/api/images/:imageId', async (req, res) => {
+    try {
+        const imageId = req.params.imageId;
+        await db.query('DELETE FROM image_tracker WHERE image_url=$1', [imageId]);
+        console.log("From the delete request-url", imageId);
+        res.status(200).end();
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ e });
 
-//     }
-// });
+    }
+});
 
 // DELETE request for TASK_TRACKER in the endpoint '/api/tasks' (works)
 app.delete('/api/tasks/:taskId', async (req, res) => {

@@ -98,8 +98,7 @@ const FormGoal = ({
         return response.json();
       })
       .then((data) => {
-        console.log("From the faulty post ", data);
-        //I'm sending data to the List of Students (the parent) for updating the list
+        // console.log("From the faulty post ", data);
         onSaveGoalSendToGoalCards(data);
         //this line just for cleaning the form
         clearForm();
