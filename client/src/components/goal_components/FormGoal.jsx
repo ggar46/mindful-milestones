@@ -97,8 +97,6 @@ const FormGoal = ({
   //A function to handle the put request
   // const putReqGoalForm = (toEditGoalInfo) => {
   //   handleShow;
-  //   console.log('working')
-  //   console.log("from put req goal", toEditGoalInfo)
   //   return fetch(`/api/goals/${toEditGoalInfo.id}`, {
   //     method: "PUT",
   //     headers: { "Content-Type": "application/json" },
@@ -117,10 +115,8 @@ const FormGoal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (goalFormData.id) {
-    console.log("reached if statement")
       putReqGoalForm(goalFormData);
     } else {
-      console.log(goalFormData, "here it is in handleSubmit")
       postGoalForm(goalFormData);
     }
     handleClose();

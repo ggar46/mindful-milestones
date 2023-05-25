@@ -194,8 +194,8 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
             ))}
 
             <Form.Group className='newTaskButtons'>
-                <Button type="submit" variant="primary"> Save Changes </Button>
-                <Button variant="secondary" onClick={handleCloseClick}>close</Button> 
+                <Button onClick={handleCloseClick} variant="primary"> Done </Button>
+                <Button id="closeB" variant="secondary" onClick={handleCloseClick}>close</Button> 
             </Form.Group>
         </Form>
         </Modal.Body>

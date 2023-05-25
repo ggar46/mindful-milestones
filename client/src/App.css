@@ -502,6 +502,11 @@ span {
   font-size: large;
 }
 
+#closeB{
+  background-color: white;
+  color:white;
+}
+
 .login {
   display: flex;
   background-color: rgb(150, 157, 240);
