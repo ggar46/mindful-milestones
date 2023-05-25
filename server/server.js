@@ -63,7 +63,7 @@ app.get('/api/pexels/:searchedbyuser', async (req, res) => {
  
 //*************************************************************************************************************************************** */
 
-// GET request for IMAGE_TRACKER in the endpoint '/api/images' (works)
+// GET request for IMAGE_TRACKER in the endpoint '/api/images'
 app.get('/api/images/:user_fkey', async (req, res) => {
     try {
         const userId = req.params.user_fkey;
@@ -75,7 +75,7 @@ app.get('/api/images/:user_fkey', async (req, res) => {
 });
 
 
-// GET request for TASK_TRACKER in the endpoint '/api/tasks' (works)
+// GET request for TASK_TRACKER in the endpoint '/api/tasks'
 app.get('/api/tasks/:taskId', async (req, res) => {
     try {
         const taskGoalId = req.params.taskId
@@ -87,7 +87,7 @@ app.get('/api/tasks/:taskId', async (req, res) => {
     }
 });
 
-// GET request for GOAL_INFO in the endpoint '/api/goals' (works)
+// GET request for GOAL_INFO in the endpoint '/api/goals'
 app.get('/api/goals/:userId', async (req, res) => {
     try {
         const userId = req.params.userId
@@ -99,7 +99,7 @@ app.get('/api/goals/:userId', async (req, res) => {
 });
 
 
-// GET request for USER_TABLE in the endpoint '/api/users' (works)
+// GET request for USER_TABLE in the endpoint '/api/users'
 app.get('/api/users', async (req, res) => {
     try {
         const { rows: user_table } = await db.query('SELECT * FROM user_table');
@@ -123,7 +123,7 @@ app.delete('/api/images/:imageId', async (req, res) => {
     }
 });
 
-// DELETE request for TASK_TRACKER in the endpoint '/api/tasks' (works)
+// DELETE request for TASK_TRACKER in the endpoint '/api/tasks'
 app.delete('/api/tasks/:taskId', async (req, res) => {
     try {
         const taskId = req.params.taskId;
@@ -135,7 +135,7 @@ app.delete('/api/tasks/:taskId', async (req, res) => {
     }
 });
 
-// DELETE request for GOAL_INFO in the endpoint '/api/goals' (works)
+// DELETE request for GOAL_INFO in the endpoint '/api/goals'
 app.delete('/api/goals/:goalId', async (req, res) => {
     try {
         const goalId = req.params.goalId;
@@ -185,7 +185,7 @@ app.put('/api/tasks/:taskId', async (req, res) => {
     }
   });
 
-// POST request IMAGE_TRACKER (works)
+// POST request IMAGE_TRACKER
 app.post('/api/images', async (req, res) => {
     try {
         const newImage = {
@@ -205,7 +205,7 @@ app.post('/api/images', async (req, res) => {
 
 });
 
-// POST request TASK_TRACKER (works)
+// POST request TASK_TRACKER
 app.post('/api/tasks', async (req, res) => {
     try {
         const newTask = {
@@ -225,7 +225,7 @@ app.post('/api/tasks', async (req, res) => {
 
 });
 
-// POST request GOAL_INFO (works)
+// POST request GOAL_INFO
 app.post('/api/goals', async (req, res) => {
     try {
         const newGoal = {
