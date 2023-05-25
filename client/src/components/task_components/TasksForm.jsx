@@ -13,7 +13,6 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
         if (sendGoal) {
           return sendGoal[propertyName] || '';
         } else {
-          console.log('you got it');
           return '';
         }
       };
@@ -26,13 +25,8 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
       const eachGoalObstacle = getGoalProperty('goal_obstacle');
       const eachGoalStrategy = getGoalProperty('strategy');
     
-    //only checked object
-    const [checkedArr, setCheckedArr] = useState([]);
-    //tasksArray contains the values for each checkbox from database, updated onSubmit with newest value
-    //map through each element, return array saved into a variable should contain only values where element.is_checked === true
-    //then take the .length of that and save it to a state
+    // const [checkedArr, setCheckedArr] = useState([]);
     const [tasksArrayDB, setTasksArrayDB] = useState([]);
-    //userTasksToPost is one item that is posted onSubmit
     const [userTasksToPost, setUserTasksToPost] = useState(
         {
          id: "",
