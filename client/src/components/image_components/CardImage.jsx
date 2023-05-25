@@ -18,7 +18,7 @@ const CardImage = ({ toDelete, eachImage }) => {
 
   return (
     <div data-testid="taskModal" className="each-image-card">
-      <button className="close-button" onClick={() => onDelete()}>
+      <button id="tinyImageButton" className="close-button" onClick={() => onDelete()}>
         <IoClose />
       </button>
       <div className="actual-image">

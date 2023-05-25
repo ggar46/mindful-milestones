@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
 const db = require('./db/db-connection.js');
-const mockdata = require("./mockdata.js");
+// const mockdata = require("./mockdata.js");
 const {createClient} = require('pexels');
 const fetch = require('node-fetch');
 const REACT_BUILD_DIR = path.join(__dirname, "..", "client", "dist");
@@ -91,16 +91,6 @@ app.get('/api/tasks/:taskId', async (req, res) => {
         return res.status(400).json({ e });
     }
 });
-
-// GET request for GOAL_INFO in the endpoint '/api/goals' (works)
-// app.get('/api/goals', async (req, res) => {
-//     try {
-//         const { rows: goal_info } = await db.query('SELECT * FROM goal_info');
-//         res.send(goal_info);
-//     } catch (e) {
-//         return res.status(400).json({ e });
-//     }
-// });
 
 // GET request for GOAL_INFO in the endpoint '/api/goals' (works)
 app.get('/api/goals/:userId', async (req, res) => {
@@ -191,25 +181,6 @@ app.put('/api/goals/:goalId', async (req, res) =>{
       return res.status(400).json({e})
     }
   })
-
-// PUT request for TASKS in the endpoint '/api/tasks', no editing id/user (works)
-// app.put('/api/tasks/:taskId', async (req, res) =>{
-//     //console.log(req.params);
-//     //This will be the id that I want to find in the DB - the goal to be updated
-//     const taskId = req.params.taskId
-//     const updatedTask = {goal_fkey: req.body.goal_fkey, task_text: req.body.task_text, is_checked: req.body.is_checked}
-//     const query = `UPDATE task_tracker SET image_fkey=$1, date=$2, goal_purpose=$3, goal_obstacle=$4, strategy=$5, goal=$6 WHERE id=${taskId} RETURNING *`;
-//     const values = [updatedTask.goal_fkey, updatedTask.task_text, updatedTask.goal_purpose, updatedTask.goal_obstacle, updatedTask.strategy, updatedTask.goal];
-//     try {
-//       const updated = await db.query(query, values);
-//       console.log(updated.rows[0]);
-//       res.send(updated.rows[0]);
-  
-//     }catch(e){
-//       console.log(e);
-//       return res.status(400).json({e})
-//     }
-//   })
 
 app.put('/api/tasks/:taskId', async (req, res) => {
     const taskId = req.params.taskId;

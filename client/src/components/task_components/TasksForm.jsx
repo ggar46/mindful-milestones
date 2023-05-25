@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Button, Form, Modal} from "react-bootstrap"
-import { FaTrash } from 'react-icons/fa';
+import { IoClose } from 'react-icons/io5';
 
 const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
     
@@ -123,8 +123,6 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
             .then((data) => {
                 console.log("From the post ", data);
                 onSaveTasks(data)
-                //I'm sending data to the List of Tasks (the parent) for updating the list
-                //this line just for cleaning the form
             });
     };
 
@@ -158,7 +156,6 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
           }
         postTask(userTasksToPost);
         clearTaskForm();
-        console.log("handleTASKSubmit on add task works")
     };
     
     const handleCheckSubmit = (e) => {
@@ -202,6 +199,7 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
               <div key={eachListItem.id} className="task-item">
                 <Form.Check
                   type="checkbox"
+                  className="checkbox-item"
                   checked={eachListItem.is_checked}
                   id={`${eachListItem.id}`}
                   value={eachListItem.task_text}
@@ -209,11 +207,11 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
                   label={eachListItem.task_text}
                 />
                 <Button
-                  variant="danger"
+                  id="tinybutton" 
                   className="delete-task-button"
                   onClick={() => onDelete(eachListItem.id)}
                 >
-                  <FaTrash />
+                  <IoClose />
                 </Button>
               </div>
             ))}
