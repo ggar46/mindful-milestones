@@ -12,7 +12,6 @@ function MyNavBar(props) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log(user, "check user")
       fetch("/api/user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -22,11 +21,7 @@ function MyNavBar(props) {
           return response.json();
         })
         .then((data) => {
-          console.log("From the post ", data);
         })
-        // .catch((error) => {
-        //   console.error("An error occurred:", error.message);
-        // });
     }
   }, [isAuthenticated, user]);
 
@@ -43,17 +38,14 @@ function MyNavBar(props) {
             />
           </Navbar.Brand> 
         {isAuthenticated ? (
-          <Nav.Link href="Goals" >Goals</Nav.Link>     ) : ""}
+          <Nav.Link href="Goals" >Goals</Nav.Link> ) : ""}
           {!user ? null : <Navbar.Text  id="username"> Welcome, {user.name}</Navbar.Text>}
-      
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-          
             <Navbar.Text>
               {!isAuthenticated ? (<button className="login-button" onClick={() => loginWithRedirect()}>Log In</button>) : (<button className="logout-button" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
               Log Out
               </button>)}
-
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>

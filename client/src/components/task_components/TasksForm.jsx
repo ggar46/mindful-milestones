@@ -13,7 +13,6 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
         if (sendGoal) {
           return sendGoal[propertyName] || '';
         } else {
-          console.log('you got it');
           return '';
         }
       };
@@ -26,13 +25,8 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
       const eachGoalObstacle = getGoalProperty('goal_obstacle');
       const eachGoalStrategy = getGoalProperty('strategy');
     
-    //only checked object
-    const [checkedArr, setCheckedArr] = useState([]);
-    //tasksArray contains the values for each checkbox from database, updated onSubmit with newest value
-    //map through each element, return array saved into a variable should contain only values where element.is_checked === true
-    //then take the .length of that and save it to a state
+    // const [checkedArr, setCheckedArr] = useState([]);
     const [tasksArrayDB, setTasksArrayDB] = useState([]);
-    //userTasksToPost is one item that is posted onSubmit
     const [userTasksToPost, setUserTasksToPost] = useState(
         {
          id: "",
@@ -98,19 +92,15 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log('Checkbox state updated in the database:', data);
           })
           .catch((error) => {
-            console.log('Error updating checkbox state:', error);
           });
       };
-
 
     const onSaveTasks = (newTask) => {
         setTasksArrayDB((tasksArray) => [...tasksArray, newTask]);
     }
 
-    //A function to handle the post request
     const postTask = (newTask) => {
         return fetch("/api/tasks", {
             method: "POST",
@@ -121,22 +111,19 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
                 return response.json();
             })
             .then((data) => {
-                console.log("From the post ", data);
                 onSaveTasks(data)
             });
     };
 
     const onDelete = (taskId) => {
-      console.log(taskId, "deleted task")
       return fetch(`/api/tasks/${taskId}`, {
           method: "DELETE"
       }).then((response) => {
-          //console.log(response);
           if (response.ok) {
             loadTasksFromDb();
           }
       })
-  }
+    }
 
     const clearTaskForm = () => {
         setUserTasksToPost({
@@ -157,16 +144,6 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
         postTask(userTasksToPost);
         clearTaskForm();
     };
-    
-    const handleCheckSubmit = (e) => {
-        e.preventDefault();
-
-      
-        console.log(userTasksToPost, 'from form should have some be true');
-        console.log(tasksArrayDB, 'fetched but updated onSubmit');
-        console.log(sendGoal.id, 'goal id');
-      };
-
 
     return (
     <div data-testid="taskModal">
@@ -194,7 +171,7 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
                         <input className="task-submit"  type="submit" value = "Submit" />
             </Form> 
 
-            <Form className='form-tasks' onSubmit={handleCheckSubmit}>
+            <Form className='form-tasks'>
             {tasksArrayDB.map((eachListItem) => (
               <div key={eachListItem.id} className="task-item">
                 <Form.Check

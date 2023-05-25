@@ -7,20 +7,17 @@ import { Grid, Image, Header, Button} from 'semantic-ui-react';
 const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
 
     const [showModal, setShowModal] = useState(false);
-    //const handleShowModal = () => setShowModal(true); 
     const [countOfChecked, setCountOfChecked] = useState(0);
     const [total, setTotal] = useState(0);
-
+    
     const onDelete = (toDeleteGoal) => {
         toDelete(toDeleteGoal)
     }
-
 
     const getGoalProperty = (propertyName) => {
         if (eachGoal) {
           return eachGoal[propertyName] || '';
         } else {
-          console.log('you got it');
           return '';
         }
       };

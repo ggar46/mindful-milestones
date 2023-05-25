@@ -31,10 +31,7 @@ const ListGoalCards = () => {
           } catch {
               console.log("api fetch did not work");
           }
-      } else {
-          console.log("load goals function in list is not working")
-      }
-
+      } 
   }
 
   useEffect(() => {
@@ -43,7 +40,6 @@ const ListGoalCards = () => {
 
 
     const onSaveGoalSendToGoalCards = (newGoal) => {
-        //console.log(newStudent, "From the parent - List of Students");
         setGoalCardArr((goalCardArr) => [...goalCardArr, newGoal]);
     }
 

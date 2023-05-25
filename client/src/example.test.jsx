@@ -1,5 +1,5 @@
 import {expect, test} from 'vitest';
-import {render, screen} from '@testing-library/react';
+import {render } from '@testing-library/react';
 import MyNavBar from './components/Navbar';
 import CardGoal from './components/goal_components/CardGoal';
 import TasksForm from './components/task_components/TasksForm';
@@ -8,7 +8,6 @@ import Home from './components/Home';
 
 test('Navbar renders correctly', () => {
   const { getByTestId } = render(<MyNavBar />);
-  //navbar is id in tag
   const navbarElement = getByTestId('navbar');
   expect(navbarElement).toBeDefined();
 });
