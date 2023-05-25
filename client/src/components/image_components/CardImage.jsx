@@ -12,7 +12,6 @@ const CardImage = ({ toDelete, eachImage }) => {
 
   const onDelete = () => {
     const encodedImage = encodeURIComponent(eachImage);
-    console.log(encodedImage, "hi");
     toDelete(encodedImage);
   }
 

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import FormGoal from './FormGoal';
 import CardGoal from './CardGoal';
-// import MyNavBar from '../Navbar';
 import { Grid } from 'semantic-ui-react';
 import { useAuth0 } from "@auth0/auth0-react";
 import MyNavBar from "../Navbar";
-
 
 const ListGoalCards = () => {
 
@@ -38,25 +36,19 @@ const ListGoalCards = () => {
           loadGoalsFromDB();
   }, [isAuthenticated, user]);
 
-
     const onSaveGoalSendToGoalCards = (newGoal) => {
         setGoalCardArr((goalCardArr) => [...goalCardArr, newGoal]);
     }
 
-    //A function to control the update in the parent (student component)
     const updateGoalForm = (eachGoal) => {
-        // console.log("Line 29 savedStudent", savedStudent);
-        // This function should update the whole list of students - 
         loadGoalsFromDB();
     }
 
     //A function to handle the Delete funtionality
     const onDelete = (toDeleteGoal) => {
-        //console.log(student, "delete method")
         return fetch(`/api/goals/${toDeleteGoal.id}`, {
             method: "DELETE"
         }).then((response) => {
-            //console.log(response);
             if (response.ok) {
                 loadGoalsFromDB();
             }
@@ -67,8 +59,6 @@ const ListGoalCards = () => {
     const onUpdateGoalForm = (eachGoal) => {
         setEditingGoal(eachGoal);
     }
-
-
 
     return (
         user && isAuthenticated &&
@@ -90,6 +80,5 @@ const ListGoalCards = () => {
         </div>
     );
 }
-
 
 export default ListGoalCards
