@@ -72,7 +72,7 @@ const ListGoalCards = () => {
             <Grid columns={3} divided textAlign='center' centered verticalAlign='middle'>
                 {goalCardArr.map((eachGoal) => {
                     return <CardGoal className="goal-cards" key={eachGoal.id} eachGoal={eachGoal} toDelete={onDelete} toUpdateGoalForm={onUpdateGoalForm} />
-                })}
+                }).reverse()}
             </Grid>
         </div>
         </div>   
