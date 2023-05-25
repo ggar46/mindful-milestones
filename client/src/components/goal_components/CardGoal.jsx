@@ -25,16 +25,10 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
         }
       };
     
-    //   const eachGoalId = getGoalProperty('id');
-      const eachGoalName = getGoalProperty('goal');
-      const eachGoalDate = getGoalProperty('date')?.slice(0, 10);
-      const eachGoalImage = getGoalProperty('image_fkey');
-    //   const eachGoalPurpose = getGoalProperty('goal_purpose');
-    //   const eachGoalObstacle = getGoalProperty('goal_obstacle');
-    //   const eachGoalStrategy = getGoalProperty('strategy');
+    const eachGoalName = getGoalProperty('goal');
+    const eachGoalDate = getGoalProperty('date')?.slice(0, 10);
+    const eachGoalImage = getGoalProperty('image_fkey');
 
-
-//result needs to reach modal in show={show}
     const handleShowModal = () => {
         setShowModal(true);
     }
@@ -55,7 +49,7 @@ const CardGoal = ({eachGoal, toUpdateGoalForm, toDelete}) => {
             </Grid.Column>
             <Grid.Column>
                 <Header>{eachGoalName}</Header>
-                <p>{eachGoalDate} </p>
+                <p id="target-date">Target Date: {eachGoalDate} </p>
                 <p id="tasks-completed"> {countOfChecked}/{total} tasks completed</p>
             </Grid.Column>
             <Grid.Column>

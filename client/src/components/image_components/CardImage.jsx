@@ -1,29 +1,32 @@
 import React from 'react';
+import { IoClose } from 'react-icons/io5';
 
-const CardImage = ({eachImage}) => {
-
+const CardImage = ({ toDelete, eachImage }) => {
   const getImage = () => {
-    if(eachImage) {
+    if (eachImage) {
       return eachImage;
     } else {
       return "";
     }
   }
 
+  const onDelete = () => {
+    const encodedImage = encodeURIComponent(eachImage);
+    console.log(encodedImage, "hi");
+    toDelete(encodedImage);
+  }
 
-    // console.log(getImage, "in card")
-    return (
-      <div data-testid="taskModal" className="each-image-card">
-        {/* <Card className="custom-card"> */}
-        <div className="actual-image">
-          <img src={getImage()} size="200px" className="custom-card-image"/>
-        </div>
-      {/* </Card> */}
+  return (
+    <div data-testid="taskModal" className="each-image-card">
+      <button id="tinyImageButton" className="close-button" onClick={() => onDelete()}>
+        <IoClose />
+      </button>
+      <div className="actual-image">
+        <img src={getImage()} size="200px" className="custom-card-image" />
       </div>
-      )
-    }
-
-
+    </div>
+  );
+}
 
 export default CardImage;
 

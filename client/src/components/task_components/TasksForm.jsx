@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Button, Form, Modal} from "react-bootstrap"
-
+import { IoClose } from 'react-icons/io5';
 
 const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
     
@@ -42,23 +42,23 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
        }
     );
 
+    const loadTasksFromDb = async () => {
+      try {
+        const response = await fetch(`/api/tasks/${sendGoal.id}`);
+        const incomingData = await response.json();
+        setTasksArrayDB(incomingData);
+      } catch (error) {
+        console.log(`Error fetching data: ${error}`);
+      }
+    };
+    
     useEffect(() => {
-        const loadTasksFromDb = async () => {
-            try{
-                fetch(`/api/tasks/${sendGoal.id}`)
-                .then((response) => response.json())
-                .then((incomingData) => {
-                setTasksArrayDB(incomingData);
-                });
-            } catch (error) {
-                console.log(`Error fetching data:${error}`);
-            }
-        }
-        if (sendGoal) {
-            loadTasksFromDb();
-          }
+      if (sendGoal) {
+        loadTasksFromDb();
+      }
     }, [sendGoal]);
-
+    
+  
     useEffect(() => {
         try{
             const completedTasks = tasksArrayDB.filter((task) => task.is_checked);
@@ -104,19 +104,7 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
             console.log('Error updating checkbox state:', error);
           });
       };
-      
-      
 
-    //  const handleCheckChange = (event) => {
-    //     const is_checked = event.target.checked;
-    //     const checkedTask = "here is where the entire object or id will go"
-    //     //const value = event.target.value;
-    //     if(is_checked) {
-    //         setUserTasksToPost((userTasksToPost) => ({...userTasksToPost, is_checked: !userTasksToPost.is_checked}));
-    //         setCheckedArr((checkedArr) => [...checkedArr, checkedTask]);
-    //     }
-    // console.log(userTasksToPost, "each post updated");
-    // };
 
     const onSaveTasks = (newTask) => {
         setTasksArrayDB((tasksArray) => [...tasksArray, newTask]);
@@ -135,15 +123,20 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
             .then((data) => {
                 console.log("From the post ", data);
                 onSaveTasks(data)
-                //I'm sending data to the List of Tasks (the parent) for updating the list
-                //this line just for cleaning the form
             });
     };
 
-
-    //in check event listener, if checked, add to array called checkedArr,
-    //onSubmit : for each object task in tasksArray.id === checkedArr.id, send a put request that changes the false to true
-    //.then use reducer function to sum up those in_checked in tasksArray out of tasksArray.length
+    const onDelete = (taskId) => {
+      console.log(taskId, "deleted task")
+      return fetch(`/api/tasks/${taskId}`, {
+          method: "DELETE"
+      }).then((response) => {
+          //console.log(response);
+          if (response.ok) {
+            loadTasksFromDb();
+          }
+      })
+  }
 
     const clearTaskForm = () => {
         setUserTasksToPost({
@@ -163,7 +156,6 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
           }
         postTask(userTasksToPost);
         clearTaskForm();
-        console.log("handleTASKSubmit on add task works")
     };
     
     const handleCheckSubmit = (e) => {
@@ -202,20 +194,27 @@ const TasksForm = ({divVisibility, sendGoal, onCloseClick, onNumbers}) => {
                         <input className="task-submit"  type="submit" value = "Submit" />
             </Form> 
 
-
-
-        <Form className='form-tasks' onSubmit={handleCheckSubmit}>
+            <Form className='form-tasks' onSubmit={handleCheckSubmit}>
             {tasksArrayDB.map((eachListItem) => (
+              <div key={eachListItem.id} className="task-item">
                 <Form.Check
-                key={eachListItem.id}
-                type="checkbox"
-                checked={eachListItem.is_checked}
-                id={`${eachListItem.id}`}
-                value={eachListItem.task_text}
-                onChange={() => handleCheckChange(eachListItem.id)}
-                label={eachListItem.task_text}
-             />
-             ))}
+                  type="checkbox"
+                  className="checkbox-item"
+                  checked={eachListItem.is_checked}
+                  id={`${eachListItem.id}`}
+                  value={eachListItem.task_text}
+                  onChange={() => handleCheckChange(eachListItem.id)}
+                  label={eachListItem.task_text}
+                />
+                <Button
+                  id="tinybutton" 
+                  className="delete-task-button"
+                  onClick={() => onDelete(eachListItem.id)}
+                >
+                  <IoClose />
+                </Button>
+              </div>
+            ))}
 
             <Form.Group className='newTaskButtons'>
                 <Button type="submit" variant="primary"> Save Changes </Button>
