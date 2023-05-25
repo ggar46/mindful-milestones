@@ -5,8 +5,6 @@ const Home = () => {
 
     const { isAuthenticated } = useAuth0();
 
-    
-
     return(
         <div data-testid="taskModal">
             {isAuthenticated? (
@@ -14,7 +12,6 @@ const Home = () => {
             <ListSelectedImages/>
             </div>
             ):  ("")}
-            
         </div>
     )
 }

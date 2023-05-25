@@ -8,16 +8,12 @@ const {createClient} = require('pexels');
 const fetch = require('node-fetch');
 const REACT_BUILD_DIR = path.join(__dirname, "..", "client", "dist");
 
-
-
 const app = express();
 const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(REACT_BUILD_DIR));
 
-//*************************************************************************************************************************************** */
-// creates new entry for user, else does nothing
 app.post("/api/user", cors(), async (req, res) => {
     try {
       const newUser = {
@@ -43,6 +39,7 @@ app.post("/api/user", cors(), async (req, res) => {
 
 //uncomment for search  
 //API GET request for PEXELS IMAGES in the endpoint '/api/pexels'
+
 app.get('/api/pexels/:searchedbyuser', async (req, res) => {
     try {
       const client = createClient(process.env.API_KEY);
@@ -61,8 +58,6 @@ app.get('/api/pexels/:searchedbyuser', async (req, res) => {
     }
   });
  
-//*************************************************************************************************************************************** */
-
 // GET request for IMAGE_TRACKER in the endpoint '/api/images'
 app.get('/api/images/:user_fkey', async (req, res) => {
     try {
@@ -73,7 +68,6 @@ app.get('/api/images/:user_fkey', async (req, res) => {
         return res.status(400).json({ e });
     }
 });
-
 
 // GET request for TASK_TRACKER in the endpoint '/api/tasks'
 app.get('/api/tasks/:taskId', async (req, res) => {
@@ -98,7 +92,6 @@ app.get('/api/goals/:userId', async (req, res) => {
     }
 });
 
-
 // GET request for USER_TABLE in the endpoint '/api/users'
 app.get('/api/users', async (req, res) => {
     try {
@@ -109,9 +102,7 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
-//*************************************************************************************************************************************** */
-
-// DELETE request for IMAGE_TRACKER in the endpoint '/api/images', REMOVED BECAUSE IF DELETE IMAGE AND SELECTED ONE FOR A GOAL, WHEN YOU DELETE AN IMAGE THERE IS NOW AN ERROR WITH THE GOAL'S IMAGE
+// DELETE request for IMAGE_TRACKER in the endpoint '/api/images'
 app.delete('/api/images/:imageId', async (req, res) => {
     try {
         const imageId = req.params.imageId;

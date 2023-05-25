@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -15,15 +15,12 @@ const FormImage = ({onSaveImageSendToImageCards}) => {
     }
   );
 
-  const [arrayOfImages, setArrayOfImages] = useState([]); //from API directly, will use for search
+  const [arrayOfImages, setArrayOfImages] = useState([]); //use for search
   const [show, setShow] = useState(false);
   const [checkedImages, setCheckedImages] = useState([]);
-  //uncomment for search
-  const [searchedValue, setSearchedValue] = useState([]);
- 
+  const [searchedValue, setSearchedValue] = useState([]); //uncomment for search
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);  
-
 
   // useEffect(() => {
   //   fetch("/api/pexels")
@@ -51,7 +48,6 @@ const handleCheckChange = (currentUser, event) => {
     const user_fkey  = currentUser;
     if (checked) {
       setCheckedImages([...checkedImages, { image_url, user_fkey, alt_text }]);
-
     } else {
       setCheckedImages(
         checkedImages.filter(
@@ -75,7 +71,7 @@ const handleCheckChange = (currentUser, event) => {
     });
   };
 
-  //A function to handle the post request, need to post one at a time instead of array
+  //Post one object at a time instead of array
   const postfromImageForm = (newImageForm) => {
     newImageForm.user_fkey = user.sub
     return fetch(`/api/images`, {
@@ -87,8 +83,6 @@ const handleCheckChange = (currentUser, event) => {
         return response.json();
       })
       .then((data) => {
-        //I'm sending data to the List of Image Cards (the parent) to update list
-        console.log(data, "should be object in array")
         onSaveImageSendToImageCards(data);
         clearForm();
       });
@@ -96,29 +90,25 @@ const handleCheckChange = (currentUser, event) => {
 
 const handleSubmit = (e) => {
     e.preventDefault();
+
     if (checkedImages.length === 0) {
       return;
     }
 
     checkedImages.forEach((checkedImage) => {
-      //console.log(checkedImage, "each object in the state array")
       postfromImageForm(checkedImage);
     });
 
     setCheckedImages([]);
     handleClose();
-    //console.log(checkedImages, "sent to post req., array of objects")
   };
-
 
 //uncomment for search
 const handleSearchSubmit = (e) => {
   e.preventDefault();
-  //put searched value into api get request, which will automatically get 3 results
   searchByUserInput(searchedValue);
 }
 
-// // *********************************************************************************
   return (
     user && isAuthenticated &&
     <div data-testid="taskModal">
@@ -132,7 +122,6 @@ const handleSearchSubmit = (e) => {
         </Modal.Header>
         <Modal.Body>
 
-
         {/* uncomment for search */}
         <Form className="form-search" onSubmit={handleSearchSubmit}>
           <Form.Label id="text-in-search-bar"> Search for images using a word or phrase </Form.Label>
@@ -145,10 +134,7 @@ const handleSearchSubmit = (e) => {
           />
           <input type="submit" value = "Submit" />
         </Form>
-
-
-
-        <Form className="form-students" onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
             {arrayOfImages.map((eachImage) => (
                 <Form.Check
                 key={eachImage.src.tiny}
@@ -160,20 +146,16 @@ const handleSearchSubmit = (e) => {
              />
              ))}
 
-
           <div className="form-button-container">
             <Form.Group>
                 <Button type="submit" variant="primary"> Save Images </Button> 
- 
             </Form.Group>
-                <Button className="closeForm" variant="secondary" onClick={handleClose}>
-                  close
-                </Button>
+              <Button className="closeForm" variant="secondary" onClick={handleClose}>
+                close
+              </Button>
           </div>
-  
         </Form>
         </Modal.Body>
-  
       </Modal>
     </div>
   );

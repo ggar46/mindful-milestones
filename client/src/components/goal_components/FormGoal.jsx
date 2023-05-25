@@ -23,13 +23,9 @@ const FormGoal = ({
 
   const [arrayOfImages, setArrayOfImages] = useState([]);
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);  
 
-
-
-  //Call images array so dropdown has alt image options
   useEffect(() => {
     if(isAuthenticated && user){
       fetch(`/api/images/${user.sub}`)
@@ -38,10 +34,8 @@ const FormGoal = ({
             setArrayOfImages(dbData);
           });
     }
-
   }, [isAuthenticated, user]);
 
-  //create functions that handle the event of the user typing into the form
   const handleGoalChange = (event) => {
     const goal = event.target.value;
     setGoalFormData((goalFormData) => ({ ...goalFormData, goal }));
@@ -84,9 +78,6 @@ const FormGoal = ({
     });
   };
 
-
-  // *********************************************************************************
-  //A function to handle the post request
   const postGoalForm = (newUserForm) => {
     newUserForm.user_fkey = user.sub
     return fetch("/api/goals", {
@@ -124,8 +115,7 @@ const FormGoal = ({
   //       clearForm();
   //     });
   // };
-  // *********************************************************************************
-  //A function to handle the submit in both cases - Post and Put request!
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     //loadArrayOfImagesDB();
@@ -138,8 +128,6 @@ const FormGoal = ({
     }
     handleClose();
   };
-
-
 
   return (
     user && isAuthenticated &&
@@ -211,7 +199,7 @@ const FormGoal = ({
                 className="form-control"
               />
             </Form.Group>
-            {/* ********************************************************************************* */}
+            
             <Form.Group>
               <Form.Label>Select Image</Form.Label>
               <select onChange={handleImageDropdown} className="form-control">
@@ -229,7 +217,7 @@ const FormGoal = ({
                 })}
               </select>
             </Form.Group>
-            {/* ********************************************************************************* */}
+            
             <Form.Group className="d-flex justify-content-between">
               <div className="goal-buttons-container">
                 <Button type="submit" variant="primary">

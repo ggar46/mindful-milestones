@@ -4,11 +4,9 @@ import CardImage from './CardImage';
 import MyNavBar from '../Navbar'
 import { useAuth0 } from "@auth0/auth0-react";
 
-
-
 const ListSelectedImages = () => {
     const [imageCardArr, setImageCardArr] = useState([]);
-    const { user, isAuthenticated } = useAuth0();//user.sub
+    const { user, isAuthenticated } = useAuth0();
 
     const loadImagesFromDB = () => {
         if (isAuthenticated) {
@@ -28,25 +26,23 @@ const ListSelectedImages = () => {
         }
       };
     
-      useEffect(() => {
-        loadImagesFromDB();
-      }, [isAuthenticated, user]);
+    useEffect(() => {
+      loadImagesFromDB();
+    }, [isAuthenticated, user]);
 
     const onSaveImageSendToImageCards = (newImage) => {
         setImageCardArr((imageCardArr) => [...imageCardArr, newImage]);
     }
 
     const onDelete = (imageId) => {
-      console.log(imageId, "delete method")
       return fetch(`/api/images/${imageId}`, {
           method: "DELETE"
       }).then((response) => {
-          //console.log(response);
           if (response.ok) {
             loadImagesFromDB();
           }
       })
-  }
+    }
 
     return (
       user && isAuthenticated &&
@@ -62,6 +58,5 @@ const ListSelectedImages = () => {
         </div>
     );
 }
-
 
 export default ListSelectedImages
