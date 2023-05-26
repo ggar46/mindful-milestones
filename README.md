@@ -194,7 +194,7 @@ A completed task counter is displayed on each goal card.
 
 ## Contact Information
 
-Thank you for visiting! I appreciate your interest in my work. If you have any comments, questions, or would like to connect, please feel free to reach out to me on [LinkedIn](www.linkedin.com/in/gisselle-garcia).
+Thank you for visiting! I appreciate your interest in my work. If you have any comments, questions, or would like to connect, please feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/gisselle-garcia/)
 
 ## Acknowledgements
 Thank you to the [Techtonica](https://github.com/Techtonica) staff for the opportunity. I would also like to give thanks to [Ruby](https://github.com/rubycmarroquin), [Anneice](https://github.com/AnneiceManz), and [Sarah](https://github.com/sarahtech2022) for their support and encouragement. Special thanks to my mentors, [Arianna](https://github.com/adigreg) and [Karan](https://github.com/Adwitiya-Singh), for their guidance and mentorship throughout my journey. I am grateful for their expertise and belief in my abilities.
