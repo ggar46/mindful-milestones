@@ -16,6 +16,7 @@
 
 - [Built With](#Built-With)
 - [Installation](#installation)
+- [Mock User](#Mock-User)
 - [User Flow](#User-Flow)
 - [Acknowledgements](#acknowledgements)
 
@@ -123,6 +124,13 @@ npm start
 ```
 Note:
 Server runs on http://localhost:8080 and client on http://localhost:5173 
+
+## Mock User
+
+```bash
+  username: testing@email.com
+  password: Pw.246810
+```
 
 ## User Flow
 
