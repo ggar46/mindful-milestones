@@ -126,40 +126,50 @@ Server runs on http://localhost:8080 and client on http://localhost:5173
 
 ## User Flow
 
+
 Click "Here" to enter authentification page.
 <img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/new-images/client/src/assets/SS1.png" width=100% alt="step1" />
+
 
 Enter test user email and password, then click "continue".
 <img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/new-images/client/src/assets/SS2.png" width=100% alt="step2" />
 
+
 Click "Add new Image" to open image search bar.
 <img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/new-images/client/src/assets/SS3.png" width=100% alt="step3" />
+
 
 Enter a word or phrase to choose from image results.
 <img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/new-images/client/src/assets/SS4.png" width=100% alt="step4" />
 
+
 Select 1 or more images to add to the vision board.
 <img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/new-images/client/src/assets/SS5.png" width=100% alt="step5" />
+
 
 The home page should now display the images. Click on the "x" to remove an image if necessary.
 <img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/new-images/client/src/assets/SS6.png" width=100% alt="step6" />
 
+
 In the navigation bar, click "Goals" to access all saved goals. The page will appear empty with a single button. Click the "Add Goal" button to submit a new goal.
 <img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/new-images/client/src/assets/SS7.png" width=100% alt="step7" />
+
 
 Fill out all areas in the form to submit. Select an image from the vision board by selecting from the dropdown options.
 <img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/new-images/client/src/assets/SS8.png" width=100% alt="step8" />
 
+
 The goal post should display on the page. Click "Goal Info" to review goal information and tasks.
 <img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/new-images/client/src/assets/SS9.png" width=100% alt="step9" />
 
+
 Add a new task by submitting the form entry in each search bar and clicking "Submit". Check the boxes as the tasks are completed. Press the red button to remove tasks if needed.
 <img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/new-images/client/src/assets/SS10.png" width=100% alt="step10" />
+
 
 A completed task counter is displayed on each goal card.
 <img src="https://raw.githubusercontent.com/ggar46/mindfulmilestones/new-images/client/src/assets/SS11.png" width=100% alt="step11" />
 
 ## Acknowledgements
-[Live Project Page Link](https://server-tifo.onrender.com)
 Thank you to the [Techtonica](https://github.com/Techtonica) staff for the opportunity. I would also like to give thanks to [Ruby](https://github.com/rubycmarroquin), [Anneice](https://github.com/AnneiceManz), and [Sarah](https://github.com/sarahtech2022) for their support and encouragement. Special thanks to my mentors, [Arianna](https://github.com/adigreg) and [Karan](https://github.com/Adwitiya-Singh), for their guidance and mentorship throughout my journey. I am grateful for their expertise and belief in my abilities.
 
